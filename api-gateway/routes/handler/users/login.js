@@ -12,7 +12,7 @@ const api = apiAdapter(URL_SERVICE_USER);
 
 module.exports = async (req, res) => {
     try {
-        const user = await api.post('/users/login', req.body);
+        const user = await api.post('/api/users/login', req.body);
         const data = user.data.data;
 
         const token = jwt.sign({
@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
             data
         }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
 
-        await api.post('/token', { refresh_token : refreshtoken, user_id: data.id });
+        await api.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
         return res.json({
             status: 'success',
             data: {
