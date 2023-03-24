@@ -7,7 +7,7 @@ const api = apiAdapter(URL_SERVICE_USER);
 
 module.exports = async (req, res) => {
     try {
-        const user = await api.post('/users/register', req.body);
+        const user = await api.post('/api/users/register', req.body);
         return res.json(user.data);
     } catch (error) {
 
