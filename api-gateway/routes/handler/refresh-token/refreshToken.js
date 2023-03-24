@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
                 message: 'Invalid Token'
             })
         }
-        await api.get('/token', {
+        await api.get('/api/users/refresh', {
             params: {
                 refresh_token: refreshToken
             }

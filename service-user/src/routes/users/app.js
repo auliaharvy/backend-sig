@@ -6,7 +6,7 @@ const route = require("./routes");
 
 const { validateAuth } = require("../../middlewares/app"); // basic authh validation
 //#########
-const routes = route({ router, makeExpressCallback, validateAuth });
+const routes = route({ router, makeExpressCallback });
 
 const services = Object.freeze({
   routes,
