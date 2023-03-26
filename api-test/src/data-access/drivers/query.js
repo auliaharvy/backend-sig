@@ -145,7 +145,7 @@ const query = ({
     }) {
         try {
             // use sequelize on update
-            const Employee = models.Driver;
+            const Driver = models.Drivers;
             const res = await Driver.update({
                 name: data.name,
                 age: data.age,
