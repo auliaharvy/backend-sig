@@ -12,7 +12,7 @@ const route = ({
 }) => {
     // #####
     // GET
-    router.get("/", validateAuth, makeExpressCallback(driversSelects));
+    router.get("/", makeExpressCallback(driversSelects));
     router.get("/:id", validateAuth, makeExpressCallback(driversSelects));
     // #####
     // POST
