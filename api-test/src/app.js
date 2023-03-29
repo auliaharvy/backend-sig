@@ -6,7 +6,10 @@ dotenv.config();
 const app = express();
 
 // accessible to any
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: process.env.HOST_API_GATEWAY
+}));
 
 // Body Parser middleware to handle raw JSON files
 app.use(express.json());
