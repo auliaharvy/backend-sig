@@ -1,0 +1,22 @@
+http:
+  port: 8080
+admin:
+  port: 9876
+  host: localhost
+apiEndpoints:
+  drivers:
+    paths: '/drivers'
+serviceEndpoints:
+  driversendpoint:
+    url: 'http://localhost:24/api/drivers'
+policies:
+  - proxy
+pipelines:
+  driverspipe:
+    apiEndpoints:
+      - drivers
+    policies:
+      - proxy:
+        - action:
+          serviceEndpoint: driversendpoint
+          changeOrigin: true
