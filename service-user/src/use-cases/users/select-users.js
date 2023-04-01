@@ -1,4 +1,4 @@
-const selectEmployee = ({ employeesDb}) => {
+const selectUser = ({ usersDB}) => {
     return async function select(info) {
       let data = [];
   
@@ -6,7 +6,7 @@ const selectEmployee = ({ employeesDb}) => {
   
       if (id) {
         // select one
-        const res = await employeesDb.selectOne({ id });
+        const res = await usersDB.selectOne({ id });
         if (res.rowCount > 0) {
           // only when there is data returned
           const items = res.rows;
@@ -16,9 +16,9 @@ const selectEmployee = ({ employeesDb}) => {
             // push items to array
             data.push({
               id: e.id,
-              firstName: e.firstName ? e.firstName : null,
-              lastName: e.lastName ? e.lastName : null,
-              age: e.age ? e.age : 0,
+              fullname: e.fullname ? e.fullname : null,
+              username: e.username ? e.username : null,
+              active: e.is_deleted == 0 ? "active" : "inactive",
               createdAt: e.createdAt,
               updatedAt: e.updatedAt,
             });
@@ -26,7 +26,7 @@ const selectEmployee = ({ employeesDb}) => {
         }
       } else {
         // select all
-        const res = await employeesDb.selectAll({});
+        const res = await usersDB.selectAll({});
         if (res.rowCount > 0) {
           // only when there is data returned
           const items = res.rows;
@@ -36,11 +36,11 @@ const selectEmployee = ({ employeesDb}) => {
             // push items to array
             data.push({
               id: e.id,
-              firstName: e.firstName ? e.firstName : null,
-              lastName: e.lastName ? e.lastName : null,
-              age: e.age ? e.age : 0,
-              createdAt: e.createdAt,
-              updatedAt: e.updatedAt,
+              fullname: e.fullname ? e.fullname : null,
+              username: e.username ? e.username : null,
+              active: e.is_deleted == 0 ? "active" : "inactive",
+              created_at: e.created_at,
+              updated_at: e.updated_at,
             });
           }
         }
@@ -49,4 +49,4 @@ const selectEmployee = ({ employeesDb}) => {
     };
   };
   
-  module.exports = selectEmployee;
+  module.exports = selectUser;

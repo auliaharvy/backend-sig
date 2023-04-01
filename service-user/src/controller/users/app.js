@@ -13,14 +13,14 @@ const {
   const usersDelete = require("./delete-user");
   // #########
   const userRegisters = userRegister({ registerUsers });
-  const userSelects = userSelect({ selectUsers });
+  const usersSelects = userSelect({ selectUsers });
   const usersLogin = userLogin({ loginUsers });
   const usersUpdates = usersUpdate({ updateUsers });
   const usersDeletes = usersDelete({ deleteUsers });
   // #########
   const services = Object.freeze({
     userRegisters,
-    userSelects,
+    usersSelects,
     usersUpdates,
     usersDeletes,
     usersLogin,
@@ -29,7 +29,7 @@ const {
   module.exports = services;
   module.exports = {
     userRegisters,
-    userSelects,
+    usersSelects,
     usersUpdates,
     usersDeletes,
     usersLogin,

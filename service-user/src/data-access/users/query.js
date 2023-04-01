@@ -120,7 +120,7 @@ const query = ({ connects, models, bcrypt }) => {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "Employees";`;
+        const sql = `SELECT * FROM "users";`;
         pool.query(sql, (err, res) => {
           pool.end(); // end connection
 
@@ -140,7 +140,7 @@ const query = ({ connects, models, bcrypt }) => {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "Employees" WHERE id = $1;`;
+        const sql = `SELECT * FROM "users" WHERE id = $1;`;
         const params = [id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
@@ -163,7 +163,7 @@ const query = ({ connects, models, bcrypt }) => {
       const { firstName, lastName, id } = data; // deconstruct
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT id FROM "Employees" WHERE "firstName" = $1 AND id <> $3 AND "lastName" = $2 AND id <> $3;`;
+        const sql = `SELECT id FROM "users" WHERE "firstName" = $1 AND id <> $3 AND "lastName" = $2 AND id <> $3;`;
         const params = [firstName, lastName, id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
@@ -182,8 +182,8 @@ const query = ({ connects, models, bcrypt }) => {
   async function patchEmployee({ data }) {
     try {
       // use sequelize on update
-      const Employee = models.Employees;
-      const res = await Employee.update(
+      const User = models.Users;
+      const res = await User.update(
         {
           firstName: data.firstName,
           lastName: data.lastName,

@@ -6,7 +6,11 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             allowNull: false
         },
-        name: {
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        fullname: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -19,19 +23,21 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        role:{
-            type: DataTypes.ENUM,
-            values: ['admin', 'student'],
+        // role:{
+        //     type: DataTypes.ENUM,
+        //     values: ['admin', 'student'],
+        //     allowNull: false,
+        //     defaultValue: 'student'
+        // },
+        // avatar:{
+        //     type: DataTypes.STRING,
+        //     allowNull: true,
+        // },
+        isDelted:{
+            field: 'is_deleted',
+            type: DataTypes.INTEGER,
             allowNull: false,
-            defaultValue: 'student'
-        },
-        avatar:{
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        profession:{
-            type: DataTypes.STRING,
-            allowNull: true,
+            defaultValue: 0
         },
         createdAt: {
             field: 'created_at',

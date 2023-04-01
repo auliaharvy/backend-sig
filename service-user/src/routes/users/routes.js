@@ -16,7 +16,7 @@ const {
   const route = ({ router, makeExpressCallback }) => {
     // #####
     // GET
-    router.get("/", makeExpressCallback(usersSelects));
+    router.get("/all", makeExpressCallback(usersSelects));
     router.get("/:id", makeExpressCallback(usersSelects));
     // #####
     // POST

@@ -1,4 +1,4 @@
-const employeesSelect = ({ selectEmployees }) => {
+const userSelect = ({ selectUsers }) => {
     return async function get(httpRequest) {
       const headers = {
         "Content-Type": "application/json",
@@ -16,13 +16,13 @@ const employeesSelect = ({ selectEmployees }) => {
           source,
           id: httpRequest.params.id, // when id is passed
         };
-        const view = await selectEmployees(toView);
+        const data = await selectUsers(toView);
         return {
           headers: {
             "Content-Type": "application/json",
           },
           statusCode: 200,
-          body: { view },
+          body: { data },
         };
       } catch (e) {
         // TODO: Error logging
@@ -38,4 +38,4 @@ const employeesSelect = ({ selectEmployees }) => {
     };
   };
   
-  module.exports = employeesSelect;
+  module.exports = userSelect;
