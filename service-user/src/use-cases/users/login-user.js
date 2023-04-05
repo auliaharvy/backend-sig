@@ -1,10 +1,11 @@
 const loginUser = ({ dataloginUsers, usersDB, bcrypt }) => {
     return async function post(info) {
       let data = await dataloginUsers(info); // entity
-    
       data = {
         email: data.getEmail(),
         password: data.getPassword(),
+        ip: info.source.ip,
+        device: info.source.device,
       };
       // to do checking if name already exist
      

@@ -1,3 +1,4 @@
+
 const makeExpressCallback = (controller) => {
     return (req, res) => {
       const httpRequest = {
@@ -5,6 +6,7 @@ const makeExpressCallback = (controller) => {
         query: req.query,
         params: req.params,
         ip: req.ip,
+        device: req.device.type.toUpperCase(),
         method: req.method,
         path: req.path,
         headers: {

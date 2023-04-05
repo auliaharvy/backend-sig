@@ -81,6 +81,10 @@ const query = ({ connects, models, bcrypt }) => {
             username: user.username,
             fullname: user.fullname,
             email: user.email,
+            role: {},
+            ip: data.ip,
+            device: data.device,
+            time_access: Date(),
           },
         }
        
