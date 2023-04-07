@@ -9,6 +9,9 @@ dotenv.config();
 
 var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users');
+var device = require('express-device');
+ 
+
 
 var app = express();
 
@@ -24,6 +27,7 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(device.capture());
 
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
@@ -33,6 +37,9 @@ app.use("/api/users", require("./src/routes/users/app"))
 //roles routes
 app.use("/api/roles", require("./src/routes/roles/app"))
 
+app.get('/hello', function (req, res) {
+  res.send("Hi to " + req.device.type.toUpperCase() + " User");
+});
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
