@@ -10,7 +10,7 @@ dotenv.config();
 var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users');
 var device = require('express-device');
- 
+
 
 
 var app = express();
@@ -36,6 +36,10 @@ app.use('/api/users', usersRouter);
 app.use("/api/users", require("./src/routes/users/app"))
 //roles routes
 app.use("/api/roles", require("./src/routes/roles/app"))
+//roles permissions
+app.use("/api/permissions", require("./src/routes/permissions/app"))
+
+
 
 app.get('/hello', function (req, res) {
   res.send("Hi to " + req.device.type.toUpperCase() + " User");

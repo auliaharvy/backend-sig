@@ -1,5 +1,5 @@
-const roleAdd = ({
-  addRoles
+const permissionAdd = ({
+  addPermissions
 }) => {
   return async function post(httpRequest) {
     try {
@@ -11,7 +11,7 @@ const roleAdd = ({
       if (httpRequest.headers["Referer"]) {
         source.referrer = httpRequest.headers["Referer"];
       }
-      const posted = await addRoles({
+      const posted = await addPermissions({
         ...info,
         source,
       });
@@ -41,4 +41,4 @@ const roleAdd = ({
   };
 };
 
-module.exports = roleAdd;
+module.exports = permissionAdd;

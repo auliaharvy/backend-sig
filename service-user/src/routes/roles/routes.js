@@ -2,19 +2,13 @@ const {
   rolesSelects,
   rolesUpdates,
   rolesDeletes,
-  roleInserts,
+  roleAdds,
 } = require("../../controller/roles/app");
-
-// const {
-//   create,
-//   getTokens,
-// } = require("../../controller/refresh-token/app");
-
-// const refreshTokenHandler = require('../../controller/refresh-token');
 
 const route = ({
   router,
-  makeExpressCallback
+  makeExpressCallback,
+  validateAuth
 }) => {
   // #####
   // GET
@@ -23,16 +17,13 @@ const route = ({
   // #####
 
 
-  router.post("/", makeExpressCallback(roleInserts));
-
-  //router.get("/refresh", makeExpressCallback(getTokens));
-  // router.post("/token", create);
+  router.post("/", makeExpressCallback(roleAdds));
 
 
   // #####
   // PATCH
 
-  // update employee
+  // update role
   router.patch("/:id", makeExpressCallback(rolesUpdates));
 
   // #####

@@ -1,8 +1,12 @@
-const roleAdd = ({
-  addRoles
+const permissionsDelete = ({
+  deletePermissions
 }) => {
-  return async function post(httpRequest) {
+  return async function get(httpRequest) {
+    const headers = {
+      "Content-Type": "application/json",
+    };
     try {
+      //get the httprequest body
       const {
         source = {}, ...info
       } = httpRequest.body;
@@ -11,27 +15,26 @@ const roleAdd = ({
       if (httpRequest.headers["Referer"]) {
         source.referrer = httpRequest.headers["Referer"];
       }
-      const posted = await addRoles({
+      const toView = {
         ...info,
         source,
-      });
+        id: httpRequest.params.id, // when id is passed
+      };
+      const view = await deletePermissions(toView);
       return {
         headers: {
           "Content-Type": "application/json",
         },
-        statusCode: 201,
+        statusCode: 200,
         body: {
-          posted
+          view
         },
       };
     } catch (e) {
       // TODO: Error logging
       console.log(e);
-
       return {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers,
         statusCode: 400,
         body: {
           error: e.message,
@@ -41,4 +44,4 @@ const roleAdd = ({
   };
 };
 
-module.exports = roleAdd;
+module.exports = permissionsDelete;

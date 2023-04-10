@@ -3,29 +3,29 @@ const query = ({
   models
 }) => {
   return Object.freeze({
-    checkRoleExist,
-    insertRole,
+    checkPermissionExist,
+    insertPermission,
     selectAll,
     selectOne,
-    checkRoleExistUpdate,
-    patchRole,
-    deleteRole,
+    checkPermissionExistUpdate,
+    patchPermission,
+    deletePermission,
   });
 
-  async function insertRole({
+  async function insertPermission({
     data
   }) {
     try {
       // use sequelize on inserting
-      const Role = models.Roles;
-      const res = await Role.create(data);
+      const Permission = models.Permissions;
+      const res = await Permission.create(data);
       return res;
     } catch (e) {
       console.log("Error: ", e);
     }
   }
 
-  async function checkRoleExist({
+  async function checkPermissionExist({
     data
   }) {
     try {
@@ -36,7 +36,7 @@ const query = ({
       } = data; // deconstruct
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT id FROM "roles" WHERE "name" = $1;`;
+        const sql = `SELECT id FROM "permissions" WHERE "name" = $1;`;
         const params = [name];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
@@ -57,7 +57,7 @@ const query = ({
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "roles";`;
+        const sql = `SELECT * FROM "permissions";`;
         pool.query(sql, (err, res) => {
           pool.end(); // end connection
 
@@ -79,7 +79,7 @@ const query = ({
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "roles" WHERE id = $1;`;
+        const sql = `SELECT * FROM "permissions" WHERE id = $1;`;
         const params = [id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
@@ -95,7 +95,7 @@ const query = ({
     }
   }
 
-  async function checkRoleExistUpdate({
+  async function checkPermissionExistUpdate({
     data
   }) {
     try {
@@ -107,7 +107,7 @@ const query = ({
       } = data; // deconstruct
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT id FROM "roles" WHERE "name" = $1 AND id <> $2 ;`;
+        const sql = `SELECT id FROM "permissions" WHERE "name" = $1 AND id <> $2 ;`;
         const params = [name, id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
@@ -123,13 +123,13 @@ const query = ({
     }
   }
 
-  async function patchRole({
+  async function patchPermission({
     data
   }) {
     try {
       // use sequelize on update
-      const Role = models.Roles;
-      const res = await Role.update({
+      const Permission = models.Permissions;
+      const res = await Permission.update({
         name: data.name,
       }, {
         where: {
@@ -142,13 +142,13 @@ const query = ({
     }
   }
 
-  async function deleteRole({
+  async function deletePermission({
     id
   }) {
     try {
       // use sequelize on inserting
-      const Role = models.Roles;
-      const res = await Role.destroy({
+      const Permission = models.Permissions;
+      const res = await Permission.destroy({
         where: {
           id,
         },

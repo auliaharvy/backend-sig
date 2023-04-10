@@ -43,5 +43,5 @@ module.exports = {
   addRoles,
   selectRoles,
   updateRoles,
-  deleteRoless,
+  deleteRoles,
 };

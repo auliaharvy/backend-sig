@@ -1,5 +1,5 @@
-const selectRole = ({
-  rolesDB
+const selectPermission = ({
+  permissionsDB
 }) => {
   return async function select(info) {
     let data = [];
@@ -10,7 +10,7 @@ const selectRole = ({
 
     if (id) {
       // select one
-      const res = await rolesDB.selectOne({
+      const res = await permissionsDB.selectOne({
         id
       });
       if (res.rowCount > 0) {
@@ -31,7 +31,7 @@ const selectRole = ({
       }
     } else {
       // select all
-      const res = await rolesDB.selectAll({});
+      const res = await permissionsDB.selectAll({});
       if (res.rowCount > 0) {
         // only when there is data returned
         const items = res.rows;
@@ -53,4 +53,4 @@ const selectRole = ({
   };
 };
 
-module.exports = selectRole;
+module.exports = selectPermission;

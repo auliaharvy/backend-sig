@@ -1,4 +1,6 @@
-const patchRole = ({}) => {
+const patchRole = ({
+  encrypt
+}) => {
   return function make(id, {
     name
   } = {}) {

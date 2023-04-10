@@ -9,7 +9,7 @@ const deleteDriver = ({
         const res = await driversDb.deleteDriver({
             id
         });
-        let msg = `Employee was not deleted, please try again.`;
+        let msg = `Driver was not deleted, please try again.`;
         if (res == 1) {
             msg = `Driver deleted successfully.`;
             return msg;

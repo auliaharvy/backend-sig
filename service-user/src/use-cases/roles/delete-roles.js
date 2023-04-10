@@ -1,16 +1,22 @@
-const deleteEmployee = ({ employeesDb }) => {
-    return async function select(info) {
-      const { id } = info;
-      // delete query
-      const res = await employeesDb.deleteEmployee({ id });
-      let msg = `Employee was not deleted, please try again.`;
-      if (res == 1) {
-        msg = `Employee deleted successfully.`;
-        return msg;
-      } else {
-        throw new Error(msg);
-      }
-    };
+const deleteRole = ({
+  rolesDb
+}) => {
+  return async function select(info) {
+    const {
+      id
+    } = info;
+    // delete query
+    const res = await RolesDb.deleteRole({
+      id
+    });
+    let msg = `Role was not deleted, please try again.`;
+    if (res == 1) {
+      msg = `Role deleted successfully.`;
+      return msg;
+    } else {
+      throw new Error(msg);
+    }
   };
-  
-  module.exports = deleteEmployee;
+};
+
+module.exports = deleteRole;

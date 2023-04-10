@@ -1,7 +1,7 @@
-const roleAdd = ({
-  addRoles
+const permissionsUpdate = ({
+  updatePermissions
 }) => {
-  return async function post(httpRequest) {
+  return async function puts(httpRequest) {
     try {
       const {
         source = {}, ...info
@@ -11,17 +11,19 @@ const roleAdd = ({
       if (httpRequest.headers["Referer"]) {
         source.referrer = httpRequest.headers["Referer"];
       }
-      const posted = await addRoles({
+      const toEdit = {
         ...info,
         source,
-      });
+        id: httpRequest.params.id,
+      };
+      const patched = await updatePermissions(toEdit);
       return {
         headers: {
           "Content-Type": "application/json",
         },
-        statusCode: 201,
+        statusCode: 200,
         body: {
-          posted
+          patched
         },
       };
     } catch (e) {
@@ -41,4 +43,4 @@ const roleAdd = ({
   };
 };
 
-module.exports = roleAdd;
+module.exports = permissionsUpdate;
