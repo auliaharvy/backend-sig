@@ -6,11 +6,11 @@ const models = require("../sequelize/models");
 const query = require("./query");
 const bcrypt = require('bcrypt');
 // ######
-const usersDB = query({
+const rolesDB = query({
     connects,
     models,
     bcrypt
 });
 // ######
 
-module.exports = usersDB;
+module.exports = rolesDB;
