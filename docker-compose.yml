@@ -1,0 +1,99 @@
+version: "3"
+services:
+  postgre-db:
+    image: postgres:14.0
+    ports:
+      - "5433:5432"
+    container_name: postgre-db
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: surya2023
+      POSTGRES_DB: dev_pms
+    volumes:
+      - ./db-data/postgres/:/var/lib/postgresql/data/
+  api-gateway:
+    build:
+      dockerfile: Dockerfile
+      context: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/api-gateway/node_modules
+
+    env_file:
+      - ./api-gateway/.env.example
+  service-user:
+    build:
+      dockerfile: Dockerfile
+      context: ./service-user
+    container_name: service-user
+    ports:
+      - "8001:8001"
+    volumes:
+      - .:/app
+      - /app/service-user/node_modules
+    env_file:
+      - ./service-user/.env.example
+  service-master:
+    build:
+      dockerfile: Dockerfile
+      context: ./service-master
+    container_name: service-master
+    ports:
+      - "8002:8002"
+    volumes:
+      - .:/app
+      - /app/service-master/node_modules
+    env_file:
+      - ./service-master/.env.example
+  
+  service-notification:
+    build:
+      dockerfile: Dockerfile
+      context: ./service-notification
+    container_name: service-notification
+    ports:
+      - "8003:8003"
+    volumes:
+      - .:/app
+      - /app/service-notification/node_modules
+    env_file:
+      - ./service-notification/.env.example
+  
+  service-reporting:
+    build:
+      dockerfile: Dockerfile
+      context: ./service-reporting
+    container_name: service-reporting
+    ports:
+      - "8004:8004"
+    volumes:
+      - .:/app
+      - /app/service-reporting/node_modules
+    env_file:
+      - ./service-reporting/.env.example
+  
+  service-transaction:
+    build:
+      dockerfile: Dockerfile
+      context: ./service-transaction
+    container_name: service-transaction
+    ports:
+      - "8005:8005"
+    volumes:
+      - .:/app
+      - /app/service-transaction/node_modules
+    env_file:
+      - ./service-transaction/.env.example
+
+  nginx-proxy:
+    build:
+      dockerfile: Dockerfile
+      context: ./proxy
+    depends_on:
+      - api-gateway
+      - service-user
+    ports:
+      - 81:81
