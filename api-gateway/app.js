@@ -37,6 +37,9 @@ app.use('/drivers', driverRouter);
 app.use('/token', refreshTokenRouter);
 //app.use('/my-courses',verifyToken,can('admin','student'), myCourseRouter);
 app.use('/webhook', webhookRouter);
+app.get('/hello', function (req, res) {
+    res.send("Hi from Docker Gateway");
+  });
 
 
 module.exports = app;
