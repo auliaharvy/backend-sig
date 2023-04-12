@@ -1,14 +1,14 @@
 const apiAdapter = require('../../apiAdapter');
 const {
-    URL_SERVICE_DRIVER
+    URL_SERVICE_TRANSACTION
 } = process.env;
 
-const api = apiAdapter(URL_SERVICE_DRIVER);
+const api = apiAdapter(URL_SERVICE_TRANSACTION);
 
 module.exports = async (req, res) => {
     try {
-        const employee = await api.get('/api/drivers');
-        return res.json(employee.data);
+        const employee = await api.get('/users');
+        return res.json(employee);
     } catch (error) {
         console.log(error);
         if(error.code === "ECONNREFUSED") {

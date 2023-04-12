@@ -1,0 +1,21 @@
+version: "3"
+services:
+  api-gateway:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: api-gateway
+    ports:
+      - "3000:3000"
+    networks:
+      - some-net
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+    env_file:
+      - .env.example
+
+networks:
+  some-net:
+    driver: bridge

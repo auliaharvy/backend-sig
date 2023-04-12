@@ -3,7 +3,9 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  data = { "msg" : "Hi to Transaction Service Docker"};
+  res.type("json");
+  res.status(200).send(data);
 });
 
 module.exports = router;

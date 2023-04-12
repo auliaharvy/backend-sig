@@ -31,11 +31,11 @@ module.exports = async (req, res) => {
             }
         });
     } catch (error) {
-
+        console.log(error)
         if(error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',
-                message: 'Service Unavailable'
+                message: 'Service Unavailable on HOST ' + URL_SERVICE_USER
             })
         }
 

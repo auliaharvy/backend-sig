@@ -27,7 +27,13 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 //employe routes
-app.use("/api/employees", require("./src/routes/employees/app"))
+app.use("/api/transaction", require("./src/routes/transaction/app"))
+
+app.get('/api/transaction/hello', function (req, res) {
+  data = { "msg" : "Hi to Transaction Service Docker"};
+  res.type("json");
+  res.status(httpResponse.statusCode).send(data);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

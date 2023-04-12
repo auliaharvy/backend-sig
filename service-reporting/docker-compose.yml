@@ -1,0 +1,20 @@
+version: "3"
+services:
+  service-reporting:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: service-reporting
+    ports:
+      - "8005:8005"
+    networks:
+      - api-gateway_some-net
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - .env.example
+
+networks:
+  api-gateway_some-net:
+    external: true
