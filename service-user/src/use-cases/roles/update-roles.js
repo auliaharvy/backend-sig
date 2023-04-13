@@ -37,7 +37,8 @@ const updateRole = ({
       msg = `Role updated successfully.`;
       return msg;
     } else {
-      throw new Error(msg);
+      // throw new Error(msg);
+      console.log(checkId);
     }
   };
 };
