@@ -1,5 +1,5 @@
 const updateRole = ({
-  rolesDb,
+  rolesDB,
   patchRoles
 }) => {
   return async function put({
@@ -14,21 +14,22 @@ const updateRole = ({
     };
 
     // check id if role exist
-    const checkId = await rolesDb.selectOne({
+    
+    const checkId = await rolesDB.selectOne({
       id: data.id
     });
     if (checkId.rowCount == 0)
       throw new Error(`Role doesn't exist, please check.`);
 
     // check if role exist
-    const check = await rolesDb.checkRoleExistUpdate({
+    const check = await rolesDB.checkRoleExistUpdate({
       data
     });
     if (check.rowCount > 0)
       throw new Error(`Role already exist, please check.`);
 
     // update
-    const res = await rolesDb.patchRole({
+    const res = await rolesDB.patchRole({
       data
     });
 
@@ -37,7 +38,8 @@ const updateRole = ({
       msg = `Role updated successfully.`;
       return msg;
     } else {
-      throw new Error(msg);
+      // throw new Error(msg);
+      console.log(checkId);
     }
   };
 };
