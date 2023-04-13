@@ -5,7 +5,7 @@ const cors = require("cors");
 dotenv.config();
 const app = express();
 
-// accessible to any
+// accessible to an
 app.use(cors({
     credentials: true,
     origin: process.env.HOST_API_GATEWAY
