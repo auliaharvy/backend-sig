@@ -15,20 +15,18 @@ module.exports = (sequelize, DataTypes) => {
   }
   Roles.init({
     name: DataTypes.STRING,
-    isDeleted: {
-      field: 'is_deleted',
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0
-    },
+    // is_deleted: {
+    //   type: DataTypes.INTEGER,
+    //   DEFAULT: 0
+    // }
   }, {
     sequelize,
     modelName: 'Roles',
-    tableName: 'roles',
-    timestamps: true,
-    paranoid: false,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
+    // tableName: 'roles',
+    // timestamps: true,
+    // paranoid: false,
+    // createdAt: 'created_at',
+    // updatedAt: 'updated_at',
   });
   return Roles;
 };

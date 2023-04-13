@@ -23,7 +23,7 @@ const selectRole = ({
           data.push({
             id: e.id,
             name: e.name ? e.name : null,
-            is_deleted: e.is_deleted == 0 ? "false" : "true",
+            // is_deleted: e.is_deleted == 0 ? "false" : "true",
             createdAt: e.createdAt,
             updatedAt: e.updatedAt,
           });
@@ -42,7 +42,7 @@ const selectRole = ({
           data.push({
             id: e.id,
             name: e.name ? e.name : null,
-            is_deleted: e.is_deleted == 0 ? "false" : "true",
+            // is_deleted: e.is_deleted == 0 ? "false" : "true",
             createdAt: e.createdAt,
             updatedAt: e.updatedAt,
           });

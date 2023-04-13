@@ -15,20 +15,14 @@ const route = ({
   router.get("/", makeExpressCallback(rolesSelects));
   router.get("/:id", makeExpressCallback(rolesSelects));
   // #####
-
-
+  // POST
   router.post("/", makeExpressCallback(roleAdds));
-
 
   // #####
   // PATCH
-
-  // update role
   router.patch("/:id", makeExpressCallback(rolesUpdates));
-
   // #####
   // DELETE
-
   router.delete("/:id", makeExpressCallback(rolesDeletes));
 
   return router;

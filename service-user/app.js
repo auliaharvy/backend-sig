@@ -8,7 +8,9 @@ const cors = require('cors');
 dotenv.config();
 
 var indexRouter = require('./src/routes/index');
-var usersRouter = require('./src/routes/users');
+var usersRouter = require('./src/routes/users/app');
+var rolesRouter = require('./src/routes/roles/app');
+var permissionsRouter = require('./src/routes/permissions/app');
 var device = require('express-device');
 
 
@@ -30,14 +32,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(device.capture());
 
 app.use('/', indexRouter);
+//users routes
 app.use('/api/users', usersRouter);
-
-//employe routes
-app.use("/api/users", require("./src/routes/users/app"))
 //roles routes
-app.use("/api/roles", require("./src/routes/roles/app"))
+app.use("/api/roles", rolesRouter);
 //roles permissions
-app.use("/api/permissions", require("./src/routes/permissions/app"))
+app.use("/api/permissions", permissionsRouter);
 
 
 
