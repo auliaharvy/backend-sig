@@ -11,8 +11,8 @@ const bcrypt = require('bcrypt');
 // #########
 const addRole = require("./insert-roles");
 const selectRole = require("./select-roles");
-const updateRole = require("./update-roles");
-const deleteRoles = require("./delete-roles");
+const editRole = require("./update-roles");
+const deleteRole = require("./delete-roles");
 // #########
 const addRoles = addRole({
   makeRoles,
@@ -23,11 +23,11 @@ const addRoles = addRole({
 const selectRoles = selectRole({
   rolesDB
 });
-const updateRoles = updateRole({
+const updateRoles = editRole({
   rolesDB,
   patchRoles
 });
-const deleteRoless = deleteRoles({
+const deleteRoles = deleteRole({
   rolesDB
 });
 // #########

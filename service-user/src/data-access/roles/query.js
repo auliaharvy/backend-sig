@@ -52,7 +52,7 @@ const query = ({
     }
   }
 
-  async function selectAll({}) {
+  async function selectAll({ }) {
     try {
       const pool = await connects();
 
