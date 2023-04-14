@@ -1,12 +1,12 @@
 const deletePermission = ({
-  permissionsDb
+  permissionsDB
 }) => {
   return async function select(info) {
     const {
       id
     } = info;
     // delete query
-    const res = await PermissionsDb.deletePermission({
+    const res = await permissionsDB.deletePermission({
       id
     });
     let msg = `Permission was not deleted, please try again.`;

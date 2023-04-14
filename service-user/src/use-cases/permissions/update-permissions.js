@@ -1,5 +1,5 @@
 const updatePermission = ({
-  permissionsDb,
+  permissionsDB,
   patchPermissions
 }) => {
   return async function put({
@@ -14,21 +14,21 @@ const updatePermission = ({
     };
 
     // check id if permission exist
-    const checkId = await permissionsDb.selectOne({
+    const checkId = await permissionsDB.selectOne({
       id: data.id
     });
     if (checkId.rowCount == 0)
       throw new Error(`Permission doesn't exist, please check.`);
 
     // check if permission exist
-    const check = await permissionsDb.checkPermissionExistUpdate({
+    const check = await permissionsDB.checkPermissionExistUpdate({
       data
     });
     if (check.rowCount > 0)
       throw new Error(`Permission already exist, please check.`);
 
     // update
-    const res = await permissionsDb.patchPermission({
+    const res = await permissionsDB.patchPermission({
       data
     });
 
