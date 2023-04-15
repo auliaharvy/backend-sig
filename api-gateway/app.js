@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const employeeRouter = require('./routes/employee');
 const rolesRouter = require('./routes/roles');
+const permissionsRouter = require('./routes/permissions');
 const transactionRouter = require('./routes/transaction');
 const refreshTokenRouter = require('./routes/refreshToken');
 const webhookRouter = require('./routes/webhook');
@@ -35,13 +36,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/employee', employeeRouter);
 app.use('/roles', rolesRouter);
+app.use('/permissions', permissionsRouter);
 app.use('/transaction', transactionRouter);
 app.use('/token', refreshTokenRouter);
 //app.use('/my-courses',verifyToken,can('admin','student'), myCourseRouter);
 app.use('/webhook', webhookRouter);
-app.get('/hello', function (req, res) {
-    res.send("Hi from Docker Gateway");
-});
-
 
 module.exports = app;

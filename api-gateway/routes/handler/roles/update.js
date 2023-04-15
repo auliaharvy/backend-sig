@@ -7,11 +7,11 @@ const api = apiAdapter(URL_SERVICE_USER);
 
 module.exports = async (req, res) => {
     try {
-        const id = req.role.data.id;
-        const user = await api.put(`api/roles/${id}`, req.body);
-        return res.json(user.data);
+        const id = req.params.id;
+        const role = await api.patch(`/api/roles/${id}`, req.body);
+        return res.json(role.data);
     } catch (error) {
-
+        console.log(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',
