@@ -20,14 +20,14 @@ const rolesDelete = ({
         source,
         id: httpRequest.params.id, // when id is passed
       };
-      const view = await deleteRoles(toView);
+      const message = await deleteRoles(toView);
       return {
         headers: {
           "Content-Type": "application/json",
         },
         statusCode: 200,
         body: {
-          view
+          message
         },
       };
     } catch (e) {

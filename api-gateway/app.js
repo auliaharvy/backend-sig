@@ -5,8 +5,16 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
+//Service-user
 const usersRouter = require('./routes/users');
+const rolesRouter = require('./routes/roles');
+
+//Service-master
+const permissionsRouter = require('./routes/permissions');
 const employeeRouter = require('./routes/employee');
+const organizationsRouter = require('./routes/organizations');
+const companyTypesRouter = require('./routes/company-types');
+const companiesRouter = require('./routes/companies');
 const transactionRouter = require('./routes/transaction');
 const refreshTokenRouter = require('./routes/refreshToken');
 const webhookRouter = require('./routes/webhook');
@@ -31,15 +39,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
+
+//Service-user routes
 app.use('/users', usersRouter);
+app.use('/roles', rolesRouter);
+app.use('/permissions', permissionsRouter);
+
+
+//Service-master routes
 app.use('/employee', employeeRouter);
+app.use('/organizations', organizationsRouter);
+app.use('/company-types', companyTypesRouter);
+app.use('/companies', companiesRouter);
 app.use('/transaction', transactionRouter);
 app.use('/token', refreshTokenRouter);
 //app.use('/my-courses',verifyToken,can('admin','student'), myCourseRouter);
 app.use('/webhook', webhookRouter);
-app.get('/hello', function (req, res) {
-    res.send("Hi from Docker Gateway");
-  });
-
 
 module.exports = app;

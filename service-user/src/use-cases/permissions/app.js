@@ -12,7 +12,7 @@ const bcrypt = require('bcrypt');
 const addPermission = require("./insert-permissions");
 const selectPermission = require("./select-permissions");
 const updatePermission = require("./update-permissions");
-const deletePermissions = require("./delete-permissions");
+const deletePermission = require("./delete-permissions");
 // #########
 const addPermissions = addPermission({
   makePermissions,
@@ -27,7 +27,7 @@ const updatePermissions = updatePermission({
   permissionsDB,
   patchPermissions
 });
-const deletePermissionss = deletePermissions({
+const deletePermissions = deletePermission({
   permissionsDB
 });
 // #########
