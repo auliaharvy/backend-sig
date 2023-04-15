@@ -11,7 +11,7 @@ const companyAdd = ({
       if (httpRequest.headers["Referer"]) {
         source.referrer = httpRequest.headers["Referer"];
       }
-      const posted = await addCompanies({
+      const message = await addCompanies({
         ...info,
         source,
       });
@@ -21,7 +21,7 @@ const companyAdd = ({
         },
         statusCode: 201,
         body: {
-          posted
+          message
         },
       };
     } catch (e) {

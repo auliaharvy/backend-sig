@@ -20,14 +20,14 @@ const companiesDelete = ({
         source,
         id: httpRequest.params.id, // when id is passed
       };
-      const view = await deleteCompanies(toView);
+      const message = await deleteCompanies(toView);
       return {
         headers: {
           "Content-Type": "application/json",
         },
         statusCode: 200,
         body: {
-          view
+          message
         },
       };
     } catch (e) {

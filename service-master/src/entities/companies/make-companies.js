@@ -43,7 +43,7 @@ const makeCompany = ({}) => {
       throw new Error("Please enter Created By.");
     }
     if (!updatedBy) {
-      throw new Error("Please enter Updated By.");
+      updatedBy = null;
     }
     return Object.freeze({
       getOrganization: () => idOrganization,
