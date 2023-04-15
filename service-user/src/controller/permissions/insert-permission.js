@@ -11,7 +11,7 @@ const permissionAdd = ({
       if (httpRequest.headers["Referer"]) {
         source.referrer = httpRequest.headers["Referer"];
       }
-      const posted = await addPermissions({
+      const message = await addPermissions({
         ...info,
         source,
       });
@@ -21,7 +21,7 @@ const permissionAdd = ({
         },
         statusCode: 201,
         body: {
-          posted
+          message
         },
       };
     } catch (e) {

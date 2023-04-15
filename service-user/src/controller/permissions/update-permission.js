@@ -16,14 +16,14 @@ const permissionsUpdate = ({
         source,
         id: httpRequest.params.id,
       };
-      const patched = await updatePermissions(toEdit);
+      const message = await updatePermissions(toEdit);
       return {
         headers: {
           "Content-Type": "application/json",
         },
         statusCode: 200,
         body: {
-          patched
+          message
         },
       };
     } catch (e) {

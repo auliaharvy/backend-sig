@@ -20,14 +20,14 @@ const permissionsDelete = ({
         source,
         id: httpRequest.params.id, // when id is passed
       };
-      const view = await deletePermissions(toView);
+      const message = await deletePermissions(toView);
       return {
         headers: {
           "Content-Type": "application/json",
         },
         statusCode: 200,
         body: {
-          view
+          message
         },
       };
     } catch (e) {

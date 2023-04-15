@@ -3,8 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+<<<<<<< HEAD
+    "start": "nodemon ./bin/www",
+=======
     "start": "node ./bin/www",
-    "dev": "node ./bin/www"
+>>>>>>> 64e5caa550538c688b6c69848f8065fc589ec3b9
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
