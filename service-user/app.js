@@ -11,6 +11,8 @@ var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users/app');
 var rolesRouter = require('./src/routes/roles/app');
 var permissionsRouter = require('./src/routes/permissions/app');
+
+
 var device = require('express-device');
 
 
@@ -36,8 +38,9 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 //roles routes
 app.use("/api/roles", rolesRouter);
-//roles permissions
+//permissions routes
 app.use("/api/permissions", permissionsRouter);
+
 
 
 
