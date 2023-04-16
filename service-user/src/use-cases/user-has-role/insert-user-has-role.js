@@ -12,32 +12,21 @@ const addRoleByUserId = ({
 
     };
     // to do checking if name already exist
-    // const check = await userHasRoleDB.selectRoleByUserId({
+    // const check = await userHasRoleDB.checkRoleByUserId({
     //   data
     // });
-    // if (check.rowCount > 0) {
-    // // delete query
-    // const hapus = await userHasRoleDB.deleteRoleByUserId({
-    //   idUser
-    // });
-    //   insert
+    // if (check.rowCount > 0)
+    //   throw new Error(`Role already exist, please check.`);
+    // //   insert
     const res = await userHasRoleDB.insertRoleByUserId({
       data
     });
-
-    // } else {
-    //   //   insert
-    //   const res = await userHasRoleDB.insertRoleByUserId({
-    //     data
-    //   });
-
-    // };
 
     // ##
     let msg = `Error on inserting Role, please try again.`;
 
     if (res) {
-      msg = `Role By User id has been added successfully.`;
+      msg = `Role has been added successfully.`;
       return msg;
     } else {
       throw new Error(msg);

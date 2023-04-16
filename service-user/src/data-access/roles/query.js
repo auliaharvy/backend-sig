@@ -19,7 +19,7 @@ const query = ({
     try {
       // use sequelize on inserting
       const Role = models.Roles;
-      const res = await Role.create(data);
+      const res = await Role.reate(data);
       return res;
     } catch (e) {
       console.log("Error: ", e);
@@ -53,7 +53,7 @@ const query = ({
     }
   }
 
-  async function selectAll({ }) {
+  async function selectAll({}) {
     try {
       const pool = await connects();
 

@@ -13,13 +13,14 @@ const route = ({
   // GET
   // router.get("/", makeExpressCallback(rolesSelects));
   router.get("/:id", makeExpressCallback(roleByUserIdSelects));
+
   // #####
   // POST
   router.post("/", makeExpressCallback(roleByUserIdAdds));
 
   // #####
   // DELETE
-  router.delete("/:user_id", makeExpressCallback(roleByUserIdDeletes));
+  router.delete("/:id", makeExpressCallback(roleByUserIdDeletes));
 
   return router;
 };

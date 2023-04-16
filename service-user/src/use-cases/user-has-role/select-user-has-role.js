@@ -5,12 +5,12 @@ const selectRoleByUserId = ({
     let data = [];
 
     const {
-      user_id
+      id
     } = info; // deconstruct
 
     // select one
     const res = await userHasRoleDB.selectRoleByUserId({
-      user_id
+      id
     });
     if (res.rowCount > 0) {
       // only when there is data returned
@@ -20,9 +20,9 @@ const selectRoleByUserId = ({
 
         // push items to array
         data.push({
-          idUser: e.idUser,
-          idRole: e.idRole,
-          idCompany: e.idCompany
+          idUser: e.user_id,
+          idRole: e.role_id,
+          idCompany: e.company_id,
         });
       }
     }

@@ -3,11 +3,11 @@ const deleteRoleByUserId = ({
 }) => {
   return async function select(info) {
     const {
-      user_id
+      id
     } = info;
     // delete query
     const res = await userHasRoleDB.deleteRoleByUserId({
-      user_id
+      id
     });
     let msg = `Role By User was not deleted, please try again.`;
     if (res == 1) {

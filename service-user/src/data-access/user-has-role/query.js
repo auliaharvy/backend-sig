@@ -9,14 +9,14 @@ const query = ({
   });
 
   async function selectRoleByUserId({
-    idUser
+    id
   }) {
     try {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "user_has_role" WHERE user_id = $1;`;
-        const params = [idUser];
+        const sql = `SELECT * FROM "user_has_role" WHERE "user_id" = $1;`;
+        const params = [id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
 
@@ -47,14 +47,14 @@ const query = ({
 
 
   async function deleteRoleByUserId({
-    idUser
+    id
   }) {
     try {
       // use sequelize on inserting
       const UserHasRole = models.UserHasRole;
       const res = await UserHasRole.destroy({
         where: {
-          idUser,
+          user_id: id,
         },
       });
       return res;
@@ -62,6 +62,7 @@ const query = ({
       console.log("Error: ", e);
     }
   }
+
 
 
 };
