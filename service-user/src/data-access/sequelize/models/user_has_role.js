@@ -31,8 +31,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'RoleHasPermission',
-    tableName: 'role_has_permission',
+    modelName: 'UserHasRole',
+    tableName: 'user-has-role',
+    timestamps: false,
+    createdAt: false,
+    updatedAt: false,
   });
   return RoleHasPermission;
 };

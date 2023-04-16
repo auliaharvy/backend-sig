@@ -3,19 +3,19 @@ const query = ({
   models
 }) => {
   return Object.freeze({
-    selectRoleByUserId,
-    insertRoleByUserId,
-    deleteRoleByUserId,
+    selectPermissionByRoleId,
+    insertPermissionByRoleId,
+    deletePermissionByRoleId,
   });
 
-  async function selectRoleByUserId({
+  async function selectPermissionByRoleId({
     idUser
   }) {
     try {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "user_has_role" WHERE user_id = $1;`;
+        const sql = `SELECT * FROM "role_has_permission" WHERE user_id = $1;`;
         const params = [idUser];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
@@ -31,13 +31,13 @@ const query = ({
     }
   }
 
-  async function insertRoleByUserId({
+  async function insertPermissionByRoleId({
     data
   }) {
     try {
       // // use sequelize on inserting
-      const UserHasRole = models.UserHasRole;
-      const res = await UserHasRole.create(data);
+      const RoleHasPermission = models.RoleHasPermission;
+      const res = await RoleHasPermission.create(data);
 
       return res;
     } catch (e) {
@@ -46,15 +46,15 @@ const query = ({
   }
 
 
-  async function deleteRoleByUserId({
-    idUser
+  async function deletePermissionByRoleId({
+    idRole
   }) {
     try {
       // use sequelize on inserting
-      const UserHasRole = models.UserHasRole;
-      const res = await UserHasRole.destroy({
+      const RoleHasPermission = models.RoleHasPermission;
+      const res = await RoleHasPermission.destroy({
         where: {
-          idUser,
+          idRole,
         },
       });
       return res;
