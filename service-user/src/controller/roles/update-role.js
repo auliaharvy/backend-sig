@@ -16,14 +16,14 @@ const rolesUpdate = ({
         source,
         id: httpRequest.params.id,
       };
-      const patched = await updateRoles(toEdit);
+      const message = await updateRoles(toEdit);
       return {
         headers: {
           "Content-Type": "application/json",
         },
         statusCode: 200,
         body: {
-          patched
+          message
         },
       };
     } catch (e) {

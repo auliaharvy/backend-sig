@@ -1,4 +1,8 @@
-const query = ({ connects, models, bcrypt }) => {
+const query = ({
+  connects,
+  models,
+  bcrypt
+}) => {
   return Object.freeze({
     registerUsers,
     loginUsers,
@@ -6,15 +10,17 @@ const query = ({ connects, models, bcrypt }) => {
     selectAll,
     selectOne,
     checkNameExistUpdate,
-    patchEmployee,
-    deleteEmployee,
+    patchUser,
+    deleteUser,
   });
 
-  async function deleteEmployee({ id }) {
+  async function deleteUser({
+    id
+  }) {
     try {
       // use sequelize on inserting
-      const Employee = models.Employees;
-      const res = await Employee.destroy({
+      const User = models.Users;
+      const res = await User.destroy({
         where: {
           id,
         },
@@ -25,7 +31,9 @@ const query = ({ connects, models, bcrypt }) => {
     }
   }
 
-  async function registerUsers({ data }) {
+  async function registerUsers({
+    data
+  }) {
     try {
       // use sequelize on inserting
       const User = models.Users;
@@ -36,44 +44,49 @@ const query = ({ connects, models, bcrypt }) => {
     }
   }
 
-  async function loginUsers({ data }) {
+  async function loginUsers({
+    data
+  }) {
     try {
       // use sequelize on inserting
       const User = models.Users;
       //const res = await User.create(data);
 
       const user = await User.findOne({
-        where: {username: data.username}
-    });
+        where: { username: data.username }
+      });
 
-    if(!user) {
-      res = {
-        httpCode : 400,
-        data : {
-          status: 'error',
-          message: 'Account not found'
-        }
-        
-      };
-      return res;
-    }
+
+
+
+      if (!user) {
+        res = {
+          httpCode: 400,
+          data: {
+            status: 'error',
+            message: 'Account not found'
+          }
+
+        };
+        return res;
+      }
 
       const isValid = await bcrypt.compare(data.password, user.password);
       if (!isValid) {
         res = {
-          httpCode : 401,
-          data : {
+          httpCode: 401,
+          data: {
             status: 'error',
             message: 'Password is incorrect'
           }
-          
+
         };
         return res;
       }
 
       res = {
-        httpCode : 200,
-        data : {
+        httpCode: 200,
+        data: {
           status: 'success',
           message: 'Login SuccessFull',
           data: {
@@ -87,7 +100,7 @@ const query = ({ connects, models, bcrypt }) => {
             time_access: Date(),
           },
         }
-       
+
       };
       return res;
       // return res;
@@ -96,11 +109,16 @@ const query = ({ connects, models, bcrypt }) => {
     }
   }
 
-  async function checkNameExist({ data }) {
+  async function checkNameExist({
+    data
+  }) {
     try {
       const pool = await connects();
 
-      const { username, fullname } = data; // deconstruct
+      const {
+        username,
+        fullname
+      } = data; // deconstruct
 
       const res = await new Promise((resolve) => {
         const sql = `SELECT id FROM "Users" WHERE "username" = $1 AND "fullname" = $2;`;
@@ -139,12 +157,14 @@ const query = ({ connects, models, bcrypt }) => {
     }
   }
 
-  async function selectOne({ id }) {
+  async function selectOne({
+    id
+  }) {
     try {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "users" WHERE id = $1;`;
+        const sql = `SELECT * FROM "Users" WHERE id = $1;`;
         const params = [id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
@@ -160,11 +180,17 @@ const query = ({ connects, models, bcrypt }) => {
     }
   }
 
-  async function checkNameExistUpdate({ data }) {
+  async function checkNameExistUpdate({
+    data
+  }) {
     try {
       const pool = await connects();
 
-      const { firstName, lastName, id } = data; // deconstruct
+      const {
+        firstName,
+        lastName,
+        id
+      } = data; // deconstruct
 
       const res = await new Promise((resolve) => {
         const sql = `SELECT id FROM "users" WHERE "firstName" = $1 AND id <> $3 AND "lastName" = $2 AND id <> $3;`;
@@ -183,22 +209,21 @@ const query = ({ connects, models, bcrypt }) => {
     }
   }
 
-  async function patchEmployee({ data }) {
+  async function patchUser({
+    data
+  }) {
     try {
       // use sequelize on update
       const User = models.Users;
-      const res = await User.update(
-        {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          age: data.age,
+      const res = await User.update({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        age: data.age,
+      }, {
+        where: {
+          id: data.id,
         },
-        {
-          where: {
-            id: data.id,
-          },
-        }
-      );
+      });
       return res;
     } catch (e) {
       console.log("Error: ", e);

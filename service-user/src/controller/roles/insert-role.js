@@ -11,7 +11,7 @@ const roleAdd = ({
       if (httpRequest.headers["Referer"]) {
         source.referrer = httpRequest.headers["Referer"];
       }
-      const posted = await addRoles({
+      const message = await addRoles({
         ...info,
         source,
       });
@@ -21,7 +21,7 @@ const roleAdd = ({
         },
         statusCode: 201,
         body: {
-          posted
+          message
         },
       };
     } catch (e) {

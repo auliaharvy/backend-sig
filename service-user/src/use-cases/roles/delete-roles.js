@@ -1,12 +1,12 @@
 const deleteRole = ({
-  rolesDb
+  rolesDB
 }) => {
   return async function select(info) {
     const {
       id
     } = info;
     // delete query
-    const res = await RolesDb.deleteRole({
+    const res = await rolesDB.deleteRole({
       id
     });
     let msg = `Role was not deleted, please try again.`;

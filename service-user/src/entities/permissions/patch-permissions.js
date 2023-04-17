@@ -1,4 +1,6 @@
-const patchPermission = ({}) => {
+const patchPermission = ({
+  encrypt
+}) => {
   return function make(id, {
     name
   } = {}) {

@@ -9,6 +9,9 @@ dotenv.config();
 
 var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users');
+var organizationsRouter = require('./src/routes/organizations/app');
+var companyTypesRouter = require('./src/routes/company-types/app');
+var companiesRouter = require('./src/routes/companies/app');
 
 var app = express();
 
@@ -19,7 +22,9 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -29,13 +34,21 @@ app.use('/users', usersRouter);
 //employe routes
 app.use("/api/employees", require("./src/routes/employees/app"))
 
+
+//organizations routes
+app.use("/api/organizations", organizationsRouter);
+//company types routes
+app.use("/api/company-types", companyTypesRouter);
+//companies routes
+app.use("/api/companies", companiesRouter);
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
