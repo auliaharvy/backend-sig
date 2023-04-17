@@ -43,7 +43,7 @@ const query = ({ connects, models, bcrypt }) => {
       //const res = await User.create(data);
 
       const user = await User.findOne({
-        where: {email: data.email}
+        where: {username: data.username}
     });
 
     if(!user) {

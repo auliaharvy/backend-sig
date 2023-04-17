@@ -1,14 +1,14 @@
 const dataloginUser = ({ }) => {
-    return function make({ email, password } = {}) {
+    return function make({ username, password } = {}) {
      
-      if (email == null) {
-        throw new Error("Please enter email.");
+      if (username == null) {
+        throw new Error("Please enter username.");
       }
       if (password == null) {
         throw new Error("Please enter password.");
       }
       return Object.freeze({
-        getEmail: () => email,
+        getUsername: () => username,
         getPassword: () => password,
       });
     };
