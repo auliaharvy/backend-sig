@@ -54,9 +54,12 @@ const query = ({
 
       const user = await User.findOne({
         where: {
-          email: data.email
+          username: data.username
         }
       });
+
+
+
 
       if (!user) {
         res = {
@@ -136,7 +139,7 @@ const query = ({
     }
   }
 
-  async function selectAll({}) {
+  async function selectAll({ }) {
     try {
       const pool = await connects();
 

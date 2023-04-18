@@ -4,7 +4,9 @@ const query = ({
 }) => {
   return Object.freeze({
     checkRoleExist,
+    checkRolePermissionExist,
     insertRole,
+    insertRolePermission,
     selectAll,
     selectOne,
     checkRoleExistUpdate,
@@ -26,6 +28,19 @@ const query = ({
     }
   }
 
+  async function insertRolePermission({
+    data_insert
+  }) {
+    try {
+      // use sequelize on inserting
+      const RoleHasPermission = models.RoleHasPermission;
+      const res = await RoleHasPermission.bulkCreate(data_insert);
+      return res;
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+  }
+
   async function checkRoleExist({
     data
   }) {
@@ -39,6 +54,34 @@ const query = ({
       const res = await new Promise((resolve) => {
         const sql = `SELECT id FROM "roles" WHERE "name" = $1;`;
         const params = [name];
+        pool.query(sql, params, (err, res) => {
+          pool.end(); // end connection
+
+          if (err) resolve(err);
+          resolve(res);
+        });
+      });
+
+      return res;
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+  }
+
+  async function checkRolePermissionExist({
+    data
+  }) {
+    try {
+      const pool = await connects();
+
+      const {
+        id_role,
+        id_permission,
+      } = data; // deconstruct
+
+      const res = await new Promise((resolve) => {
+        const sql = `SELECT id_role FROM "role_has_permission" WHERE "id_role" = $1 AND "id_permission" = $2;`;
+        const params = [id_role, id_permission];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
 

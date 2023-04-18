@@ -14,23 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   RoleHasPermission.init({
-    idRole: {
-      field: 'id_role',
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    idPermission: {
-      field: 'id_permission',
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    }
-
+    id_role: DataTypes.INTEGER,
+    id_permission: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'RoleHasPermission',
-    tableName: 'role_has_permission',
-    createdAt: false,
-    updatedAt: false,
   });
   return RoleHasPermission;
 };

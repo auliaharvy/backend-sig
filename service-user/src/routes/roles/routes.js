@@ -3,6 +3,7 @@ const {
   rolesUpdates,
   rolesDeletes,
   roleAdds,
+  roleAddPermissionController,
 } = require("../../controller/roles/app");
 
 const route = ({
@@ -17,6 +18,8 @@ const route = ({
   // #####
   // POST
   router.post("/", makeExpressCallback(roleAdds));
+
+  router.post("/rolehaspermissions", makeExpressCallback(roleAddPermissionController));
 
   // #####
   // PATCH
