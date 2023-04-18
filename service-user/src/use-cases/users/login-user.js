@@ -2,7 +2,7 @@ const loginUser = ({ dataloginUsers, usersDB, bcrypt }) => {
     return async function post(info) {
       let data = await dataloginUsers(info); // entity
       data = {
-        email: data.getEmail(),
+        username: data.getUsername(),
         password: data.getPassword(),
         ip: info.source.ip,
         device: info.source.device,

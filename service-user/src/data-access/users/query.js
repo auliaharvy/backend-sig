@@ -54,7 +54,7 @@ const query = ({
 
       const user = await User.findOne({
         where: {
-          email: data.email
+          username: data.username
         }
       });
 
