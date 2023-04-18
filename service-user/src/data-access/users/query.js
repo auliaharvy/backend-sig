@@ -58,6 +58,9 @@ const query = ({
         }
       });
 
+
+
+
       if (!user) {
         res = {
           httpCode: 400,
@@ -136,7 +139,7 @@ const query = ({
     }
   }
 
-  async function selectAll({}) {
+  async function selectAll({ }) {
     try {
       const pool = await connects();
 
