@@ -9,5 +9,6 @@ router.get('/', roleHandler.getAll);
 router.get('/:id', roleHandler.getRole);
 router.patch('/:id', roleHandler.update);
 router.delete('/:id', roleHandler.destroy);
+router.post('/rolehaspermissions', roleHandler.createPermission);
 
 module.exports = router;
