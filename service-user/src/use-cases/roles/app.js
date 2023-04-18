@@ -1,5 +1,6 @@
 const {
   makeRoles,
+  makeRolesPermissions,
   patchRoles
 } = require("../../entities/roles/app"); // entity
 const rolesDB = require("../../data-access/roles/app"); // database queries
@@ -10,12 +11,19 @@ const {
 const bcrypt = require('bcrypt');
 // #########
 const addRole = require("./insert-roles");
+const addRolePermission = require("./insert-roles-permissions");
 const selectRole = require("./select-roles");
 const editRole = require("./update-roles");
 const deleteRole = require("./delete-roles");
 // #########
 const addRoles = addRole({
   makeRoles,
+  rolesDB,
+  bcrypt
+});
+
+const addRolePermissionsUseCase = addRolePermission({
+  makeRolesPermissions,
   rolesDB,
   bcrypt
 });
@@ -36,6 +44,7 @@ const services = Object.freeze({
   selectRoles,
   updateRoles,
   deleteRoles,
+  addRolePermissionsUseCase,
 });
 
 module.exports = services;
@@ -44,4 +53,5 @@ module.exports = {
   selectRoles,
   updateRoles,
   deleteRoles,
+  addRolePermissionsUseCase,
 };
