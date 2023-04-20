@@ -1,4 +1,4 @@
-const makeRole = ({}) => {
+const makeRole = ({validator}) => {
   return function make({
     name
   } = {}) {
@@ -6,7 +6,7 @@ const makeRole = ({}) => {
       throw new Error("Please enter roles.");
     }
     return Object.freeze({
-      getRole: () => name,
+      getRole: () => validator.escape(name),
 
     });
   };

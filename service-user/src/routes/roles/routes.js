@@ -6,10 +6,12 @@ const {
   roleAddPermissionController,
 } = require("../../controller/roles/app");
 
+const { roleValidationRules, validateRole } = require('../../middlewares/validator/validator-role')
+
 const route = ({
   router,
   makeExpressCallback,
-  validateAuth
+  validateAuth,
 }) => {
   // #####
   // GET
@@ -17,7 +19,7 @@ const route = ({
   router.get("/:id", makeExpressCallback(rolesSelects));
   // #####
   // POST
-  router.post("/", makeExpressCallback(roleAdds));
+  router.post("/",roleValidationRules(), validateRole, makeExpressCallback(roleAdds));
 
   router.post("/rolehaspermissions", makeExpressCallback(roleAddPermissionController));
 
