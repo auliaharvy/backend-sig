@@ -39,7 +39,11 @@ const addPermissionByRoleId = ({
 
     if (res) {
       msg = `Role By User id has been added successfully.`;
-      return msg;
+      return ({
+        status: 200,
+        message: msg,
+
+      });
     } else {
       throw new Error(msg);
     }

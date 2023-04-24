@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'RoleHasPermission',
+    tableName: 'role_has_permission',
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
   });
+  RoleHasPermission.removeAttribute("id");
   return RoleHasPermission;
 };

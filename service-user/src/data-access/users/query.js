@@ -20,7 +20,9 @@ const query = ({
     try {
       // use sequelize on inserting
       const User = models.Users;
-      const res = await User.destroy({
+      const res = await User.update({
+        is_deleted: 1
+      }, {
         where: {
           id,
         },
@@ -139,12 +141,12 @@ const query = ({
     }
   }
 
-  async function selectAll({ }) {
+  async function selectAll({}) {
     try {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "users";`;
+        const sql = `SELECT * FROM "users" WHERE is_deleted = 0;`;
         pool.query(sql, (err, res) => {
           pool.end(); // end connection
 
@@ -152,7 +154,6 @@ const query = ({
           resolve(res);
         });
       });
-
       return res;
     } catch (e) {
       console.log("Error: ", e);
@@ -166,7 +167,7 @@ const query = ({
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "Users" WHERE id = $1;`;
+        const sql = `SELECT * FROM "users" WHERE id = $1 AND is_deleted = 0;`;
         const params = [id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
@@ -216,11 +217,14 @@ const query = ({
   }) {
     try {
       // use sequelize on update
+
       const User = models.Users;
+      const password = await bcrypt.hash(data.password, 10);
       const res = await User.update({
-        firstName: data.firstName,
-        lastName: data.lastName,
-        age: data.age,
+        fullname: data.fullname,
+        username: data.username,
+        email: data.email,
+        password: password,
       }, {
         where: {
           id: data.id,

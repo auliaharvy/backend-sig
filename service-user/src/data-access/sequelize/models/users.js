@@ -18,19 +18,16 @@ module.exports = (sequelize, DataTypes) => {
     fullname: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.TEXT,
-    isDeleted: {
-      field: 'is_deleted',
+    is_deleted: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
     },
-    createdAt: {
-      field: 'created_at',
+    created_at: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    updatedAt: {
-      field: 'updated_at',
+    updated_at: {
       type: DataTypes.DATE,
       allowNull: true,
     }
@@ -38,6 +35,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Users',
     tableName: 'users',
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   });
   return Users;
 };

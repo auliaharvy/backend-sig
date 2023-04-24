@@ -12,7 +12,6 @@ const query = ({
     checkRoleExistUpdate,
     patchRole,
     deleteRole,
-    listRole
   });
 
   async function insertRole({
@@ -21,7 +20,7 @@ const query = ({
     try {
       // use sequelize on inserting
       const Role = models.Roles;
-      const res = await Role.reate(data);
+      const res = await Role.create(data);
       return res;
     } catch (e) {
       console.log("Error: ", e);
@@ -192,7 +191,9 @@ const query = ({
     try {
       // use sequelize on inserting
       const Role = models.Roles;
-      const res = await Role.destroy({
+      const res = await Role.update({
+        is_deleted: 1
+      }, {
         where: {
           id,
         },
@@ -203,29 +204,6 @@ const query = ({
     }
   }
 
-  async function listRole({
-    // parameter user id from table user_has_roles
-    user_id
-  }) {
-    try {
-      const pool = await connects();
-
-      const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "roles" WHERE user_id = $1;`;
-        const params = [user_id];
-        pool.query(sql, params, (err, res) => {
-          pool.end(); // end connection
-
-          if (err) resolve(err);
-          resolve(res);
-        });
-      });
-
-      return res;
-    } catch (e) {
-      console.log("Error: ", e);
-    }
-  }
 
 };
 

@@ -23,12 +23,16 @@ const selectRole = ({
           data.push({
             id: e.id,
             name: e.name ? e.name : null,
-            // is_deleted: e.is_deleted == 0 ? "false" : "true",
             createdAt: e.createdAt,
             updatedAt: e.updatedAt,
           });
         }
       }
+      return ({
+        status: 200,
+        message: "Data ditemukan",
+        data: data
+      });
     } else {
       // select all
       const res = await rolesDB.selectAll({});
@@ -48,8 +52,12 @@ const selectRole = ({
           });
         }
       }
+      return ({
+        status: 200,
+        message: "Data ditemukan",
+        data: data
+      });
     }
-    return data;
   };
 };
 

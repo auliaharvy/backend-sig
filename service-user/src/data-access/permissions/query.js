@@ -148,7 +148,9 @@ const query = ({
     try {
       // use sequelize on inserting
       const Permission = models.Permissions;
-      const res = await Permission.destroy({
+      const res = await Permission.update({
+        is_deleted: 1
+      }, {
         where: {
           id,
         },

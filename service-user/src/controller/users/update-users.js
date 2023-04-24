@@ -16,14 +16,14 @@ const usersUpdate = ({
         source,
         id: httpRequest.params.id,
       };
-      const patched = await updateUsers(toEdit);
+      const data = await updateUsers(toEdit);
       return {
         headers: {
           "Content-Type": "application/json",
         },
         statusCode: 200,
         body: {
-          patched
+          data
         },
       };
     } catch (e) {

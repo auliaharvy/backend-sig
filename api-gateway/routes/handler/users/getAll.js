@@ -8,7 +8,7 @@ const api = apiAdapter(URL_SERVICE_USER);
 module.exports = async (req, res) => {
     try {
         const id = req.user.data.id;
-        const user = await api.patch(`/api/users/${id}`, req.body);
+        const user = await api.get(`/api/users`);
         return res.json(user.data);
     } catch (error) {
 
