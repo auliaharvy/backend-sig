@@ -10,6 +10,11 @@ const addRolePermission = ({
       '0': { id_role: 1, id_permission: 1 },
       '1': { id_role: 1, id_permission: 2 }
     };
+    //jika user ingin set permission terhadap role , maka permission lama yg nempel akan dihapus terlebih dahulu lalu insert permission baru nya
+    id_role = datas.data[0].id_role
+    const del = await rolesDB.deleteRolePermission({
+      id_role : id_role
+    });
     // to do checking if name already exist
     for (var i = 0; i < datas.data.length; i++) {
       data = {
