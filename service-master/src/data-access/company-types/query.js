@@ -58,7 +58,7 @@ const query = ({
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "mst_company_type";`;
+        const sql = `SELECT * FROM "mst_company_type" WHERE is_deleted = 0;`;
         pool.query(sql, (err, res) => {
           pool.end(); // end connection
 
@@ -80,7 +80,7 @@ const query = ({
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "mst_company_type" WHERE id = $1;`;
+        const sql = `SELECT * FROM "mst_company_type" WHERE id = $1 AND is_deleted = 0;`;
         const params = [id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
@@ -149,7 +149,9 @@ const query = ({
     try {
       // use sequelize on inserting
       const CompanyType = models.CompanyTypes;
-      const res = await CompanyType.destroy({
+      const res = await CompanyType.update({
+        is_deleted: 1
+      }, {
         where: {
           id,
         },

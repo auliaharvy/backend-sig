@@ -14,17 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   UserHasRole.init({
-    idUser: {
-      field: 'user_id',
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    idRole: {
-      field: 'role_id',
+    role_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    idCompany: {
+    company_id: {
       field: 'company_id',
       type: DataTypes.INTEGER,
       allowNull: false,
