@@ -20,14 +20,18 @@ const selectRoleByUserId = ({
 
         // push items to array
         data.push({
-          idUser: e.user_id,
-          idRole: e.role_id,
-          idCompany: e.company_id,
+          user_id: e.user_id,
+          role_id: e.role_id,
+          company_id: e.company_id,
         });
       }
     }
 
-    return data;
+    return ({
+      status: 200,
+      message: `Success`,
+      data: data
+    });
   };
 };
 

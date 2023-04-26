@@ -6,9 +6,9 @@ const addRoleByUserId = ({
     let data = await makeRoleByUserIds(info); // entity
 
     data = {
-      idUser: data.getIdUser(),
-      idRole: data.getIdRole(),
-      idCompany: data.getIdCompany()
+      user_id: data.getIdUser(),
+      role_id: data.getIdRole(),
+      company_id: data.getIdCompany()
 
     };
     // to do checking if name already exist
@@ -23,10 +23,10 @@ const addRoleByUserId = ({
     });
 
     // ##
-    let msg = `Error on inserting Role, please try again.`;
+    let msg = `Error on inserting Role By User, please try again.`;
 
     if (res) {
-      msg = `Role has been added successfully.`;
+      msg = `Set User Role has been added successfully.`;
       return msg;
     } else {
       throw new Error(msg);

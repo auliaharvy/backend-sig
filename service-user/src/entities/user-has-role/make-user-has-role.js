@@ -1,22 +1,22 @@
 const makeRoleByUserId = ({}) => {
   return function make({
-    idUser,
-    idRole,
-    idCompany
+    user_id,
+    role_id,
+    company_id
   } = {}) {
-    if (!idUser) {
+    if (!user_id) {
       throw new Error("Please enter User.");
     }
-    if (!idRole) {
+    if (!role_id) {
       throw new Error("Please enter Role.");
     }
-    if (!idCompany) {
+    if (!company_id) {
       throw new Error("Please enter Company.");
     }
     return Object.freeze({
-      getIdUser: () => idUser,
-      getIdRole: () => idRole,
-      getIdCompany: () => idCompany
+      getIdUser: () => user_id,
+      getIdRole: () => role_id,
+      getIdCompany: () => company_id,
 
     });
   };

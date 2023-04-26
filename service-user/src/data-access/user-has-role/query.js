@@ -38,7 +38,6 @@ const query = ({
       // // use sequelize on inserting
       const UserHasRole = models.UserHasRole;
       const res = await UserHasRole.create(data);
-
       return res;
     } catch (e) {
       console.log("Error: ", e);

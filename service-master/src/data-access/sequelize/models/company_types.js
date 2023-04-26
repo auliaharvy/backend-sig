@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     is_deleted: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       DEFAULT: 0
     },
     createdAt: {
@@ -35,8 +36,8 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'mst_company_type',
     // timestamps: true,
     // paranoid: false,
-    // createdAt: 'created_at',
-    // updatedAt: 'updated_at',
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   });
   return CompanyTypes;
 };
