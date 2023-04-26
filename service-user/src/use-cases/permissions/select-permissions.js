@@ -23,12 +23,16 @@ const selectPermission = ({
           data.push({
             id: e.id,
             name: e.name ? e.name : null,
-            is_deleted: e.is_deleted == 0 ? "false" : "true",
             createdAt: e.createdAt,
             updatedAt: e.updatedAt,
           });
         }
       }
+      return ({
+        status: 200,
+        message: "success",
+        data: data
+      });
     } else {
       // select all
       const res = await permissionsDB.selectAll({});
@@ -42,14 +46,17 @@ const selectPermission = ({
           data.push({
             id: e.id,
             name: e.name ? e.name : null,
-            is_deleted: e.is_deleted == 0 ? "false" : "true",
             createdAt: e.createdAt,
             updatedAt: e.updatedAt,
           });
         }
       }
     }
-    return data;
+    return ({
+      status: 200,
+      message: "success",
+      data: data
+    });
   };
 };
 

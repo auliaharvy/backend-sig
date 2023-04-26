@@ -1,5 +1,5 @@
 const updateUser = ({
-  usersDb,
+  usersDB,
   patchUsers
 }) => {
   return async function put({
@@ -10,28 +10,28 @@ const updateUser = ({
 
     data = {
       id: data.getId(),
-      userName: data.getUsername(),
-      fullName: data.getFullname(),
+      username: data.getUsername(),
+      fullname: data.getFullname(),
       email: data.getEmail(),
       password: data.getPassword(),
     };
 
     // check id if employee exist
-    const checkId = await usersDb.selectOne({
+    const checkId = await usersDB.selectOne({
       id: data.id
     });
     if (checkId.rowCount == 0)
       throw new Error(`User doesn't exist, please check.`);
 
     // check if name exist
-    const check = await usersDb.checkNameExistUpdate({
+    const check = await usersDB.checkNameExistUpdate({
       data
     });
     if (check.rowCount > 0)
       throw new Error(`User already exist, please check.`);
 
     // update
-    const res = await usersDb.patchUser({
+    const res = await usersDB.patchUser({
       data
     });
 

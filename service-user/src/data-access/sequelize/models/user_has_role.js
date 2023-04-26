@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Users extends Model {
+  class UserHasRole extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,30 +13,30 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Users.init({
-    username: DataTypes.STRING,
-    fullname: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.TEXT,
-    is_deleted: {
+  UserHasRole.init({
+    idUser: {
+      field: 'user_id',
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0
     },
-    created_at: {
-      type: DataTypes.DATE,
+    idRole: {
+      field: 'role_id',
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
+    idCompany: {
+      field: 'company_id',
+      type: DataTypes.INTEGER,
+      allowNull: false,
     }
   }, {
     sequelize,
-    modelName: 'Users',
-    tableName: 'users',
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
+    modelName: 'UserHasRole',
+    tableName: 'user_has_role',
+    timestamps: false,
+    createdAt: false,
+    updatedAt: false,
   });
-  return Users;
+  UserHasRole.removeAttribute('id');
+  return UserHasRole;
 };

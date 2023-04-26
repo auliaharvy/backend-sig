@@ -15,26 +15,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   RoleHasPermission.init({
     id_role: DataTypes.INTEGER,
-    id_permission: DataTypes.INTEGER,
-    is_deleted: {
-      type: DataTypes.INTEGER,
-      DEFAULT: 0
-    },
-    createdAt: {
-      field: 'created_at',
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    updatedAt: {
-      field: 'updated_at',
-      type: DataTypes.DATE,
-      allowNull: true,
-    }
+    id_permission: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'RoleHasPermission',
     tableName: 'role_has_permission',
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
   });
-  RoleHasPermission.removeAttribute('id');
+  RoleHasPermission.removeAttribute("id");
   return RoleHasPermission;
 };

@@ -1,12 +1,12 @@
 const deleteUser = ({
-  usersDb
+  usersDB
 }) => {
   return async function select(info) {
     const {
       id
     } = info;
     // delete query
-    const res = await usersDb.deleteUser({
+    const res = await usersDB.deleteUser({
       id
     });
     let msg = `User was not deleted, please try again.`;

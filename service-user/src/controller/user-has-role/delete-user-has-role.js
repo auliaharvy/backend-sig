@@ -1,8 +1,12 @@
-const usersUpdate = ({
-  updateUsers
+const roleByUserIdDelete = ({
+  deletesRoleByUserId
 }) => {
-  return async function puts(httpRequest) {
+  return async function get(httpRequest) {
+    const headers = {
+      "Content-Type": "application/json",
+    };
     try {
+      //get the httprequest body
       const {
         source = {}, ...info
       } = httpRequest.body;
@@ -11,29 +15,26 @@ const usersUpdate = ({
       if (httpRequest.headers["Referer"]) {
         source.referrer = httpRequest.headers["Referer"];
       }
-      const toEdit = {
+      const toView = {
         ...info,
         source,
-        id: httpRequest.params.id,
+        id: httpRequest.params.id, // when id is passed
       };
-      const data = await updateUsers(toEdit);
+      const message = await deletesRoleByUserId(toView);
       return {
         headers: {
           "Content-Type": "application/json",
         },
         statusCode: 200,
         body: {
-          data
+          message
         },
       };
     } catch (e) {
       // TODO: Error logging
       console.log(e);
-
       return {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers,
         statusCode: 400,
         body: {
           error: e.message,
@@ -43,4 +44,4 @@ const usersUpdate = ({
   };
 };
 
-module.exports = usersUpdate;
+module.exports = roleByUserIdDelete;

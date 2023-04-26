@@ -1,7 +1,7 @@
-const usersUpdate = ({
-  updateUsers
+const roleByUserIdAdd = ({
+  addsRoleByUserId
 }) => {
-  return async function puts(httpRequest) {
+  return async function post(httpRequest) {
     try {
       const {
         source = {}, ...info
@@ -11,19 +11,17 @@ const usersUpdate = ({
       if (httpRequest.headers["Referer"]) {
         source.referrer = httpRequest.headers["Referer"];
       }
-      const toEdit = {
+      const message = await addsRoleByUserId({
         ...info,
         source,
-        id: httpRequest.params.id,
-      };
-      const data = await updateUsers(toEdit);
+      });
       return {
         headers: {
           "Content-Type": "application/json",
         },
-        statusCode: 200,
+        statusCode: 201,
         body: {
-          data
+          message
         },
       };
     } catch (e) {
@@ -43,4 +41,4 @@ const usersUpdate = ({
   };
 };
 
-module.exports = usersUpdate;
+module.exports = roleByUserIdAdd;
