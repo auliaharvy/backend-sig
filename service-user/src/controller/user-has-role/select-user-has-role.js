@@ -1,8 +1,12 @@
-const usersUpdate = ({
-  updateUsers
+const roleByUserIdSelect = ({
+  selectsRoleByUserId
 }) => {
-  return async function puts(httpRequest) {
+  return async function get(httpRequest) {
+    const headers = {
+      "Content-Type": "application/json",
+    };
     try {
+      //get the httprequest body
       const {
         source = {}, ...info
       } = httpRequest.body;
@@ -11,12 +15,12 @@ const usersUpdate = ({
       if (httpRequest.headers["Referer"]) {
         source.referrer = httpRequest.headers["Referer"];
       }
-      const toEdit = {
+      const toView = {
         ...info,
         source,
-        id: httpRequest.params.id,
+        id: httpRequest.params.id, // when id is passed
       };
-      const data = await updateUsers(toEdit);
+      const data = await selectsRoleByUserId(toView);
       return {
         headers: {
           "Content-Type": "application/json",
@@ -29,11 +33,8 @@ const usersUpdate = ({
     } catch (e) {
       // TODO: Error logging
       console.log(e);
-
       return {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers,
         statusCode: 400,
         body: {
           error: e.message,
@@ -43,4 +44,4 @@ const usersUpdate = ({
   };
 };
 
-module.exports = usersUpdate;
+module.exports = roleByUserIdSelect;

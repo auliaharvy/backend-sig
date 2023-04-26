@@ -1,17 +1,17 @@
 const patchUser = ({}) => {
   return function make(id, {
-    userName,
-    fullName,
+    username,
+    fullname,
     email,
     password,
   } = {}) {
     if (!id) {
       throw new Error("Please enter ID of user");
     }
-    if (!userName) {
+    if (!username) {
       throw new Error("Please enter Username.");
     }
-    if (!fullName) {
+    if (!fullname) {
       throw new Error("Please enter Full Name.");
     }
     if (!email) {
@@ -22,8 +22,8 @@ const patchUser = ({}) => {
     }
     return Object.freeze({
       getId: () => id,
-      getUsername: () => userName,
-      getFullname: () => fullName,
+      getUsername: () => username,
+      getFullname: () => fullname,
       getEmail: () => email,
       getPassword: () => password,
     });
