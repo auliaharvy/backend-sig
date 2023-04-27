@@ -12,6 +12,7 @@ const query = ({
     checkRoleExistUpdate,
     patchRole,
     deleteRole,
+    deleteRolePermission,
   });
 
   async function insertRole({
@@ -220,6 +221,20 @@ const query = ({
     }
   }
 
+  async function deleteRolePermission({ id_role : id }) {
+    try {
+      // use sequelize on inserting
+      const RoleHasPermission = models.RoleHasPermission ;
+      const res = await RoleHasPermission.destroy({
+        where: {
+          id_role: id,
+        },
+      });
+      return res;
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+  }
 
 };
 
