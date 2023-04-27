@@ -12,6 +12,7 @@ var usersRouter = require('./src/routes/users');
 var organizationsRouter = require('./src/routes/organizations/app');
 var companyTypesRouter = require('./src/routes/company-types/app');
 var companiesRouter = require('./src/routes/companies/app');
+var palletsRouter = require('./src/routes/pallets/app');
 
 var app = express();
 
@@ -41,6 +42,8 @@ app.use("/api/organizations", organizationsRouter);
 app.use("/api/company-types", companyTypesRouter);
 //companies routes
 app.use("/api/companies", companiesRouter);
+//pallets routes
+app.use("/api/pallets", palletsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
