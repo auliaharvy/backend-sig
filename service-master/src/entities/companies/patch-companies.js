@@ -2,8 +2,8 @@ const patchCompany = ({
   encrypt
 }) => {
   return function make(id, {
-    idOrganization,
-    idCompanyType,
+    id_organization,
+    id_company_type,
     name,
     code,
     address,
@@ -17,10 +17,10 @@ const patchCompany = ({
     if (!id) {
       throw new Error("Please enter ID of company.");
     }
-    if (!idOrganization) {
+    if (!id_organization) {
       throw new Error("Please enter Organization.");
     }
-    if (!idCompanyType) {
+    if (!id_company_type) {
       throw new Error("Please enter Company Type.");
     }
     if (!name) {
@@ -52,8 +52,8 @@ const patchCompany = ({
     }
     return Object.freeze({
       getId: () => id,
-      getOrganization: () => idOrganization,
-      getCompanyType: () => idCompanyType,
+      getOrganization: () => id_organization,
+      getCompanyType: () => id_company_type,
       getName: () => name,
       getCode: () => code,
       getAddress: () => address,

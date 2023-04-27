@@ -19,13 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       DEFAULT: 0
     },
-    createdAt: {
-      field: 'created_at',
+    created_at: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    updatedAt: {
-      field: 'updated_at',
+    updated_at: {
       type: DataTypes.DATE,
       allowNull: true,
     }
@@ -33,10 +31,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Roles',
     tableName: 'roles',
-    // timestamps: true,
-    // paranoid: false,
-    // createdAt: 'created_at',
-    // updatedAt: 'updated_at',
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   });
   return Roles;
 };

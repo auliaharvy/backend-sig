@@ -22,8 +22,10 @@ const selectCompany = ({
           // push items to array
           data.push({
             id: e.id,
-            idOrganization: e.idOrganization,
-            idCompanyType: e.idCompanyType,
+            id_organization: e.id_organization,
+            name_organization: e.name_organization,
+            id_company_type: e.id_company_type,
+            name_company_type: e.name_company_type,
             name: e.name ? e.name : null,
             code: e.code ? e.code : null,
             address: e.address ? e.address : null,
@@ -50,8 +52,10 @@ const selectCompany = ({
           // push items to array
           data.push({
             id: e.id,
-            idOrganization: e.idOrganization,
-            idCompanyType: e.idCompanyType,
+            id_organization: e.id_organization,
+            name_organization: e.name_organization,
+            id_company_type: e.id_company_type,
+            name_company_type: e.name_company_type,
             name: e.name ? e.name : null,
             code: e.code ? e.code : null,
             address: e.address ? e.address : null,

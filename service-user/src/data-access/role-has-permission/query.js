@@ -9,14 +9,14 @@ const query = ({
   });
 
   async function selectPermissionByRoleId({
-    idUser
+    id_role
   }) {
     try {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "role_has_permission" WHERE user_id = $1;`;
-        const params = [idUser];
+        const sql = `SELECT * FROM "role_has_permission" WHERE id_role = $1;`;
+        const params = [id_role];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
 

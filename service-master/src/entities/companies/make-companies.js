@@ -1,7 +1,7 @@
 const makeCompany = ({}) => {
   return function make({
-    idOrganization,
-    idCompanyType,
+    id_organization,
+    id_company_type,
     name,
     code,
     address,
@@ -12,10 +12,10 @@ const makeCompany = ({}) => {
     createdBy,
     updatedBy
   } = {}) {
-    if (!idOrganization) {
+    if (!id_organization) {
       throw new Error("Please enter Organization.");
     }
-    if (!idCompanyType) {
+    if (!id_company_type) {
       throw new Error("Please enter Company Type.");
     }
     if (!name) {
@@ -46,8 +46,8 @@ const makeCompany = ({}) => {
       updatedBy = null;
     }
     return Object.freeze({
-      getOrganization: () => idOrganization,
-      getCompanyType: () => idCompanyType,
+      getOrganization: () => id_organization,
+      getCompanyType: () => id_company_type,
       getName: () => name,
       getCode: () => code,
       getAddress: () => address,

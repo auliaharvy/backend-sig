@@ -57,7 +57,10 @@ const query = ({
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "mst_companies";`;
+        const sql = `SELECT c.*, o.name as name_organization , ct.name as name_company_type FROM "mst_companies" as c
+        JOIN "mst_organization" as o ON c."id_organization" = o.id
+        JOIN "mst_company_type" as ct ON c."id_company_type" = ct.id
+        WHERE c.is_deleted = 0;`;
         pool.query(sql, (err, res) => {
           pool.end(); // end connection
 
@@ -65,7 +68,6 @@ const query = ({
           resolve(res);
         });
       });
-
       return res;
     } catch (e) {
       console.log("Error: ", e);
@@ -79,7 +81,10 @@ const query = ({
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "mst_companies" WHERE id = $1;`;
+        const sql = `SELECT c.*, o.name as name_organization , ct.name as name_company_type FROM "mst_companies" as c
+        JOIN "mst_organization" as o ON c."id_organization" = o.id
+        JOIN "mst_company_type" as ct ON c."id_company_type" = ct.id
+        WHERE c.is_deleted = 0 AND c.id = $1;`;
         const params = [id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
@@ -131,8 +136,8 @@ const query = ({
       const Company = models.Companies;
       const res = await Company.update({
         name: data.name,
-        idOrganization: data.idOrganization,
-        idCompanyType: data.idCompanyType,
+        id_organization: data.id_organization,
+        id_company_type: data.id_company_type,
         code: data.code,
         address: data.address,
         phone: data.phone,
@@ -158,7 +163,9 @@ const query = ({
     try {
       // use sequelize on inserting
       const Company = models.Companies;
-      const res = await Company.destroy({
+      const res = await Company.update({
+        is_deleted: 1,
+      }, {
         where: {
           id,
         },
