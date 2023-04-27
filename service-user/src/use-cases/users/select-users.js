@@ -49,7 +49,7 @@ const selectUser = ({
             id: e.id,
             fullname: e.fullname ? e.fullname : null,
             username: e.username ? e.username : null,
-            emaail: e.email ? e.email : null,
+            email: e.email ? e.email : null,
             created_at: e.created_at,
             updated_at: e.updated_at,
           });

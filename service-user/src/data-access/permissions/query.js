@@ -57,7 +57,7 @@ const query = ({
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "permissions";`;
+        const sql = `SELECT * FROM "permissions" WHERE is_deleted = 0;`;
         pool.query(sql, (err, res) => {
           pool.end(); // end connection
 
@@ -79,7 +79,7 @@ const query = ({
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "permissions" WHERE id = $1;`;
+        const sql = `SELECT * FROM "permissions" WHERE id = $1 AND is_deleted = 0;`;
         const params = [id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection

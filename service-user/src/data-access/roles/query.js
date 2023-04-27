@@ -62,6 +62,14 @@ const query = ({
         });
       });
 
+      // use sequelize on selecting
+      // const Role = models.Roles;
+      // const res = await Role.findOne({
+      //   where: {
+      //     name: data.name
+      //   }
+      // });
+
       return res;
     } catch (e) {
       console.log("Error: ", e);
@@ -132,6 +140,14 @@ const query = ({
           resolve(res);
         });
       });
+
+      // use sequelize on select
+      // const Role = models.Roles;
+      // const res = await Role.findOne({
+      //   where: {
+      //     id: id
+      //   }
+      // });
 
       return res;
     } catch (e) {

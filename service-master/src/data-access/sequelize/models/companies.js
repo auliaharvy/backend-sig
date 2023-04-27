@@ -17,15 +17,16 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     is_deleted: {
       type: DataTypes.INTEGER,
-      DEFAULT: 0
+      allowNull: false,
+      defaultValue: 0,
     },
-    idOrganization: {
-      field: 'id_organization',
+    id_organization: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    idCompanyType: {
-      field: 'id_company_type',
+    id_company_type: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     code: DataTypes.STRING,
     address: DataTypes.STRING,
@@ -36,20 +37,18 @@ module.exports = (sequelize, DataTypes) => {
     createdBy: {
       field: 'created_by',
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
     },
     updatedBy: {
       field: 'updated_by',
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    createdAt: {
-      field: 'created_at',
+    created_at: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    updatedAt: {
-      field: 'updated_at',
+    updated_at: {
       type: DataTypes.DATE,
       allowNull: true,
     }
@@ -57,10 +56,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Companies',
     tableName: 'mst_companies',
-    // timestamps: true,
-    // paranoid: false,
-    // createdAt: 'created_at',
-    // updatedAt: 'updated_at',
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   });
   return Companies;
 };

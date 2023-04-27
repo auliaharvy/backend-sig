@@ -10,8 +10,8 @@ const updateCompany = ({
 
     data = {
       id: data.getId(),
-      idOrganization: data.getOrganization(),
-      idCompanyType: data.getCompanyType(),
+      id_organization: data.getOrganization(),
+      id_company_type: data.getCompanyType(),
       name: data.getName(),
       code: data.getCode(),
       address: data.getAddress(),
