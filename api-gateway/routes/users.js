@@ -5,7 +5,7 @@ const verifyToken = require('../middlewares/verifyToken');
 /* GET users listing. */
 router.post('/register', userHandler.register);
 router.post('/login', userHandler.login);
-router.put('/', userHandler.update);
+router.patch('/:id', userHandler.update);
 router.get('/:id', userHandler.getUser);
 router.get('/', userHandler.getAll);
 router.delete('/:id', userHandler.deleteUser);
