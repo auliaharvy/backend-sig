@@ -25,8 +25,6 @@ const selectUser = ({
             fullname: e.fullname ? e.fullname : null,
             username: e.username ? e.username : null,
             email: e.email ? e.email : null,
-            createdAt: e.createdAt,
-            updatedAt: e.updatedAt,
           });
         }
       }
@@ -50,8 +48,6 @@ const selectUser = ({
             fullname: e.fullname ? e.fullname : null,
             username: e.username ? e.username : null,
             email: e.email ? e.email : null,
-            created_at: e.created_at,
-            updated_at: e.updated_at,
           });
         }
       }

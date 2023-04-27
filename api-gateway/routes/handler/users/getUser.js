@@ -7,7 +7,7 @@ const api = apiAdapter(URL_SERVICE_USER);
 
 module.exports = async (req, res) => {
     try {
-        const id = req.user.data.id;
+        const id = req.params.id;
         const user = await api.get(`/api/users/${id}`);
         return res.json(user.data);
     } catch (error) {
