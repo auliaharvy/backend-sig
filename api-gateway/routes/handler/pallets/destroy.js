@@ -1,15 +1,15 @@
 const apiAdapter = require('../../apiAdapter');
 const {
-    URL_SERVICE_USER
+    URL_SERVICE_MASTER
 } = process.env;
 
-const api = apiAdapter(URL_SERVICE_USER);
+const api = apiAdapter(URL_SERVICE_MASTER);
 
 module.exports = async (req, res) => {
     try {
         const id = req.params.id;
-        const user = await api.patch(`/api/users/${id}`, req.body);
-        return res.json(user.data);
+        const pallet = await api.delete(`api/pallets/${id}`);
+        return res.json(pallet.data);
     } catch (error) {
 
         if (error.code === "ECONNREFUSED") {

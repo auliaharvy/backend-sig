@@ -1,5 +1,5 @@
-const selectUser = ({
-  usersDB
+const selectPallet = ({
+  palletsDB
 }) => {
   return async function select(info) {
     let data = [];
@@ -10,7 +10,7 @@ const selectUser = ({
 
     if (id) {
       // select one
-      const res = await usersDB.selectOne({
+      const res = await palletsDB.selectOne({
         id
       });
       if (res.rowCount > 0) {
@@ -22,20 +22,20 @@ const selectUser = ({
           // push items to array
           data.push({
             id: e.id,
-            fullname: e.fullname ? e.fullname : null,
-            username: e.username ? e.username : null,
-            email: e.email ? e.email : null,
+            name: e.name ? e.name : null,
+            created_by: e.created_by ? e.created_by : null,
+            updated_by: e.updated_by ? e.updated_by : null,
           });
         }
       }
       return ({
         status: 200,
         message: "Success",
-        data: data
-      })
+        data: data,
+      });
     } else {
       // select all
-      const res = await usersDB.selectAll({});
+      const res = await palletsDB.selectAll({});
       if (res.rowCount > 0) {
         // only when there is data returned
         const items = res.rows;
@@ -45,9 +45,9 @@ const selectUser = ({
           // push items to array
           data.push({
             id: e.id,
-            fullname: e.fullname ? e.fullname : null,
-            username: e.username ? e.username : null,
-            email: e.email ? e.email : null,
+            name: e.name ? e.name : null,
+            created_by: e.created_by ? e.created_by : null,
+            updated_by: e.updated_by ? e.updated_by : null,
           });
         }
       }
@@ -55,9 +55,9 @@ const selectUser = ({
     return ({
       status: 200,
       message: "Success",
-      data: data
-    })
+      data: data,
+    });
   };
 };
 
-module.exports = selectUser;
+module.exports = selectPallet;
