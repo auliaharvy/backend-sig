@@ -1,34 +1,33 @@
 const {
   makeCompanies,
-  patchCompanies
+  patchCompanies,
 } = require("../../entities/companies/app"); // entity
 const companiesDB = require("../../data-access/companies/app"); // database queries
-const {
-  encrypt,
-  decrypt
-} = require("../../functions/app");
-const bcrypt = require('bcrypt');
+const { encrypt, decrypt } = require("../../functions/app");
+const bcrypt = require("bcrypt");
+
 // #########
 const addCompany = require("./insert-companies");
 const selectCompany = require("./select-companies");
 const editCompany = require("./update-companies");
 const deleteCompany = require("./delete-companies");
+
 // #########
 const addCompanies = addCompany({
   makeCompanies,
   companiesDB,
-  bcrypt
+  bcrypt,
 });
 
 const selectCompanies = selectCompany({
-  companiesDB
+  companiesDB,
 });
 const updateCompanies = editCompany({
   companiesDB,
-  patchCompanies
+  patchCompanies,
 });
 const deleteCompanies = deleteCompany({
-  companiesDB
+  companiesDB,
 });
 // #########
 const services = Object.freeze({

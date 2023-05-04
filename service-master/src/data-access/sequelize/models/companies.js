@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Companies.associate = function(models) {
+        Companies.belongsTo(models.Organization, {foreignKey: 'id_organization', as: 'organization'})
+        Companies.belongsToMany(models.Pallets, {through: 'CompaniesPallet', foreignKey: 'mst_companies_id', as: 'pallets'})
+      };
     }
   }
   Companies.init({

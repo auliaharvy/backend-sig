@@ -109,8 +109,9 @@ const query = ({
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "roles";`;
-        pool.query(sql, (err, res) => {
+        const sql = `SELECT * FROM "roles" WHERE "is_deleted" = $1;`;
+        const params = [0];
+        pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
 
           if (err) resolve(err);

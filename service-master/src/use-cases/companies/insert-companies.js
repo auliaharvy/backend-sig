@@ -1,7 +1,4 @@
-const addCompany = ({
-  makeCompanies,
-  companiesDB
-}) => {
+const addCompany = ({ makeCompanies, companiesDB }) => {
   return async function post(info) {
     let data = await makeCompanies(info); // entity
 
@@ -16,17 +13,18 @@ const addCompany = ({
       email: data.getEmail(),
       tag: data.getTag(),
       createdBy: data.getCreatedBy(),
-      updatedBy: data.getUpdatedBy()
+      updatedBy: data.getUpdatedBy(),
     };
     // to do checking if name already exist
     const check = await companiesDB.checkCompanyExist({
-      data
+      data,
     });
     if (check.rowCount > 0)
       throw new Error(`Company already exist, please check.`);
+
     //   insert
     const res = await companiesDB.insertCompany({
-      data
+      data,
     });
 
     // ##
@@ -34,9 +32,9 @@ const addCompany = ({
 
     if (res) {
       msg = `Company has been added successfully.`;
-      return msg;
+      return res;
     } else {
-      throw new Error(msg);
+      throw new Error(res);
     }
   };
 };

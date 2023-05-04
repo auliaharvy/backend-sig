@@ -11,7 +11,6 @@ const patchCompany = ({
     phone,
     email,
     tag,
-    createdBy,
     updatedBy
   } = {}) {
     if (!id) {
@@ -44,9 +43,9 @@ const patchCompany = ({
     if (!tag) {
       throw new Error("Please enter Tag.");
     }
-    if (!createdBy) {
-      throw new Error("Please enter Created By.");
-    }
+    // if (!createdBy) {
+    //   throw new Error("Please enter Created By.");
+    // }
     if (!updatedBy) {
       throw new Error("Please enter Updated By.");
     }
@@ -61,7 +60,7 @@ const patchCompany = ({
       getPhone: () => phone,
       getEmail: () => email,
       getTag: () => tag,
-      getCreatedBy: () => createdBy,
+      // getCreatedBy: () => createdBy,
       getUpdatedBy: () => updatedBy,
 
     });

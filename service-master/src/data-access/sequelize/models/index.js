@@ -40,4 +40,19 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+// company have pallet
+db.companies = require("./companies")(sequelize, Sequelize);
+db.mstPallet = require("./pallets")(sequelize, Sequelize);
+
+db.companies.belongsToMany(db.mstPallet, {
+  through: "mst_pallet_mst_companies",
+  as: "mst_companies",
+  foreignKey: "mst_companies_id",
+});
+db.mstPallet.belongsToMany(db.companies, {
+  through: "mst_pallet_mst_companies",
+  as: "mst_pallet",
+  foreignKey: "mst_pallet_id",
+});
+
 module.exports = db;

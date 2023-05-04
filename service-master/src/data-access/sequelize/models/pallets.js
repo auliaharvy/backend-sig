@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Pallets.associate = function(models) {
+        Pallets.belongsToMany(models.Companies, {through: 'CompaniesPallet', foreignKey: 'mst_pallet_id', as: 'companies'})
+      };
     }
   }
   Pallets.init({

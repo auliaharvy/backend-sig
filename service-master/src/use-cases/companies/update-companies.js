@@ -19,7 +19,6 @@ const updateCompany = ({
       phone: data.getPhone(),
       email: data.getEmail(),
       tag: data.getTag(),
-      createdBy: data.getCreatedBy(),
       updatedBy: data.getUpdatedBy(),
     };
 
@@ -28,6 +27,7 @@ const updateCompany = ({
     const checkId = await companiesDB.selectOne({
       id: data.id
     });
+    console.log(checkId);
     if (checkId.rowCount == 0)
       throw new Error(`Company doesn't exist, please check.`);
 

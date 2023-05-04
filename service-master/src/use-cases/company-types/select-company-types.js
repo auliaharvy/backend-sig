@@ -28,11 +28,7 @@ const selectCompanyType = ({
           });
         }
       }
-      return ({
-        status: 200,
-        message: "Success",
-        data: data,
-      });
+      return data;
     } else {
       // select all
       const res = await companyTypesDB.selectAll({});
@@ -52,11 +48,7 @@ const selectCompanyType = ({
         }
       }
     }
-    return ({
-      status: 200,
-      message: "Success",
-      data: data,
-    });
+    return data;
   };
 };
 

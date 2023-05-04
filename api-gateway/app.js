@@ -17,10 +17,14 @@ const employeeRouter = require('./routes/employee');
 const organizationsRouter = require('./routes/organizations');
 const companyTypesRouter = require('./routes/company-types');
 const companiesRouter = require('./routes/companies');
+const driversRouter = require('./routes/drivers');
 const palletsRouter = require('./routes/pallets');
 const transactionRouter = require('./routes/transaction');
 const refreshTokenRouter = require('./routes/refreshToken');
 const webhookRouter = require('./routes/webhook');
+
+//Service-transaction
+const sjpsRouter = require('./routes/sjps');
 
 const verifyToken = require('./middlewares/verifyToken');
 const can = require('./middlewares/permission');
@@ -55,9 +59,15 @@ app.use('/employee', employeeRouter);
 app.use('/organizations', organizationsRouter);
 app.use('/company-types', companyTypesRouter);
 app.use('/companies', companiesRouter);
+app.use('/drivers', driversRouter);
 app.use('/pallets', palletsRouter);
 app.use('/transaction', transactionRouter);
 app.use('/token', refreshTokenRouter);
+
+//Service-transaction routes
+app.use('/sjps', sjpsRouter);
+
+
 //app.use('/my-courses',verifyToken,can('admin','student'), myCourseRouter);
 app.use('/webhook', webhookRouter);
 

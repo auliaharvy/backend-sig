@@ -9,6 +9,7 @@ dotenv.config();
 
 var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users');
+var sjpsRouter = require('./src/routes/sjps/app');
 
 var app = express();
 
@@ -29,11 +30,8 @@ app.use('/users', usersRouter);
 //employe routes
 app.use("/api/transaction", require("./src/routes/transaction/app"))
 
-app.get('/api/transaction/hello', function (req, res) {
-  data = { "msg" : "Hi to Transaction Service Docker"};
-  res.type("json");
-  res.status(httpResponse.statusCode).send(data);
-});
+//organizations routes
+app.use("/api/sjps", sjpsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
