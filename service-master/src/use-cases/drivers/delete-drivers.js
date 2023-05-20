@@ -1,17 +1,17 @@
-const deleteCompany = ({
-  companiesDB
+const deleteDriver = ({
+  driversDb
 }) => {
   return async function select(info) {
     const {
       id
     } = info;
     // delete query
-    const res = await companiesDB.deleteCompany({
+    const res = await driversDb.deleteDriver({
       id
     });
-    let msg = `Company was not deleted, please try again.`;
+    let msg = `Driver was not deleted, please try again.`;
     if (res == 1) {
-      msg = `Company deleted successfully.`;
+      msg = `Driver deleted successfully.`;
       return msg;
     } else {
       throw new Error(msg);
@@ -19,4 +19,4 @@ const deleteCompany = ({
   };
 };
 
-module.exports = deleteCompany;
+module.exports = deleteDriver;

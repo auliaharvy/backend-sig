@@ -9,6 +9,7 @@ dotenv.config();
 
 var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users');
+var palletMovementsRouter = require('./src/routes/pallet-movements/app');
 
 var app = express();
 
@@ -28,6 +29,9 @@ app.use('/users', usersRouter);
 
 //employe routes
 app.use("/api/employees", require("./src/routes/employees/app"))
+
+// palet movement
+app.use("/api/pallet-movements", palletMovementsRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

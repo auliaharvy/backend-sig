@@ -13,6 +13,7 @@ var organizationsRouter = require('./src/routes/organizations/app');
 var companyTypesRouter = require('./src/routes/company-types/app');
 var companiesRouter = require('./src/routes/companies/app');
 var driversRouter = require('./src/routes/drivers/app');
+var trucksRouter = require('./src/routes/trucks/app');
 var palletsRouter = require('./src/routes/pallets/app');
 
 var app = express();
@@ -45,6 +46,8 @@ app.use("/api/company-types", companyTypesRouter);
 app.use("/api/companies", companiesRouter);
 //drivers routes
 app.use("/api/drivers", driversRouter);
+//trucks routes
+app.use("/api/trucks", trucksRouter);
 //pallets routes
 app.use("/api/pallets", palletsRouter);
 

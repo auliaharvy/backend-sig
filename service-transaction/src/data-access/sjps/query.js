@@ -107,11 +107,16 @@ const query = ({ connects, models }) => {
       try {
         const pool = await connects();
   
-        const { id_truck } = data; // deconstruct
-  
+        const { id_truck, id_new_truck, change_type } = data; // deconstruct
+        var truckId;
         const res = await new Promise((resolve) => {
           const sql = `SELECT id FROM "trx_sjp" WHERE "id_truck" = $1 AND "trx_status" != $2 AND "is_deleted" = $3;`;
-          const params = [id_truck, 4, 0];
+          if(change_type === 'change_truck') {
+            truckId = id_new_truck;
+          } else {
+            truckId = id_truck;
+          }
+          const params = [truckId, 4, 0];
           pool.query(sql, params, (err, res) => {
             pool.end(); // end connection
   
@@ -164,7 +169,7 @@ const query = ({ connects, models }) => {
           JOIN "mst_truck" as e ON a."id_truck" = e.id
           JOIN "mst_driver" as f ON a."id_driver" = f.id
           WHERE a.is_deleted = 0
-          ORDER BY a.created_at DESC`;;
+          ORDER BY a.created_at DESC`;
           pool.query(sql, (err, res) => {
             pool.end(); // end connection
   
@@ -184,7 +189,17 @@ const query = ({ connects, models }) => {
         const pool = await connects();
   
         const res = await new Promise((resolve) => {
-          const sql = `SELECT * FROM "Employees" WHERE id = $1;`;
+          const sql = `SELECT a.*, b.name as departure_company,
+          c.name as destination_company,  d.name as transporter_company,
+          e.license_plate, f.name as driver_name
+          FROM "trx_sjp" as a
+          JOIN "mst_companies" as b ON a."id_departure_company" = b.id
+          JOIN "mst_companies" as c ON a."id_destination_company" = c.id
+          JOIN "mst_companies" as d ON a."id_transporter_company" = d.id
+          JOIN "mst_truck" as e ON a."id_truck" = e.id
+          JOIN "mst_driver" as f ON a."id_driver" = f.id
+          WHERE a.is_deleted = 0 AND a.id = $1
+          ORDER BY a.created_at DESC`;
           const params = [id];
           pool.query(sql, params, (err, res) => {
             pool.end(); // end connection
@@ -229,7 +244,7 @@ const query = ({ connects, models }) => {
         const Sjp = models.Sjps;
         const res = await Sjp.update(
           {
-            id_destination_company: data.id_destination_company,
+            id_destination_company: data.id_new_destination_company,
           },
           {
             where: {
@@ -250,7 +265,7 @@ const query = ({ connects, models }) => {
         const res = await Sjp.update(
           {
             second_driver: data.second_driver,
-            id_truck: data.id_truck,
+            id_truck: data.id_new_truck,
           },
           {
             where: {

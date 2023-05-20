@@ -6,8 +6,10 @@ const updateSjp = ({ sjpDb, patchSjps }) => {
         id: data.getId(),
         id_departure_company: data.getDeparture(),
         id_destination_company: data.getDestination(),
+        id_new_destination_company: data.getNewDestination(),
         id_transporter_company: data.getTransporter(),
         id_truck: data.getTruck(),
+        id_new_truck: data.getNewTruck(),
         id_driver: data.getDriver(),
         second_driver: data.getSecondDriver(),
         no_do: data.getNoDo(),
@@ -21,8 +23,10 @@ const updateSjp = ({ sjpDb, patchSjps }) => {
         change_type: data.getChangeType(),
       };
 
+      console.log(data);
+      // check transaction type
       if (data.change_type === 'change_destination') {
-        // check id if employee exist
+        // check id if SJP exist
         const checkId = await sjpDb.selectOne({ id: data.id });
         if (checkId.rowCount == 0)
           throw new Error(`SJP doesn't exist, please check.`);
@@ -39,11 +43,16 @@ const updateSjp = ({ sjpDb, patchSjps }) => {
         }
       }
 
+      // check transaction type
       if (data.change_type === 'change_truck') {
         // check id if employee exist
         const checkId = await sjpDb.selectOne({ id: data.id });
         if (checkId.rowCount == 0)
           throw new Error(`SJP doesn't exist, please check.`);
+
+          const check = await sjpDb.checkTruck({ data });
+          if (check.rowCount > 0)
+            throw new Error(`This Truck not yet close SJP, please check or change truck.`);
 
         // update
         const res = await sjpDb.changeTruck({ data });

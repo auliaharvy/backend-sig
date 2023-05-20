@@ -12,6 +12,8 @@ const addSjp = ({ makeSjps, sjpDb, trxNumbersDb }) => {
         tonnage: data.getTonnage(),
         packaging: data.getPackaging(),
         product_quantity: data.getProductQuantity(),
+        eta: data.getEta(),
+        departure_time: data.getDepartureTime(),
         pallet_quantity: data.getPalletQuantity(),
         createdBy: data.getCreatedBy(),
         updatedBy: data.getUpdatedBy(),

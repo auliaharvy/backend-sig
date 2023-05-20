@@ -18,6 +18,7 @@ const organizationsRouter = require('./routes/organizations');
 const companyTypesRouter = require('./routes/company-types');
 const companiesRouter = require('./routes/companies');
 const driversRouter = require('./routes/drivers');
+const trucksRouter = require('./routes/trucks');
 const palletsRouter = require('./routes/pallets');
 const transactionRouter = require('./routes/transaction');
 const refreshTokenRouter = require('./routes/refreshToken');
@@ -25,6 +26,19 @@ const webhookRouter = require('./routes/webhook');
 
 //Service-transaction
 const sjpsRouter = require('./routes/sjps');
+const sjpStatussRouter = require('./routes/sjp-statuss');
+const palletTransfersRouter = require('./routes/pallet-transfers');
+const changeQuotasRouter = require('./routes/change-quotas');
+const newPalletsRouter = require('./routes/new-pallets');
+const palletRealizationsRouter = require('./routes/pallet-realizations');
+const claimPalletsRouter = require('./routes/claim-pallets');
+const sewaPalletsRouter = require('./routes/sewa-pallets');
+const damagedPalletsRouter = require('./routes/damaged-pallets');
+const repairedPalletsRouter = require('./routes/repaired-pallets');
+const transporterAdjusmentRouter = require('./routes/transporter-adjusments');
+
+//Service-reporting
+const palletMovementsRouter = require('./routes/pallet-movements');
 
 const verifyToken = require('./middlewares/verifyToken');
 const can = require('./middlewares/permission');
@@ -60,12 +74,26 @@ app.use('/organizations', organizationsRouter);
 app.use('/company-types', companyTypesRouter);
 app.use('/companies', companiesRouter);
 app.use('/drivers', driversRouter);
+app.use('/trucks', trucksRouter);
 app.use('/pallets', palletsRouter);
 app.use('/transaction', transactionRouter);
 app.use('/token', refreshTokenRouter);
 
 //Service-transaction routes
 app.use('/sjps', sjpsRouter);
+app.use('/sjp-statuss', sjpStatussRouter);
+app.use('/pallet-transfers', palletTransfersRouter);
+app.use('/change-quotas', changeQuotasRouter);
+app.use('/new-pallets', newPalletsRouter);
+app.use('/pallet-realizations', palletRealizationsRouter);
+app.use('/claim-pallets', claimPalletsRouter);
+app.use('/sewa-pallets', sewaPalletsRouter);
+app.use('/damaged-pallets', damagedPalletsRouter);
+app.use('/repaired-pallets', repairedPalletsRouter);
+app.use('/transporter-adjusments', transporterAdjusmentRouter);
+
+//Service-reporting routes
+app.use('/pallet-movements', palletMovementsRouter);
 
 
 //app.use('/my-courses',verifyToken,can('admin','student'), myCourseRouter);

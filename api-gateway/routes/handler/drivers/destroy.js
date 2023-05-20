@@ -8,8 +8,8 @@ const api = apiAdapter(URL_SERVICE_MASTER);
 module.exports = async (req, res) => {
     try {
         const id = req.params.id;
-        const company = await api.delete(`api/companies/${id}`);
-        return res.json(company.data);
+        const driver = await api.delete(`api/drivers/${id}`);
+        return res.json(driver.data);
     } catch (error) {
 
         if (error.code === "ECONNREFUSED") {
