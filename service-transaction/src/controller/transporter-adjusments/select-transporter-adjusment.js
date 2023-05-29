@@ -1,4 +1,4 @@
-const repairedPalletsSelect = ({ selectRepairedPallets }) => {
+const transporterAdjusmentsSelect = ({ selectTransporterAdjusments }) => {
     return async function get(httpRequest) {
       const headers = {
         "Content-Type": "application/json",
@@ -16,7 +16,7 @@ const repairedPalletsSelect = ({ selectRepairedPallets }) => {
           source,
           id: httpRequest.params.id, // when id is passed
         };
-        const data = await selectRepairedPallets(toView);
+        const data = await selectTransporterAdjusments(toView);
         return {
           headers: {
             "Content-Type": "application/json",
@@ -38,4 +38,4 @@ const repairedPalletsSelect = ({ selectRepairedPallets }) => {
     };
   };
   
-  module.exports = repairedPalletsSelect;
+  module.exports = transporterAdjusmentsSelect;

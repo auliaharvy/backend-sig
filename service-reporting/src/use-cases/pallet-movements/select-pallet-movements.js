@@ -26,7 +26,7 @@ const selectPalletMovement = ({ palletMovementsDb }) => {
         // push items to array
         data.push({
           id: e.id,
-          trx_number: e.trx_number ? e.trx_number : null,
+          trx_number: sjp.trx_number ? sjp.trx_number : null,
           departure: departure.name ? departure.name : null,
           destination: destination.name ? destination.name : null,
           transporter: transporter.name ? transporter.name : null,

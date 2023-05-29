@@ -13,6 +13,7 @@ const makeSjpStatus = ({}) => {
     ber_pallet,
     missing_pallet,
     is_sendback,
+    sjp_status,
     created_by,
     updated_by,
   } = {}) {
@@ -51,6 +52,7 @@ const makeSjpStatus = ({}) => {
       getMissingPallet: () => missing_pallet,
       getCreatedBy: () => created_by,
       getUpdatedBy: () => updated_by,
+      getSjpStatus: () => sjp_status,
     });
   };
 };

@@ -1,4 +1,4 @@
-const palletMovementsSelect = ({ selectPalletMovements }) => {
+const totalPalletsSelect = ({ selectTotalPallets }) => {
     return async function get(httpRequest) {
       const headers = {
         "Content-Type": "application/json",
@@ -16,7 +16,7 @@ const palletMovementsSelect = ({ selectPalletMovements }) => {
           source,
           id: httpRequest.params.id, // when id is passed
         };
-        const data = await selectPalletMovements(toView);
+        const data = await selectTotalPallets(toView);
         return {
           headers: {
             "Content-Type": "application/json",
@@ -38,4 +38,4 @@ const palletMovementsSelect = ({ selectPalletMovements }) => {
     };
   };
   
-  module.exports = palletMovementsSelect;
+  module.exports = totalPalletsSelect;

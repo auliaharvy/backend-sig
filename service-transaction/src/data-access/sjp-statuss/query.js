@@ -9,13 +9,14 @@ const query = ({ connects, models }) => {
       checkNameExistUpdate,
       deleteSjpStatus,
       approval,
-      sending,
       updatePalletQtySending,
       receiving,
       updatePalletQtyReceiving,
       getPalletQuantity,
       checkDepartureQty,
       updateStatusSjp,
+      checkTransporterQty,
+      
     });
 
     async function updateStatusSjp({ data }) {
@@ -23,7 +24,14 @@ const query = ({ connects, models }) => {
         var trxStatus = 0;
         if (data.sjp_status == 'send') {
           trxStatus = 1;
+        } if (data.sjp_status == 'receive') {
+          trxStatus = 2;
+        } if (data.sjp_status == 'sendback') {
+          trxStatus = 3;
+        } if (data.sjp_status == 'receive_sendback') {
+          trxStatus = 4;
         }
+
         // use sequelize on inserting
         const Sjp = models.Sjps;
         const res = await Sjp.update(
@@ -44,6 +52,12 @@ const query = ({ connects, models }) => {
 
     async function checkDepartureQty({ data }) {
       try {
+        var id_company = 0;
+        if(data.is_sendback == 0) {
+          id_company = data.id_departure_company;
+        } if(data.is_sendback == 1) {
+          id_company = data.id_destination_company;
+        }
         const pool = await connects();
   
         const res = await new Promise((resolve) => {
@@ -51,7 +65,30 @@ const query = ({ connects, models }) => {
           FROM "mst_pallet_mst_companies" as a
           JOIN "mst_pallet" as b ON a."mst_pallet_id" = b.id
           WHERE a.mst_companies_id = $1;`;
-          const params = [data.id_departure_company];
+          const params = [id_company];
+          pool.query(sql, params, (err, res) => {
+            pool.end(); // end connection
+            if (err) resolve(err);
+            resolve(res);
+          });
+        });
+  
+        return res;
+      } catch (e) {
+        console.log("Error: ", e);
+      }
+    }
+
+    async function checkTransporterQty({ data }) {
+      try {
+        const pool = await connects();
+  
+        const res = await new Promise((resolve) => {
+          const sql = `SELECT b.name as kondisi_pallet , a.quantity
+          FROM "mst_pallet_mst_companies" as a
+          JOIN "mst_pallet" as b ON a."mst_pallet_id" = b.id
+          WHERE a.mst_companies_id = $1;`;
+          const params = [data.id_transporter_company];
           pool.query(sql, params, (err, res) => {
             pool.end(); // end connection
             if (err) resolve(err);
@@ -71,9 +108,9 @@ const query = ({ connects, models }) => {
   
         const res = await new Promise((resolve) => {
           const sql = `SELECT b.name as kondisi_pallet , a.quantity
-          FROM "mst_pallet_mst_companies" as a
+          FROM "trx_sjp_status_mst_pallet" as a
           JOIN "mst_pallet" as b ON a."mst_pallet_id" = b.id
-          WHERE a.mst_pallet_mst_companies = $1;`;
+          WHERE a.trx_sjp_status_id = $1;`;
           const params = [id];
           pool.query(sql, params, (err, res) => {
             pool.end(); // end connection
@@ -131,34 +168,6 @@ const query = ({ connects, models }) => {
       }
     }
 
-    async function sending({ data }) {
-      try {
-        // use sequelize on inserting
-        const PalletTransfer = models.PalletTransfers;
-        const res = await PalletTransfer.update(
-          {
-            note: data.note,
-            status: data.status,
-            id_user_checker_sender: data.id_user_checker_sender,
-            updated_by: data.updatedBy,
-          },
-          {
-            where: {
-              id: data.id,
-            },
-          }
-        );
-
-        // update pallet departure
-        const DeparturePallet = models.PalletTransfers;
-
-        const updateQtyDeparture = DeparturePallet
-        return res;
-      } catch (e) {
-        console.log("Error: ", e);
-      }
-    }
-
     async function updatePalletQtySending({ data }) {
       try {
         const pool = await connects();
@@ -173,6 +182,12 @@ const query = ({ connects, models }) => {
           });
         });
 
+        var id_company = 0;
+        if (data.is_sendback == 0) {
+          id_company = data.id_departure_company
+        } if (data.is_sendback == 1) {
+          id_company = data.id_destination_company
+        }
         // update data sending
 
         // update data departure company
@@ -182,41 +197,41 @@ const query = ({ connects, models }) => {
             FROM "mst_pallet_mst_companies" as a
             JOIN "mst_pallet" as b ON a."mst_pallet_id" = b.id
             WHERE a.mst_companies_id = $1 AND a.mst_pallet_id = $2;`;
-            const params = [data.id_departure_company, mstPallet.id];
+            const params = [id_company, mstPallet.id];
             pool.query(sql, params, (err, res) => {
               if (err) resolve(err);
               resolve(res);
             });
           });
 
-          var dataPalletCompanyDeparture = {
+          var dataPalletCompany = {
             'mst_pallet_id': mstPallet.id,
-            'mst_companies_id': data.id_departure_company,
+            'mst_companies_id': id_company,
             'quantity': quantityPallet.rows[0].quantity,
             'quantityNew': 0
           }
           if (mstPallet.name == 'Good Pallet') {
-            dataPalletCompanyDeparture.quantityNew = parseInt(dataPalletCompanyDeparture.quantity) - parseInt(data.good_pallet)
+            dataPalletCompany.quantityNew = parseInt(dataPalletCompany.quantity) - parseInt(data.good_pallet)
           }
           if (mstPallet.name == 'TBR Pallet') {
-            dataPalletCompanyDeparture.quantityNew = parseInt(dataPalletCompanyDeparture.quantity) - parseInt(data.tbr_pallet)
+            dataPalletCompany.quantityNew = parseInt(dataPalletCompany.quantity) - parseInt(data.tbr_pallet)
           }
           if (mstPallet.name == 'BER Pallet') {
-            dataPalletCompanyDeparture.quantityNew = parseInt(dataPalletCompanyDeparture.quantity) - parseInt(data.ber_pallet)
+            dataPalletCompany.quantityNew = parseInt(dataPalletCompany.quantity) - parseInt(data.ber_pallet)
           }
           if (mstPallet.name == 'Missing Pallet') {
-            dataPalletCompanyDeparture.quantityNew = parseInt(dataPalletCompanyDeparture.quantity) - parseInt(data.missing_pallet)
+            dataPalletCompany.quantityNew = parseInt(dataPalletCompany.quantity) - parseInt(data.missing_pallet)
           }
           
           const DepartureCompanyPallet = models.CompaniesPallet;
           const updateDeparturePalletQty = await DepartureCompanyPallet.update(
             {
-              quantity: dataPalletCompanyDeparture.quantityNew,
+              quantity: dataPalletCompany.quantityNew,
             },
             {
               where: {
-                mst_companies_id: dataPalletCompanyDeparture.mst_companies_id,
-                mst_pallet_id: dataPalletCompanyDeparture.mst_pallet_id,
+                mst_companies_id: dataPalletCompany.mst_companies_id,
+                mst_pallet_id: dataPalletCompany.mst_pallet_id,
               },
             }
           );
@@ -279,13 +294,12 @@ const query = ({ connects, models }) => {
     async function receiving({ data }) {
       try {
         // use sequelize on inserting
-        const PalletTransfer = models.PalletTransfers;
-        const res = await PalletTransfer.update(
+        const SjpStatus = models.SjpStatuss;
+        const res = await SjpStatus.update(
           {
             note: data.note,
             status: data.status,
-            id_user_checker_receiver: data.id_user_checker_receiver,
-            updated_by: data.updatedBy,
+            id_user_receiver: data.id_user_receiver,
           },
           {
             where: {
@@ -314,16 +328,23 @@ const query = ({ connects, models }) => {
           });
         });
 
-        // update data sending
+        // update data receiving
 
-        // update data departure company
+        var id_company = 0;
+        if (data.is_sendback == 0) {
+          id_company = data.id_destination_company
+        } if (data.is_sendback == 1) {
+          id_company = data.id_departure_company
+        }
+
+        // update data company
         for (const mstPallet of mstPallets) {
           const quantityPallet = await new Promise((resolve) => {
             const sql = `SELECT b.name as kondisi_pallet , a.quantity
             FROM "mst_pallet_mst_companies" as a
             JOIN "mst_pallet" as b ON a."mst_pallet_id" = b.id
             WHERE a.mst_companies_id = $1 AND a.mst_pallet_id = $2;`;
-            const params = [data.id_company_destination, mstPallet.id];
+            const params = [id_company, mstPallet.id];
             pool.query(sql, params, (err, res) => {
               if (err) resolve(err);
               resolve(res);
@@ -332,7 +353,7 @@ const query = ({ connects, models }) => {
 
           var dataPalletCompanyDestination = {
             'mst_pallet_id': mstPallet.id,
-            'mst_companies_id': data.id_company_destination,
+            'mst_companies_id': id_company,
             'quantity': quantityPallet.rows[0].quantity,
             'quantityNew': 0
           }
@@ -371,7 +392,7 @@ const query = ({ connects, models }) => {
             FROM "mst_pallet_mst_companies" as a
             JOIN "mst_pallet" as b ON a."mst_pallet_id" = b.id
             WHERE a.mst_companies_id = $1 AND a.mst_pallet_id = $2;`;
-            const params = [data.id_company_transporter, mstPallet.id];
+            const params = [data.id_transporter_company, mstPallet.id];
             pool.query(sql, params, (err, res) => {
               if (err) resolve(err);
               resolve(res);
@@ -380,22 +401,93 @@ const query = ({ connects, models }) => {
 
           var dataPalletCompanyTransporter = {
             'mst_pallet_id': mstPallet.id,
-            'mst_companies_id': data.id_company_transporter,
+            'mst_companies_id': data.id_transporter_company,
             'quantity': quantityPallet.rows[0].quantity,
             'quantityNew': 0
           }
-          if (mstPallet.name == 'Good Pallet') {
-            dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.good_pallet)
+
+          if (data.is_sendback == 0) {
+            if (mstPallet.name == 'Good Pallet') {
+              dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.totalSendPallet)
+            }
           }
-          if (mstPallet.name == 'TBR Pallet') {
-            dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.tbr_pallet)
+
+          if (data.is_sendback == 1) {
+            var goodTbrPallet =  parseInt(data.good_pallet) - parseInt(data.tbr_pallet);
+            var missingBerPallet = parseInt(data.ber_pallet) + parseInt(data.missing_pallet)
+            // if(data.tbr_pallet > (parseInt(data.totalSendPallet) - parseInt(data.good_pallet)) ||  missingBerPallet > (parseInt(data.totalSendPallet) - goodTbrPallet))
+
+            // cek apakah awalnya tidak ada kirim pallet TBR
+            if(data.send_tbr_pallet == 0) {
+              if(missingBerPallet > 0) {
+                if (mstPallet.name == 'Good Pallet') {
+                  dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - (missingBerPallet + parseInt(data.good_pallet))
+                }
+                if (mstPallet.name == 'BER Pallet') {
+                  dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.ber_pallet)
+                }
+                if (mstPallet.name == 'Missing Pallet') {
+                  dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.missing_pallet)
+                }
+              } else {
+                if (mstPallet.name == 'Good Pallet') {
+                  dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.send_good_pallet)
+                }
+              } 
+            } else if (data.tbr_pallet > data.send_tbr_pallet) { //jika penerimaan tbr pallet lebih besar dari yang di kirim
+              if(missingBerPallet > 0) {
+                var selisihTbrPallet = data.tbr_pallet - data.send_tbr_pallet;
+                var selisihGoodPallet = data.send_good_pallet - data.good_pallet;
+                if(selisihGoodPallet == selisihTbrPallet) {
+                  if (mstPallet.name == 'Good Pallet') {
+                    dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - (selisihGoodPallet + missingBerPallet)
+                  }
+                  if (mstPallet.name == 'TBR Pallet') {
+                    dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - (selisihTbrPallet + missingBerPallet)
+                  }
+                  if (mstPallet.name == 'BER Pallet') {
+                    dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) + parseInt(data.ber_pallet)
+                  }
+                  if (mstPallet.name == 'Missing Pallet') {
+                    dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) + parseInt(data.missing_pallet)
+                  }
+                }
+              } else {
+                var selisihTbrPallet = data.tbr_pallet - data.send_tbr_pallet;
+                var selisihGoodPallet = data.send_good_pallet - data.good_pallet;
+                if(selisihGoodPallet == selisihTbrPallet) {
+                  if (mstPallet.name == 'Good Pallet') {
+                    dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.send_good_pallet)
+                  }
+                  if (mstPallet.name == 'TBR Pallet') {
+                    dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.send_tbr_pallet)
+                  }
+                }
+              }
+            } else if(data.good_pallet == data.send_good_pallet && data.tbr_pallet == data.send_tbr_pallet) {
+              if (mstPallet.name == 'Good Pallet') {
+                dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.send_good_pallet)
+              }
+              if (mstPallet.name == 'TBR Pallet') {
+                dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.send_tbr_pallet)
+              }
+            } else {
+              if (mstPallet.name == 'Good Pallet') {
+                dataPalletCompanyDestination.quantityNew = parseInt(dataPalletCompanyDestination.quantity) - parseInt(data.good_pallet)
+              }
+              if (mstPallet.name == 'TBR Pallet') {
+                dataPalletCompanyDestination.quantityNew = parseInt(dataPalletCompanyDestination.quantity) - parseInt(data.tbr_pallet)
+              }
+              if (mstPallet.name == 'BER Pallet') {
+                dataPalletCompanyDestination.quantityNew = parseInt(dataPalletCompanyDestination.quantity) - parseInt(data.ber_pallet)
+              }
+              if (mstPallet.name == 'Missing Pallet') {
+                dataPalletCompanyDestination.quantityNew = parseInt(dataPalletCompanyDestination.quantity) - parseInt(data.missing_pallet)
+              }
+            }
+            
           }
-          if (mstPallet.name == 'BER Pallet') {
-            dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.ber_pallet)
-          }
-          if (mstPallet.name == 'Missing Pallet') {
-            dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.missing_pallet)
-          }
+          
           
           const TransporterCompanyPallet = models.CompaniesPallet;
           const updateTransporterPalletQty = await TransporterCompanyPallet.update(
@@ -582,7 +674,7 @@ const query = ({ connects, models }) => {
         const pool = await connects();
   
         const res = await new Promise((resolve) => {
-          const sql = `SELECT a.*,b.trx_number as sjp_number, b.id_departure_company, b.id_destination_company, b.id_transporter_company, b.pallet_quantity,
+          const sql = `SELECT a.*,b.trx_number as sjp_number, b.id_departure_company, b.id_destination_company, b.id_transporter_company, b.pallet_quantity, b.trx_status as status_sjp,
           c.name as departure_company,
           d.name as destination_company, e.name as transporter_company, f.username as sender_name,
           g.username as receiver_name
@@ -615,6 +707,7 @@ const query = ({ connects, models }) => {
   
         const res = await new Promise((resolve) => {
           const sql = `SELECT a.*,b.trx_number as sjp_number, b.id_departure_company, b.id_destination_company, b.id_transporter_company, b.pallet_quantity,
+          b.id_truck, b.id_driver,
           c.name as departure_company,
           d.name as destination_company, e.name as transporter_company, f.username as sender_name,
           g.username as receiver_name

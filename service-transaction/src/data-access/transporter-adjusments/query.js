@@ -9,7 +9,8 @@ const query = ({ connects, models }) => {
     approvalManager,
     checkCompany,
     checkQty,
-    updatePalletQty
+    updatePalletQty,
+    getPalletQuantity
   });
 
   async function deleteItem({ id }) {
@@ -59,6 +60,37 @@ const query = ({ connects, models }) => {
       // use sequelize on inserting
       const transporterAdjusment = models.TransporterAdjusments;
       const res = await transporterAdjusment.create(data);
+      const idTransporterAdjusment = res.id;
+
+      const pool = await connects();
+
+        const mstPallets = await new Promise((resolve) => {
+        const sql = `SELECT * FROM "mst_pallet" WHERE is_deleted = 0;`;
+          pool.query(sql, (err, res) => {
+            pool.end(); // end connection
+
+            if (err) resolve(err);
+            resolve(res.rows);
+          });
+        });
+        
+        for (const mstPallet of mstPallets) {
+          var dataPalletinAdjusment = {
+            'mst_pallet_id': mstPallet.id,
+            'trx_transporter_adjusment_id': idTransporterAdjusment,
+            'quantity': 0
+          }
+          if (mstPallet.name == 'Good Pallet') {
+            dataPalletinAdjusment.quantity = data.good_pallet
+          }
+          if (mstPallet.name == 'TBR Pallet') {
+            dataPalletinAdjusment.quantity = data.tbr_pallet
+          }
+          
+          // tambah quantity pallet untuk claim pallet
+          const palletTransporterAdjusment = models.TransporterAdjusmentPallets;
+          const res = await palletTransporterAdjusment.create(dataPalletinAdjusment);
+        }
 
       return res;
     } catch (e) {
@@ -151,12 +183,13 @@ const query = ({ connects, models }) => {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT a.*, b.name as company_name, c.username as reporter_name
-          FROM "trx_repaired_pallet" as a
-          JOIN "mst_companies" as b ON a."id_company" = b.id
-          LEFT JOIN "users" as c ON a."id_user_reporter" = c.id
-          WHERE a.is_deleted = 0
-          ORDER BY a.created_at DESC`;
+        const sql = `SELECT a.*, b.name as transporter_name, c.name as company_name,d.username as reporter_name
+        FROM "trx_transporter_adjusment" as a
+        JOIN "mst_companies" as b ON a."id_company_transporter" = b.id
+        JOIN "mst_companies" as c ON a."id_company" = c.id
+        LEFT JOIN "users" as d ON a."id_user_reporter" = d.id
+        WHERE a.is_deleted = 0
+        ORDER BY a.created_at DESC`;
         pool.query(sql, (err, res) => {
           pool.end(); // end connection
 
@@ -406,6 +439,29 @@ const query = ({ connects, models }) => {
       pool.end();
 
       return 'success update pallet';
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+  }
+
+  async function getPalletQuantity(id) {
+    try {
+      const pool = await connects();
+
+      const res = await new Promise((resolve) => {
+        const sql = `SELECT b.name as kondisi_pallet , a.quantity
+        FROM "trx_transporter_adjusment_mst_pallet" as a
+        JOIN "mst_pallet" as b ON a."mst_pallet_id" = b.id
+        WHERE a.trx_transporter_adjusment_id = $1;`;
+        const params = [id];
+        pool.query(sql, params, (err, res) => {
+          pool.end(); // end connection
+          if (err) resolve(err);
+          resolve(res);
+        });
+      });
+
+      return res;
     } catch (e) {
       console.log("Error: ", e);
     }

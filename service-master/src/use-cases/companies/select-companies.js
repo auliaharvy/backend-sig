@@ -20,6 +20,26 @@ const selectCompany = ({ companiesDB }) => {
             id
           );
 
+          var qtyGoodPallet = 0;
+          var qtyTbrPallet = 0;
+          var qtyBerPallet = 0;
+          var qtyMissingPallet = 0;
+          console.log(resPalletQuantity.rows);
+          for (const qtyPallet of resPalletQuantity.rows) {
+            if(qtyPallet.kondisi_pallet == 'Good Pallet') {
+              qtyGoodPallet = parseInt(qtyPallet.quantity)
+            }
+            if(qtyPallet.kondisi_pallet == 'TBR Pallet') {
+              qtyTbrPallet = parseInt(qtyPallet.quantity)
+            }
+            if(qtyPallet.kondisi_pallet == 'BER Pallet') {
+              qtyBerPallet = parseInt(qtyPallet.quantity)
+            }
+            if(qtyPallet.kondisi_pallet == 'Missing Pallet') {
+              qtyMissingPallet = parseInt(qtyPallet.quantity)
+            }
+          }  
+
           // push items to array
           data.push({
             id: e.id,
@@ -35,24 +55,11 @@ const selectCompany = ({ companiesDB }) => {
             email: e.email ? e.email : null,
             tag: e.tag ? e.tag : null,
             quota: e.pallet_quota ? e.pallet_quota : null,
-            palletQuantity: resPalletQuantity.rows ? resPalletQuantity.rows : [
-              {
-                kondisi_pallet: "TBR Pallet",
-                "quantity": 0
-              },
-              {
-                kondisi_pallet: "BER Pallet",
-                  "quantity": 0
-              },
-              {
-                kondisi_pallet: "Missing Pallet",
-                  "quantity": 0
-              },
-              {
-                kondisi_pallet: "Good Pallet",
-                  "quantity": 0
-              }
-            ],
+            good_pallet: qtyGoodPallet ? qtyGoodPallet : 0,
+            tbr_pallet: qtyTbrPallet ? qtyTbrPallet : 0,
+            ber_pallet: qtyBerPallet ? qtyBerPallet : 0,
+            missing_pallet: qtyMissingPallet ? qtyMissingPallet : 0,
+            total_pallet: qtyGoodPallet + qtyTbrPallet + qtyBerPallet + qtyMissingPallet,
             createdBy: e.createdBy,
             updatedBy: e.updatedBy,
             createdAt: e.createdAt,
@@ -76,6 +83,26 @@ const selectCompany = ({ companiesDB }) => {
             idCompany
           );
 
+          var qtyGoodPallet = 0;
+          var qtyTbrPallet = 0;
+          var qtyBerPallet = 0;
+          var qtyMissingPallet = 0;
+          console.log(resPalletQuantity.rows);
+          for (const qtyPallet of resPalletQuantity.rows) {
+            if(qtyPallet.kondisi_pallet == 'Good Pallet') {
+              qtyGoodPallet = parseInt(qtyPallet.quantity)
+            }
+            if(qtyPallet.kondisi_pallet == 'TBR Pallet') {
+              qtyTbrPallet = parseInt(qtyPallet.quantity)
+            }
+            if(qtyPallet.kondisi_pallet == 'BER Pallet') {
+              qtyBerPallet = parseInt(qtyPallet.quantity)
+            }
+            if(qtyPallet.kondisi_pallet == 'Missing Pallet') {
+              qtyMissingPallet = parseInt(qtyPallet.quantity)
+            }
+          }  
+
           // push items to array
           data.push({
             id: e.id,
@@ -91,24 +118,11 @@ const selectCompany = ({ companiesDB }) => {
             email: e.email ? e.email : null,
             tag: e.tag ? e.tag : null,
             quota: e.pallet_quota ? e.pallet_quota : null,
-            palletQuantity: resPalletQuantity.rows ? resPalletQuantity.rows : [
-              {
-                kondisi_pallet: "TBR Pallet",
-                "quantity": 0
-              },
-              {
-                kondisi_pallet: "BER Pallet",
-                  "quantity": 0
-              },
-              {
-                kondisi_pallet: "Missing Pallet",
-                  "quantity": 0
-              },
-              {
-                kondisi_pallet: "Good Pallet",
-                  "quantity": 0
-              }
-            ],
+            good_pallet: qtyGoodPallet ? qtyGoodPallet : 0,
+            tbr_pallet: qtyTbrPallet ? qtyTbrPallet : 0,
+            ber_pallet: qtyBerPallet ? qtyBerPallet : 0,
+            missing_pallet: qtyMissingPallet ? qtyMissingPallet : 0,
+            total_pallet: qtyGoodPallet + qtyTbrPallet + qtyBerPallet + qtyMissingPallet,
             createdBy: e.createdBy,
             updatedBy: e.updatedBy,
             createdAt: e.createdAt,
