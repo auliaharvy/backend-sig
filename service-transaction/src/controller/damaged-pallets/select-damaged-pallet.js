@@ -15,6 +15,8 @@ const damagedPalletsSelect = ({ selectDamagedPallets }) => {
           ...info,
           source,
           id: httpRequest.params.id, // when id is passed
+          from: httpRequest.query.from,
+          to: httpRequest.query.to,
         };
         const data = await selectDamagedPallets(toView);
         return {

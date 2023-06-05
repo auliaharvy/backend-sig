@@ -3,6 +3,7 @@ const {
   trucksUpdates,
   trucksDeletes,
   truckAdds,
+  bulkTruckAdds,
 } = require("../../controller/trucks/app");
 
 const route = ({
@@ -17,6 +18,7 @@ const route = ({
   // #####
   // POST
   router.post("/", makeExpressCallback(truckAdds));
+  router.post("/bulk", makeExpressCallback(bulkTruckAdds));
 
   // #####
   // PATCH

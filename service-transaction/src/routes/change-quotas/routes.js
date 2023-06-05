@@ -14,6 +14,7 @@ const route = ({
   // GET
   router.get("/", makeExpressCallback(changeQuotaSelects));
   router.get("/:id", makeExpressCallback(changeQuotaSelects));
+  router.get("/export", makeExpressCallback(changeQuotaSelects));
   // #####
   // POST
   router.post("/", makeExpressCallback(changeQuotaAdds));

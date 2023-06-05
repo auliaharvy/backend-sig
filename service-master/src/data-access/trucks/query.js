@@ -2,6 +2,7 @@ const query = ({ connects, models }) => {
   return Object.freeze({
     checkTruckExist,
     insertTruck,
+    bulkInsertTruck,
     selectAll,
     selectOne,
     checkTruckExistUpdate,
@@ -14,6 +15,21 @@ const query = ({ connects, models }) => {
       // use sequelize on inserting
       const Truck = models.Trucks;
       const res = await Truck.create(data);
+
+      return res;
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+  }
+
+  async function bulkInsertTruck(data) {
+    try {
+      // use sequelize on inserting
+      const Truck = models.Trucks;
+      const res = await Truck.bulkCreate(data, {
+        fields: ['license_plate', 'id_company', 'createdBy', 'updatedBy', 'transporter_code'],
+        ignoreDuplicates: true,
+      });
 
       return res;
     } catch (e) {

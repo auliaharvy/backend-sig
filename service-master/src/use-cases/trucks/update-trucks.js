@@ -10,7 +10,7 @@ const updateTruck = ({
 
     data = {
       id: data.getId(),
-      id_company: data.getCompany(),
+      id_company: 4,
       license_plate: data.getLicensePlate(),
       updatedBy: data.getUpdatedBy(),
     };

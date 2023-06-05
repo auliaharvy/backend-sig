@@ -14,6 +14,7 @@ const route = ({
   // GET
   router.get("/", makeExpressCallback(sewaPalletSelects));
   router.get("/:id", makeExpressCallback(sewaPalletSelects));
+  router.get("/export", makeExpressCallback(sewaPalletSelects));
   // #####
   // POST
   router.post("/", makeExpressCallback(sewaPalletAdds));

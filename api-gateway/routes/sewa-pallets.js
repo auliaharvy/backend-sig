@@ -6,6 +6,7 @@ const verifyToken = require('../middlewares/verifyToken');
 router.post('/', sewaPalletHandler.create);
 // router.get('/', verifyToken, companyHandler.getAll);
 router.get('/', sewaPalletHandler.getAll);
+router.get('/export', sewaPalletHandler.exportData);
 router.get('/:id', sewaPalletHandler.getDetail);
 router.patch('/:id', sewaPalletHandler.update);
 router.delete('/:id', sewaPalletHandler.destroy);

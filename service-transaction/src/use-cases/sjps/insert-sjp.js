@@ -48,8 +48,36 @@ const addSjp = ({ makeSjps, sjpDb, trxNumbersDb }) => {
         id: dataTrxNumber.id,
         increment_number: incrNumber ++,
       };
-      const trxNumberUpdate = await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber });
-      console.log(trxNumberUpdate);
+      await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber });
+
+      // TODO all transaction SJP
+      // all Transaction Record
+      // get LOG NUMBER
+      const logNumber = await sjpDb.getLogNumber();
+      const dataLogNumber = logNumber.rows[0];
+      var incrLogNumber = parseInt(dataLogNumber.increment_number) + 1;
+      var FormatedIncrLogNumber = '';
+      if (incrLogNumber < 10) {
+        FormatedIncrLogNumber = '000' + incrLogNumber;
+      } else if (incrLogNumber < 100) {
+        FormatedIncrLogNumber = '00' + incrLogNumber;
+      } else if (incrLogNumber < 1000) {
+        FormatedIncrLogNumber = '0' + incrLogNumber;
+      } else {dataUpdateTrxNumber
+        FormatedIncrLogNumber = incrLogNumber;
+      }
+      data.log_number = dataLogNumber.trx_type + '-' + dataLogNumber.year + dataLogNumber.month + '-' + FormatedIncrLogNumber;
+      // update logNumber
+      const dataUpdateLogNumber = {
+        id: dataLogNumber.id,
+        increment_number: incrLogNumber ++,
+      };
+      await trxNumbersDb.patchTrxNumber({ dataUpdateLogNumber });
+
+      await sjpDb.recordAllTransaction({ data });
+
+
+
 
       // ##
       let msg = `Error on inserting SJP, please try again.`;

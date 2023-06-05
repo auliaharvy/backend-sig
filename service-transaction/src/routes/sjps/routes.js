@@ -14,6 +14,7 @@ const route = ({
   // GET
   router.get("/", makeExpressCallback(sjpSelects));
   router.get("/:id", makeExpressCallback(sjpSelects));
+  router.get("/export", makeExpressCallback(sjpSelects));
   // #####
   // POST
   router.post("/", makeExpressCallback(sjpAdds));

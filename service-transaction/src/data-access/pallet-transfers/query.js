@@ -5,6 +5,7 @@ const query = ({ connects, models }) => {
       checkTruck,
       getTrxNumber,
       selectAll,
+      exportAll,
       selectOne,
       checkNameExistUpdate,
       deletePalletTransfer,
@@ -557,6 +558,38 @@ const query = ({ connects, models }) => {
           });
         });
   
+        return res;
+      } catch (e) {
+        console.log("Error: ", e);
+      }
+    }
+
+    async function exportAll({from, to}) {
+      try {
+        const pool = await connects();
+  
+        
+        const res = await new Promise((resolve) => {
+          const sql = `SELECT a.*, b.name as departure_company,
+          c.name as destination_company,  d.name as transporter_company,
+          e.license_plate, f.name as driver_name, g.username as sender_name
+          FROM "trx_pallet_transfer" as a
+          JOIN "mst_companies" as b ON a."id_company_departure" = b.id
+          JOIN "mst_companies" as c ON a."id_company_destination" = c.id
+          JOIN "mst_companies" as d ON a."id_company_transporter" = d.id
+          JOIN "mst_truck" as e ON a."id_truck" = e.id
+          JOIN "mst_driver" as f ON a."id_driver" = f.id
+          LEFT JOIN "users" as g ON a."id_user_checker_sender" = g.id
+          WHERE a.is_deleted = 0 AND a.created_at >= $1 AND a.created_at < $2
+          ORDER BY a.created_at DESC`;
+          const params = [from, to];
+          pool.query(sql, params, (err, res) => {
+            pool.end(); // end connection
+  
+            if (err) resolve(err);
+            resolve(res);
+          });
+        });
         return res;
       } catch (e) {
         console.log("Error: ", e);

@@ -3,7 +3,7 @@ const addTruck = ({ makeTrucks, trucksDb }) => {
     let data = await makeTrucks(info); // entity
 
     data = {
-      id_company: data.getCompany(),
+      id_company: 4,
       license_plate: data.getLicensePlate(),
       createdBy: data.getCreatedBy(),
       updatedBy: data.getUpdatedBy(),

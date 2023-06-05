@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Trucks.init({
     id_company: DataTypes.INTEGER,
     license_plate: DataTypes.STRING,
+    transporter_code: DataTypes.STRING,
     createdBy: {
       field: 'created_by',
       type: DataTypes.INTEGER,
@@ -37,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
     is_deleted: DataTypes.INTEGER,
   }, {
     sequelize,
+    indexes: [{
+      unique: true,
+      fields: ['license_plate'] // you can use multiple columns as well here
+    }],
     modelName: 'Trucks',
     tableName: 'mst_truck',
     // timestamps: true,

@@ -41,6 +41,9 @@ const transporterAdjusmentRouter = require('./routes/transporter-adjusments');
 const palletMovementsRouter = require('./routes/pallet-movements');
 const dashboardsRouter = require('./routes/dashboards');
 
+//API - External
+const apiExternalRouter = require('./routes/api-external');
+
 const verifyToken = require('./middlewares/verifyToken');
 const can = require('./middlewares/permission');
 
@@ -96,6 +99,9 @@ app.use('/transporter-adjusments', transporterAdjusmentRouter);
 //Service-reporting routes
 app.use('/pallet-movements', palletMovementsRouter);
 app.use('/dashboards', dashboardsRouter);
+
+//API - External routes
+app.use('/api-external', apiExternalRouter);
 
 
 //app.use('/my-courses',verifyToken,can('admin','student'), myCourseRouter);

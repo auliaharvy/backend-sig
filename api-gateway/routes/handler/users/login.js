@@ -27,7 +27,8 @@ module.exports = async (req, res) => {
             status: 'success',
             data: {
                 token,
-                refresh_token: refreshtoken
+                refresh_token: refreshtoken,
+                data: data
             }
         });
     } catch (error) {

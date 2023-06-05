@@ -14,6 +14,7 @@ const route = ({
   // GET
   router.get("/", makeExpressCallback(palletRealizationSelects));
   router.get("/:id", makeExpressCallback(palletRealizationSelects));
+  router.get("/export", makeExpressCallback(palletRealizationSelects));
   // #####
   // POST
   router.post("/", makeExpressCallback(palletRealizationAdds));

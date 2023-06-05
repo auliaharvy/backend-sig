@@ -19,6 +19,7 @@ const selectTruck = ({ trucksDb }) => {
           data.push({
             id: e.id,
             id_company: e.id_company,
+            transporter_code: e.transporter_code,
             license_plate: e.license_plate,
             company_name: e.company_name,
           });
@@ -37,6 +38,7 @@ const selectTruck = ({ trucksDb }) => {
           data.push({
             id: e.id,
             id_company: e.id_company,
+            transporter_code: e.transporter_code,
             license_plate: e.license_plate,
             company_name: e.company_name,
           });

@@ -4,12 +4,15 @@ const query = ({ connects, models }) => {
       checkNameExist,
       checkTruck,
       getTrxNumber,
+      getLogNumber,
       selectAll,
       selectOne,
       checkNameExistUpdate,
       changeDestination,
       deleteSjp,
       changeTruck,
+      recordAllTransaction,
+      exportAll
     });
   
     async function deleteSjp({ id }) {
@@ -87,6 +90,66 @@ const query = ({ connects, models }) => {
           const res = await new Promise((resolve) => {
             const sql = `SELECT * FROM "mst_trx_number" WHERE "trx_type" = $1 AND "month" = $2 AND "year" = $3;`;
             const params = ['SJP', formatedMonth, year];
+            pool.query(sql, params, (err, res) => {
+              pool.end(); // end connection
+    
+              if (err) resolve(err);
+              resolve(res);
+            });
+          });
+          console.log(res);
+          return res;
+        }
+        
+      } catch (e) {
+        console.log("Error: ", e);
+      }
+    }
+
+    async function getLogNumber() {
+      try {
+        const pool = await connects();
+
+        // get month and year
+        const d = new Date();
+        let month = d.getMonth() + 1;
+        let year = d.getFullYear();
+        var formatedMonth;
+        if (month != '10' || month != '11' || month != '12') {
+          formatedMonth = '0' + month
+        } else {
+          formatedMonth = month
+        }
+
+        // query trx number
+        const res = await new Promise((resolve) => {
+          const sql = `SELECT * FROM "mst_trx_number" WHERE "trx_type" = $1 AND "month" = $2 AND "year" = $3;`;
+          const params = ['LOG', formatedMonth, year];
+          pool.query(sql, params, (err, res) => {
+  
+            if (err) resolve(err);
+            resolve(res);
+          });
+        });
+        
+        if (res.rowCount > 0) {
+          console.log(res);
+          return res;
+        } else {
+          // create txr number if not exist
+          const TrxNumber = models.TrxNumbers;
+          const resAdd = await TrxNumber.create({
+            trx_type: 'LOG',
+            code: '99',
+            month: formatedMonth,
+            year: year,
+            increment_number: 0
+          });
+
+          // query trx number
+          const res = await new Promise((resolve) => {
+            const sql = `SELECT * FROM "mst_trx_number" WHERE "trx_type" = $1 AND "month" = $2 AND "year" = $3;`;
+            const params = ['LOG', formatedMonth, year];
             pool.query(sql, params, (err, res) => {
               pool.end(); // end connection
     
@@ -183,6 +246,37 @@ const query = ({ connects, models }) => {
         console.log("Error: ", e);
       }
     }
+
+    async function exportAll({from, to}) {
+      try {
+        const pool = await connects();
+  
+        
+        const res = await new Promise((resolve) => {
+          const sql = `SELECT a.*, b.name as departure_company,
+          c.name as destination_company,  d.name as transporter_company,
+          e.license_plate, f.name as driver_name
+          FROM "trx_sjp" as a
+          JOIN "mst_companies" as b ON a."id_departure_company" = b.id
+          JOIN "mst_companies" as c ON a."id_destination_company" = c.id
+          JOIN "mst_companies" as d ON a."id_transporter_company" = d.id
+          JOIN "mst_truck" as e ON a."id_truck" = e.id
+          JOIN "mst_driver" as f ON a."id_driver" = f.id
+          WHERE a.is_deleted = 0 AND a.created_at >= $1 AND a.created_at < $2
+          ORDER BY a.created_at DESC`;
+          const params = [from, to];
+          pool.query(sql, params, (err, res) => {
+            pool.end(); // end connection
+  
+            if (err) resolve(err);
+            resolve(res);
+          });
+        });
+        return res;
+      } catch (e) {
+        console.log("Error: ", e);
+      }
+    }
   
     async function selectOne({ id }) {
       try {
@@ -220,7 +314,6 @@ const query = ({ connects, models }) => {
         const pool = await connects();
   
         const { firstName, lastName, id } = data; // deconstruct
-  
         const res = await new Promise((resolve) => {
           const sql = `SELECT id FROM "Employees" WHERE "firstName" = $1 AND id <> $3 AND "lastName" = $2 AND id <> $3;`;
           const params = [firstName, lastName, id];
@@ -279,5 +372,31 @@ const query = ({ connects, models }) => {
       }
     }
   };
+
+  async function recordAllTransaction({ data }) {
+    try {
+      var dataAllTransaction = {
+        id_sjp: data.id_sjp,
+        transaction: 'SJP',
+        no_do: data.no_do,
+        status: 'DRAFT',
+        sender_reporter: data.reporter,
+        company_departure: data.departure,
+        company_destination: data.destination,
+        company_transporter: data.transporter,
+        truck_number: data.truck_number,
+        driver_name: data.driver,
+        good_pallet: data.good_pallet,
+        reason: data.reason,
+        note: data.note
+      }
+      // use sequelize on inserting
+      const AllTransaction = models.AllTransactions;
+      const res = await AllTransaction.create(dataAllTransaction);
+      return res;
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+  }
   
   module.exports = query;

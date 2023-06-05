@@ -1,5 +1,6 @@
 const {
   makeTrucks,
+  bulkTrucks,
   patchTrucks,
 } = require("../../entities/trucks/app"); // entity
 const trucksDb = require("../../data-access/trucks/app"); // database queries
@@ -8,6 +9,7 @@ const bcrypt = require("bcrypt");
 
 // #########
 const addTruck = require("./insert-trucks");
+const bulkAddTruck = require("./bulk-insert-truck");
 const selectTruck = require("./select-trucks");
 const editTruck = require("./update-trucks");
 const deleteTruck = require("./delete-trucks");
@@ -15,6 +17,12 @@ const deleteTruck = require("./delete-trucks");
 // #########
 const addTrucks = addTruck({
   makeTrucks,
+  trucksDb,
+  bcrypt,
+});
+
+const bulkAddTrucks = bulkAddTruck({
+  bulkTrucks,
   trucksDb,
   bcrypt,
 });
@@ -32,6 +40,7 @@ const deleteTrucks = deleteTruck({
 // #########
 const services = Object.freeze({
   addTrucks,
+  bulkAddTrucks,
   selectTrucks,
   updateTrucks,
   deleteTrucks,
@@ -40,6 +49,7 @@ const services = Object.freeze({
 module.exports = services;
 module.exports = {
   addTrucks,
+  bulkAddTrucks,
   selectTrucks,
   updateTrucks,
   deleteTrucks,

@@ -4,6 +4,7 @@ const truckHandler = require('./handler/trucks');
 const verifyToken = require('../middlewares/verifyToken');
 
 router.post('/', truckHandler.create);
+router.post('/bulk', truckHandler.bulkCreate);
 // router.get('/', verifyToken, companyHandler.getAll);
 router.get('/', truckHandler.getAll);
 router.get('/:id', truckHandler.getTruck);

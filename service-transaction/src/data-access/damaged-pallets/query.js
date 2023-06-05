@@ -4,6 +4,7 @@ const query = ({ connects, models }) => {
     checkTrxNumberExist,
     getTrxNumber,
     selectAll,
+    exportAll,
     selectOne,
     deleteItem,
     approvalDistributor,
@@ -253,6 +254,32 @@ const query = ({ connects, models }) => {
         });
       });
 
+      return res;
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+  }
+
+  async function exportAll({from, to}) {
+    try {
+      const pool = await connects();
+
+      
+      const res = await new Promise((resolve) => {
+        const sql = `SELECT a.*, b.name as company_name, c.username as reporter_name
+        FROM "trx_damaged_pallet" as a
+        JOIN "mst_companies" as b ON a."id_company" = b.id
+        LEFT JOIN "users" as c ON a."id_user_reporter" = c.id
+        WHERE a.is_deleted = 0 AND a.created_at >= $1 AND a.created_at < $2
+        ORDER BY a.created_at DESC`;
+        const params = [from, to];
+        pool.query(sql, params, (err, res) => {
+          pool.end(); // end connection
+
+          if (err) resolve(err);
+          resolve(res);
+        });
+      });
       return res;
     } catch (e) {
       console.log("Error: ", e);

@@ -5,6 +5,7 @@ const query = ({ connects, models }) => {
       checkTruck,
       getTrxNumber,
       selectAll,
+      exportAll,
       selectOne,
       checkNameExistUpdate,
       deleteSjpStatus,
@@ -695,6 +696,39 @@ const query = ({ connects, models }) => {
           });
         });
   
+        return res;
+      } catch (e) {
+        console.log("Error: ", e);
+      }
+    }
+
+    async function exportAll({from, to}) {
+      try {
+        const pool = await connects();
+  
+        
+        const res = await new Promise((resolve) => {
+          const sql = `SELECT a.*,b.trx_number as sjp_number, b.id_departure_company, b.id_destination_company, b.id_transporter_company, b.pallet_quantity, b.trx_status as status_sjp,
+          c.name as departure_company,
+          d.name as destination_company, e.name as transporter_company, f.username as sender_name,
+          g.username as receiver_name
+          FROM "trx_sjp_status" as a
+          JOIN "trx_sjp" as b ON a."id_sjp" = b.id
+          JOIN "mst_companies" as c ON b."id_departure_company" = c.id
+          JOIN "mst_companies" as d ON b."id_destination_company" = d.id
+          JOIN "mst_companies" as e ON b."id_transporter_company" = e.id
+          LEFT JOIN "users" as f ON a."id_user_sender" = f.id
+          LEFT JOIN "users" as g ON a."id_user_receiver" = g.id
+          WHERE a.is_deleted = 0 AND a.created_at >= $1 AND a.created_at < $2
+          ORDER BY a.created_at DESC`;
+          const params = [from, to];
+          pool.query(sql, params, (err, res) => {
+            pool.end(); // end connection
+  
+            if (err) resolve(err);
+            resolve(res);
+          });
+        });
         return res;
       } catch (e) {
         console.log("Error: ", e);

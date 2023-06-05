@@ -14,6 +14,7 @@ const route = ({
   // GET
   router.get("/", makeExpressCallback(transporterAdjusmentSelects));
   router.get("/:id", makeExpressCallback(transporterAdjusmentSelects));
+  router.get("/export", makeExpressCallback(transporterAdjusmentSelects));
   // #####
   // POST
   router.post("/", makeExpressCallback(transporterAdjusmentAdds));
