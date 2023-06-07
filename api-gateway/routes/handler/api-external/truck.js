@@ -7,6 +7,7 @@ const api = apiAdapter(URL_API_SIG);
 
 module.exports = async (req, res) => {
     try {
+        console.log(req.body)
         const data = await api.post(`/dev/sd/sdonline/service/sinkronTruck.php`, req.body);
         return res.json(data.data);
     } catch (error) {
