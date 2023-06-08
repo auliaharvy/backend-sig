@@ -1,14 +1,17 @@
 const { makeSjpStatuss, patchSjpStatuss } = require("../../entities/sjp-statuss/app"); // entity
 const sjpStatusDb = require("../../data-access/sjp-statuss/app"); // database queries
+const sjpDb = require("../../data-access/sjps/app"); // database queries
 const trxNumbersDb = require("../../data-access/trx-numbers/app"); // database queries
 const { encrypt, decrypt } = require("../../functions/app");
 // #########
+const SENDMAIL = require("../../lib/mailer");
+const SJP_TEMPLATE = require("../../lib/mail-template/sjp-send");
 const addSjpStatus = require("./insert-sjp-status");
 const selectSjpStatus = require("./select-sjp-status");
 const updateSjpStatus = require("./update-sjp-status");
 const deleteSjpStatus = require("./delete-sjp-status");
 // #########
-const addSjpStatuss = addSjpStatus({ makeSjpStatuss, sjpStatusDb, trxNumbersDb });
+const addSjpStatuss = addSjpStatus({ makeSjpStatuss, sjpStatusDb, sjpDb,trxNumbersDb, SENDMAIL, SJP_TEMPLATE });
 const selectSjpStatuss = selectSjpStatus({ sjpStatusDb });
 const updateSjpStatuss = updateSjpStatus({ sjpStatusDb, patchSjpStatuss });
 const deleteSjpStatuss = deleteSjpStatus({ sjpStatusDb });

@@ -283,8 +283,8 @@ const query = ({ connects, models }) => {
         const pool = await connects();
   
         const res = await new Promise((resolve) => {
-          const sql = `SELECT a.*, b.name as departure_company,
-          c.name as destination_company,  d.name as transporter_company,
+          const sql = `SELECT a.*, b.name as departure_company, b.email as email_departure,
+          c.name as destination_company,  c.email as email_destination, d.name as transporter_company,
           e.license_plate, f.name as driver_name
           FROM "trx_sjp" as a
           JOIN "mst_companies" as b ON a."id_departure_company" = b.id

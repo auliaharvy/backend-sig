@@ -1,0 +1,35 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "logs/.d6e831466df2e515b9a50312063b2d7f8c34c7da-audit.json",
+    "files": [
+        {
+            "date": 1686236415230,
+            "name": "logs/pms-service-transaction-2023-06-08-22.log",
+            "hash": "e62713864d307c3380ad375e65503a96ab61b4ca81d2e3e188ade854a00bc0d0"
+        },
+        {
+            "date": 1686240643165,
+            "name": "logs/pms-service-transaction-2023-06-08-23.log",
+            "hash": "88b26b0655dfc6e8f5964a23b80e0d9efbc39ac0b68a29c6041b2ae194f002fa"
+        },
+        {
+            "date": 1686246675272,
+            "name": "logs/pms-service-transaction-2023-06-09-00.log",
+            "hash": "b01a6a9ed8f9b3bd8db635d17bad77781d2d7bc61be3af2b535b7b74ab3af31a"
+        },
+        {
+            "date": 1686247397656,
+            "name": "logs/pms-service-transaction-2023-06-09-01.log",
+            "hash": "f2f7362be901d5c5eb2c694f6410317a6a30a9a457f59c7f71ae8d1aa7401b61"
+        },
+        {
+            "date": 1686251269528,
+            "name": "logs/pms-service-transaction-2023-06-09-02.log",
+            "hash": "86928dc27a3029a1efe1a6eabae7a5898c200345c8fbdf71b5c06626aac5e1bc"
+        }
+    ],
+    "hashType": "sha256"
+}

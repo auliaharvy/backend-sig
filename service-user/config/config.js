@@ -27,5 +27,18 @@ module.exports = {
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
+  },
+  "logConfig": {
+    "logFolder": ".//logs//",
+    "logFile": "pms-service-user-%DATE%.log"
+  },
+  "logLevels": {
+      "error": 0,
+      "warn": 1,
+      "info": 2,
+      "http": 3,
+      "verbose": 4,
+      "debug": 5,
+      "silly": 6
   }
 }

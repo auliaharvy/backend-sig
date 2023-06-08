@@ -1,4 +1,4 @@
-const addChangeQuota = ({ makeChangeQuotas, changeQuotaDb, trxNumbersDb }) => {
+const addChangeQuota = ({ makeChangeQuotas, changeQuotaDb, trxNumbersDb, SENDMAIL, CHANGE_QUOTA_TEMPLATE }) => {
     return async function post(info) {
       let data = await makeChangeQuotas(info); // entity
   
@@ -37,6 +37,34 @@ const addChangeQuota = ({ makeChangeQuotas, changeQuotaDb, trxNumbersDb }) => {
         increment_number: incrNumber ++,
       };
       const trxNumberUpdate = await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber });
+
+      // SEND MAIL
+        // get data SJP
+        const idTrans = res.dataValues.id;
+        const trans = await changeQuotaDb.selectOne({ id: idTrans });
+        if (trans.rowCount > 0) {
+          if(data.type == 0) {
+            data.type_name = 'Addition'
+          } else {
+            data.type_name = 'Reduction'
+          }
+          const dataTrans = trans.rows[0];
+          data.company_name = dataTrans.company_name;
+          data.requester_name = dataTrans.requester_name;
+        }
+
+        const mailOptions = {
+          from: "no-reply <pms.sig.dev@gmail.com>", // sender address
+          to: 'auliaharvy@gmail.com', // receiver email
+          subject: data.trx_number, // Subject line
+          text: data.trx_number,
+          html: CHANGE_QUOTA_TEMPLATE(data),
+        }
+
+        SENDMAIL(mailOptions, (info) => {
+          console.log("Email sent successfully");
+          console.log("MESSAGE ID: ", info.messageId);
+        });
 
       // ##
       let msg = `Error on inserting Change Quota, please try again.`;

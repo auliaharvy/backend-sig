@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const logger = require('../lib/logger');
 
 const {
     JWT_SECRET
@@ -9,6 +10,7 @@ module.exports = async (req, res, next) => {
     jwt.verify(
         token, JWT_SECRET, function(err, decoded) {
             if(err) {
+                logger.error(err);
                 return res.status(403).json({ message: err.message });
             }
             req.user = decoded;

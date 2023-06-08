@@ -3,12 +3,14 @@ const palletTransfersDb = require("../../data-access/pallet-transfers/app"); // 
 const trxNumbersDb = require("../../data-access/trx-numbers/app"); // database queries
 const { encrypt, decrypt } = require("../../functions/app");
 // #########
+const SENDMAIL = require("../../lib/mailer");
+const PALLET_TRANSFER_TEMPLATE = require("../../lib/mail-template/pallet-transfer-send");
 const addPalletTransfer = require("./insert-pallet-transfer");
 const selectPalletTransfer = require("./select-pallet-transfer");
 const updatePalletTransfer = require("./update-pallet-transfer");
 const deletePalletTransfer = require("./delete-pallet-transfer");
 // #########
-const addPalletTransfers = addPalletTransfer({ makePalletTransfers, palletTransfersDb, trxNumbersDb });
+const addPalletTransfers = addPalletTransfer({ makePalletTransfers, palletTransfersDb, trxNumbersDb, SENDMAIL, PALLET_TRANSFER_TEMPLATE });
 const selectPalletTransfers = selectPalletTransfer({ palletTransfersDb });
 const updatePalletTransfers = updatePalletTransfer({ palletTransfersDb, patchPalletTransfers });
 const deletePalletTransfers = deletePalletTransfer({ palletTransfersDb });

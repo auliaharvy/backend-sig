@@ -258,7 +258,7 @@ const query = ({ connects, models }) => {
   
         const res = await new Promise((resolve) => {
           const sql = `SELECT a.*, b.name as company_name,
-          c.username as requester_name, d.username as approver_name
+          c.username as requester_name, c.email as requester_email,d.username as approver_name
           FROM "trx_change_quota" as a
           JOIN "mst_companies" as b ON a."id_company_requester" = b.id
           LEFT JOIN "users" as c ON a."id_requester" = c.id

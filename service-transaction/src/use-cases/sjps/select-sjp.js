@@ -4,7 +4,6 @@ const selectSjp = ({ sjpDb }) => {
   
       const { id } = info; // deconstruct
       const { from, to } = info;
-      console.log(from)
   
       if (id) {
         // select one

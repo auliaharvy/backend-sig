@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "winston": "^3.9.0",
+    "winston-daily-rotate-file": "^4.7.1"
+  }
+}

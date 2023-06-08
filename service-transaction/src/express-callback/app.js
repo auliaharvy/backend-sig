@@ -1,3 +1,4 @@
+const logger = require('../lib/logger');
 const makeExpressCallback = (controller) => {
   return (req, res) => {
     const httpRequest = {
@@ -6,7 +7,7 @@ const makeExpressCallback = (controller) => {
       params: req.params,
       ip: req.ip,
       method: req.method,
-      path: req.path,
+      path: req.baseUrl,
       headers: {
         "Content-Type": req.get("Content-Type"),
         Referer: req.get("referer"),
@@ -22,9 +23,15 @@ const makeExpressCallback = (controller) => {
           res.set(httpResponse.headers);
         }
         res.type("json");
+        const logMessage = httpResponse.statusCode + '-' + httpRequest.method +': ' + httpRequest.path + ' | ' + httpResponse.body.error;
+        logger.info(logMessage)
         res.status(httpResponse.statusCode).send(httpResponse.body);
       })
-      .catch((e) => res.sendStatus(500));
+      .catch((e) => {
+        console.log(e)
+        logger.error(e.message || "ERROR")
+        res.sendStatus(500)
+      });
   };
 };
 

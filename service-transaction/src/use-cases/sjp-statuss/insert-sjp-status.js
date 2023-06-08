@@ -1,4 +1,4 @@
-const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, trxNumbersDb }) => {
+const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, sjpDb,trxNumbersDb, SENDMAIL, SJP_TEMPLATE }) => {
     return async function post(info) {
       let data = await makeSjpStatuss(info); // entity
   
@@ -25,7 +25,6 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, trxNumbersDb }) => {
       if(data.is_sendback == 0) {
         const check = await sjpStatusDb.checkDepartureQty({ data });
         if (check.rowCount > 0) {
-          console.log(check)
           for (const mstPallet of check.rows) {
             if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < data.good_pallet) {
               throw new Error(`The Quantity of Good Pallet exceeds.`);
@@ -58,6 +57,7 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, trxNumbersDb }) => {
         }
         data.trx_number = dataTrxNumber.trx_type + '-' + dataTrxNumber.year + dataTrxNumber.month + '-' + FormatedIncrNumber;
 
+        
         //   insert SJP Status
         const res = await sjpStatusDb.insertNewSjpStatus({ data });
 
@@ -72,6 +72,38 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, trxNumbersDb }) => {
           increment_number: incrNumber ++,
         };
         const trxNumberUpdate = await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber });
+
+
+        // SEND MAIL
+        // get data SJP
+        const idSjp = data.id_sjp;
+        console.log(idSjp);
+        const sjp = await sjpDb.selectOne({ id: idSjp });
+        console.log(sjp);
+        if (sjp.rowCount > 0) {
+          const dataSjp = sjp.rows[0];
+          data.departure = dataSjp.departure_company;
+          data.email_departure = dataSjp.email_departure;
+          data.destination = dataSjp.destination_company;
+          data.email_destination = dataSjp.email_destination;
+          data.truck_number = dataSjp.license_plate;
+          data.driver = dataSjp.driver_name;
+        }
+
+
+        const mailOptions = {
+          from: "no-reply <pms.sig.dev@gmail.com>", // sender address
+          to: data.email_destination, // receiver email
+          subject: data.trx_number, // Subject line
+          text: data.trx_number,
+          html: SJP_TEMPLATE(data),
+        }
+
+        SENDMAIL(mailOptions, (info) => {
+          console.log("Email sent successfully");
+          console.log("MESSAGE ID: ", info.messageId);
+        });
+
         let msg = `Error on inserting SJP Status, please try again.`;
         if (res) {
           msg = `SJP Status has been added successfully.`;
@@ -82,7 +114,6 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, trxNumbersDb }) => {
       } else {
         const check = await sjpStatusDb.checkDepartureQty({ data });
         if (check.rowCount > 0) {
-          console.log(check)
           for (const mstPallet of check.rows) {
             if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < data.good_pallet) {
               throw new Error(`The Quantity of Good Pallet exceeds.`);
@@ -130,6 +161,36 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, trxNumbersDb }) => {
           increment_number: incrNumber ++,
         };
         const trxNumberUpdate = await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber });
+
+        // SEND MAIL
+        // get data SJP
+        const idSjp = data.id_sjp;
+        const sjp = await sjpDb.selectOne({ id: idSjp });
+        console.log(sjp);
+        if (sjp.rowCount > 0) {
+          const dataSjp = sjp.rows[0];
+          data.departure = dataSjp.destination_company;
+          data.email_departure = dataSjp.email_destination;
+          data.destination = dataSjp.departure_company;
+          data.email_destination = dataSjp.email_departure;
+          data.transporter = dataSjp.transporter_company;
+          data.truck_number = dataSjp.license_plate;
+          data.driver = dataSjp.driver_name;
+        }
+
+
+        const mailOptions = {
+          from: "no-reply <pms.sig.dev@gmail.com>", // sender address
+          to: data.email_destination, // receiver email
+          subject: data.trx_number, // Subject line
+          text: data.trx_number,
+          html: SJP_TEMPLATE(data),
+        }
+
+        SENDMAIL(mailOptions, (info) => {
+          console.log("Email sent successfully");
+          console.log("MESSAGE ID: ", info.messageId);
+        });
         let msg = `Error on inserting SJP Status, please try again.`;
         if (res) {
           msg = `SJP Status has been added successfully.`;

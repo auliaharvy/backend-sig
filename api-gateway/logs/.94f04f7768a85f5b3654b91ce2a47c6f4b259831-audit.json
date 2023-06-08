@@ -1,0 +1,65 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "logs/.94f04f7768a85f5b3654b91ce2a47c6f4b259831-audit.json",
+    "files": [
+        {
+            "date": 1686181454696,
+            "name": "logs/pms-api-gateway-2023-06-08-06.log",
+            "hash": "64dc8c7db743b8d26051106f2699de8dd892fb7c19c87b4f2b045c76800d242c"
+        },
+        {
+            "date": 1686183761393,
+            "name": "logs/pms-api-gateway-2023-06-08-07.log",
+            "hash": "c04b175f535b4201cee2e9d25b5d72ce61182056f5aaa4c9f074a4e456c20afc"
+        },
+        {
+            "date": 1686198993084,
+            "name": "logs/pms-api-gateway-2023-06-08-11.log",
+            "hash": "28eeedd318c5cf9e8e22369a7d6dcf1f0e8b73cb1710e80debf02fca9acf6d67"
+        },
+        {
+            "date": 1686200473052,
+            "name": "logs/pms-api-gateway-2023-06-08-12.log",
+            "hash": "a45e9a08f45573002aa995599008703cb9b4f29dc1b803c491f8952f36246b72"
+        },
+        {
+            "date": 1686229795156,
+            "name": "logs/pms-api-gateway-2023-06-08-20.log",
+            "hash": "862ddfa2d30bbdd45bc051579ef37bc6cdf2b31238558f496e5c46bb81ab1050"
+        },
+        {
+            "date": 1686233130759,
+            "name": "logs/pms-api-gateway-2023-06-08-21.log",
+            "hash": "e13be3a954eefcf49b933c1c409ce33b025e59229587f31eccff3d7acb1963c6"
+        },
+        {
+            "date": 1686236444321,
+            "name": "logs/pms-api-gateway-2023-06-08-22.log",
+            "hash": "c667fd7715281e70315c573fbbdad8fbf2e23734ac6c9f10e0b9fd4be6853073"
+        },
+        {
+            "date": 1686240881136,
+            "name": "logs/pms-api-gateway-2023-06-08-23.log",
+            "hash": "990d4f8f7f629d6c40fd26a7a6e0bda949c0190a6cc08f763c4875b21270745f"
+        },
+        {
+            "date": 1686246684639,
+            "name": "logs/pms-api-gateway-2023-06-09-00.log",
+            "hash": "14bbf0203990eccccc0005983d23dffceed65eb0ef68eb60284e5f9931081d20"
+        },
+        {
+            "date": 1686247424047,
+            "name": "logs/pms-api-gateway-2023-06-09-01.log",
+            "hash": "0a538e360e44f6b6bb2aac566a01f5d29364c3d3a7345609da4a9689d3c4121b"
+        },
+        {
+            "date": 1686251367242,
+            "name": "logs/pms-api-gateway-2023-06-09-02.log",
+            "hash": "1d7cbe1146505fc54b9121a07e5224e09cf7e8a9e6a2185bbd25ea715e1ef1b7"
+        }
+    ],
+    "hashType": "sha256"
+}

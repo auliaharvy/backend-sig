@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "logs/.9939c08d8f9a525bafe6ce44efd05ed4780984d8-audit.json",
+    "files": [
+        {
+            "date": 1686238190370,
+            "name": "logs/pms-service-user-2023-06-08-22.log",
+            "hash": "14e630d9dcb561fe96b6905915becbd9e50e72e8df65d2b1e7546a9073ba9468"
+        },
+        {
+            "date": 1686252682943,
+            "name": "logs/pms-service-user-2023-06-09-02.log",
+            "hash": "35006d5939c30af2fbfd37bb6f4c25d96157b6e96829b893551ba3646ba537b9"
+        }
+    ],
+    "hashType": "sha256"
+}

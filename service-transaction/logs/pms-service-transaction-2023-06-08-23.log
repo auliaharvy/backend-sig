@@ -1,0 +1,6 @@
+2023-06-08T16:14:41.099Z [32minfo[39m: 	200-GET: /api/sjp-statuss
+2023-06-08T16:14:46.146Z [32minfo[39m: 	200-GET: /api/sjps
+2023-06-08T16:14:49.120Z [32minfo[39m: 	200-GET: /api/sjps
+2023-06-08T16:14:59.336Z [32minfo[39m: 	201-POST: /api/sjp-statuss
+2023-06-08T16:14:59.661Z [32minfo[39m: 	200-GET: /api/sjp-statuss
+2023-06-08T16:15:00.105Z [32minfo[39m: 	200-GET: /api/sjp-statuss

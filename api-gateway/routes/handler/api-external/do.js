@@ -2,6 +2,8 @@ const apiAdapter = require('../../apiAdapter');
 const {
     URL_API_SIG
 } = process.env;
+const logger = require('../../../lib/logger');
+
 
 const api = apiAdapter(URL_API_SIG);
 const FormData = require('form-data');
@@ -19,7 +21,7 @@ module.exports = async (req, res) => {
         bodyFormData.append('X_LINE_SO', req.body.X_LINE_SO);
         bodyFormData.append('X_SO', req.body.X_SO);
         const data = await api.post(`/dev/sd/sdonline/service/get_realisasi.php`, bodyFormData);
-
+        logger.info(data.data);
         return res.json(data.data);
     } catch (error) {
         console.log(error);
