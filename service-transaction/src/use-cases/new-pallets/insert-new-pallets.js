@@ -1,4 +1,4 @@
-const addNewPallet = ({ makeNewPallets, newPalletDb, trxNumbersDb }) => {
+const addNewPallet = ({ makeNewPallets, newPalletDb, trxNumbersDb, SENDMAIL, NEW_PALLET_TEMPLATE }) => {
     return async function post(info) {
       let data = await makeNewPallets(info); // entity
   
@@ -39,6 +39,31 @@ const addNewPallet = ({ makeNewPallets, newPalletDb, trxNumbersDb }) => {
         increment_number: incrNumber ++,
       };
       const trxNumberUpdate = await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber });
+
+      // SEND MAIL
+        // get data SJP
+        const idTrans = res.dataValues.id;
+        const trans = await newPalletDb.selectOne({ id: idTrans });
+        console.log(trans)
+        if (trans.rowCount > 0) {
+          const dataTrans = trans.rows[0];
+          console.log(dataTrans)
+          data.company_name = dataTrans.company_name;
+          data.email_workshop = dataTrans.email_workshop;
+        }
+
+        const mailOptions = {
+          from: "no-reply <pms.sig.dev@gmail.com>", // sender address
+          to: data.email_workshop, // receiver email
+          subject: data.trx_number, // Subject line
+          text: data.trx_number,
+          html: NEW_PALLET_TEMPLATE(data),
+        }
+
+        SENDMAIL(mailOptions, (info) => {
+          console.log("Email sent successfully");
+          console.log("MESSAGE ID: ", info.messageId);
+        });
 
       // ##
       let msg = `Error on inserting New Pallet, please try again.`;

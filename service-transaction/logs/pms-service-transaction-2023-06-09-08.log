@@ -1,0 +1,14 @@
+2023-06-09T01:44:54.376Z [32minfo[39m: 	200-GET: /api/sjps | undefined
+2023-06-09T01:44:59.302Z [32minfo[39m: 	200-GET: /api/sjps | undefined
+2023-06-09T01:45:05.135Z [32minfo[39m: 	200-GET: /api/sjps | undefined
+2023-06-09T01:48:07.205Z [32minfo[39m: 	200-PATCH: /api/sjps | undefined
+2023-06-09T01:49:34.173Z [32minfo[39m: 	200-PATCH: /api/sjps | undefined
+2023-06-09T01:49:38.263Z [32minfo[39m: 	250 2.0.0 OK  1686275378 e4-20020a170902d38400b001ae5cc15655sm2039510pld.5 - gsmtp | from : pms.sig.dev@gmail.com | to : minority.bako@gmail.com
+2023-06-09T01:51:20.517Z [32minfo[39m: 	200-PATCH: /api/sjps | undefined
+2023-06-09T01:51:24.565Z [32minfo[39m: 	250 2.0.0 OK  1686275484 t11-20020a170902e84b00b001a4edbabad3sm2018199plg.230 - gsmtp | from : pms.sig.dev@gmail.com | to : minority.bako@gmail.com
+2023-06-09T01:53:24.046Z [32minfo[39m: 	200-PATCH: /api/sjps | undefined
+2023-06-09T01:53:28.455Z [32minfo[39m: 	250 2.0.0 OK  1686275608 y4-20020a17090a154400b00256395cb599sm3836106pja.38 - gsmtp | from : pms.sig.dev@gmail.com | to : minority.bako@gmail.com
+2023-06-09T01:54:12.220Z [32minfo[39m: 	200-PATCH: /api/sjps | undefined
+2023-06-09T01:54:16.069Z [32minfo[39m: 	250 2.0.0 OK  1686275655 i1-20020aa787c1000000b0064f51ee5b90sm1663938pfo.62 - gsmtp | from : pms.sig.dev@gmail.com | to : minority.bako@gmail.com,auliaharvy@gmail.com
+2023-06-09T01:55:31.829Z [32minfo[39m: 	200-PATCH: /api/sjps | undefined
+2023-06-09T01:55:35.597Z [32minfo[39m: 	250 2.0.0 OK  1686275735 t7-20020a1709027fc700b001a63ba28052sm2067489plb.69 - gsmtp | from : pms.sig.dev@gmail.com | to : minority.bako@gmail.com,auliaharvy@gmail.com

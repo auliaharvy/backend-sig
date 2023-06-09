@@ -1,0 +1,12 @@
+2023-06-09T02:07:14.361Z [32minfo[39m: 	200-PATCH: /api/sjps | undefined
+2023-06-09T02:07:17.242Z [32minfo[39m: 	No recipients defined
+2023-06-09T02:08:08.056Z [32minfo[39m: 	400-PATCH: /api/sjps | This Truck not yet close SJP, please check or change truck.
+2023-06-09T02:08:21.128Z [32minfo[39m: 	400-PATCH: /api/sjps | This Truck not yet close SJP, please check or change truck.
+2023-06-09T02:08:36.812Z [32minfo[39m: 	400-PATCH: /api/sjps | Cannot read property '0' of undefined
+2023-06-09T02:08:40.733Z [32minfo[39m: 	250 2.0.0 OK  1686276520 9-20020a17090a018900b002565a84c848sm3795548pjc.43 - gsmtp | from : pms.sig.dev@gmail.com | to : auliaharvy@gmail.com
+2023-06-09T02:09:11.797Z [32minfo[39m: 	200-PATCH: /api/sjps | undefined
+2023-06-09T02:09:15.650Z [32minfo[39m: 	250 2.0.0 OK  1686276555 b10-20020a170902b60a00b001ae6e270d8bsm2037309pls.131 - gsmtp | from : pms.sig.dev@gmail.com | to : auliaharvy@gmail.com
+2023-06-09T02:10:35.038Z [32minfo[39m: 	200-PATCH: /api/sjps | undefined
+2023-06-09T02:10:39.111Z [32minfo[39m: 	250 2.0.0 OK  1686276639 f8-20020aa782c8000000b006635846f3a8sm1605782pfn.91 - gsmtp | from : pms.sig.dev@gmail.com | to : auliaharvy@gmail.com
+2023-06-09T02:11:01.738Z [32minfo[39m: 	200-PATCH: /api/sjps | undefined
+2023-06-09T02:11:05.628Z [32minfo[39m: 	250 2.0.0 OK  1686276665 15-20020a17090a004f00b0025352448ba9sm3912440pjb.0 - gsmtp | from : pms.sig.dev@gmail.com | to : auliaharvy@gmail.com

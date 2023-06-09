@@ -12,7 +12,9 @@ const query = ({ connects, models }) => {
       deleteSjp,
       changeTruck,
       recordAllTransaction,
-      exportAll
+      exportAll,
+      getCompanyDetail,
+      getTruckDetail
     });
   
     async function deleteSjp({ id }) {
@@ -345,6 +347,54 @@ const query = ({ connects, models }) => {
             },
           }
         );
+        return res;
+      } catch (e) {
+        console.log("Error: ", e);
+      }
+    }
+
+    async function getCompanyDetail({ id }) {
+      try {
+        const pool = await connects();
+  
+        const res = await new Promise((resolve) => {
+          const sql = `SELECT a.*, b.name as name_organization , c.name as name_company_type 
+          FROM "mst_companies" as a
+          JOIN "mst_organization" as b ON a."id_organization" = b.id
+          JOIN "mst_company_type" as c ON a."id_company_type" = c.id
+          WHERE a.is_deleted = 0 AND a.id = $1;`;
+          const params = [id];
+          pool.query(sql, params, (err, res) => {
+            pool.end(); // end connection
+  
+            if (err) resolve(err);
+            resolve(res);
+          });
+        });
+  
+        return res;
+      } catch (e) {
+        console.log("Error: ", e);
+      }
+    }
+
+    async function getTruckDetail({ id }) {
+      try {
+        const pool = await connects();
+        const res = await new Promise((resolve) => {
+          const sql = `SELECT a.*, b.name as company_name
+          FROM "mst_truck" as a
+          JOIN "mst_companies" as b ON a."id_company" = b.id
+          WHERE a.is_deleted = $2 AND a.id=$1;`;
+          const params = [id, 0];
+          pool.query(sql, params, (err, res) => {
+            pool.end(); // end connection
+            
+            if (err) resolve(err);
+            resolve(res);
+          });
+        });
+  
         return res;
       } catch (e) {
         console.log("Error: ", e);

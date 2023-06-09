@@ -253,7 +253,7 @@ const query = ({ connects, models }) => {
         const pool = await connects();
   
         const res = await new Promise((resolve) => {
-          const sql = `SELECT a.*, b.name as company_name,
+          const sql = `SELECT a.*, b.name as company_name, b.email as email_workshop,
           c.trx_number as no_change_quota
           FROM "trx_new_pallet" as a
           JOIN "mst_companies" as b ON a."id_company_workshop" = b.id
