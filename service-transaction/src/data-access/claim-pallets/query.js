@@ -10,8 +10,32 @@ const query = ({ connects, models }) => {
     approvalDistributor,
     updateNewPallet,
     getPalletQuantity,
+    checkCompanyQty,
     approvalManager
   });
+
+  async function checkCompanyQty({ data }) {
+    try {
+      const pool = await connects();
+
+      const res = await new Promise((resolve) => {
+        const sql = `SELECT b.name as kondisi_pallet , a.quantity
+        FROM "mst_pallet_mst_companies" as a
+        JOIN "mst_pallet" as b ON a."mst_pallet_id" = b.id
+        WHERE a.mst_companies_id = $1;`;
+        const params = [data.id_company_distributor];
+        pool.query(sql, params, (err, res) => {
+          pool.end(); // end connection
+          if (err) resolve(err);
+          resolve(res);
+        });
+      });
+
+      return res;
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+  }
 
   async function deleteItem({ id }) {
     try {
@@ -411,12 +435,12 @@ const query = ({ connects, models }) => {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT a.*, b.name as company_name, c.username as manager_name,
-          d.username as pic_distributor
+        const sql = `SELECT a.*, b.name as company_name, c.fullname as manager_name, c.email as manager_email,
+          d.username as pic_distributor, b.email as company_email
           FROM "trx_claim_pallet" as a
           JOIN "mst_companies" as b ON a."id_company_distributor" = b.id
-          LEFT JOIN "users" as c ON a."id_user_manager" = b.id
-          LEFT JOIN "users" as d ON a."id_user_distributor" = c.id
+          LEFT JOIN "users" as c ON a."id_user_manager" = c.id
+          LEFT JOIN "users" as d ON a."id_user_distributor" = d.id
           WHERE a.is_deleted = 0 AND a.id = $1
           ORDER BY a.created_at DESC`;
         const params = [id];

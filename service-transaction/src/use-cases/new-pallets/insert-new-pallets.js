@@ -1,4 +1,4 @@
-const addNewPallet = ({ makeNewPallets, newPalletDb, trxNumbersDb, SENDMAIL, NEW_PALLET_TEMPLATE }) => {
+const addNewPallet = ({ makeNewPallets, newPalletDb, allTransactionDb, trxNumbersDb, SENDMAIL, NEW_PALLET_TEMPLATE }) => {
     return async function post(info) {
       let data = await makeNewPallets(info); // entity
   
@@ -40,10 +40,52 @@ const addNewPallet = ({ makeNewPallets, newPalletDb, trxNumbersDb, SENDMAIL, NEW
       };
       const trxNumberUpdate = await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber });
 
+         // all Transaction Record
+      // get LOG NUMBER
+      const logNumber = await allTransactionDb.getLogNumber();
+      const dataLogNumber = logNumber.rows[0];
+      var incrLogNumber = parseInt(dataLogNumber.increment_number) + 1;
+      var FormatedIncrLogNumber = '';
+      if (incrLogNumber < 10) {
+        FormatedIncrLogNumber = '000' + incrLogNumber;
+      } else if (incrLogNumber < 100) {
+        FormatedIncrLogNumber = '00' + incrLogNumber;
+      } else if (incrLogNumber < 1000) {
+        FormatedIncrLogNumber = '0' + incrLogNumber;
+      } else {
+        FormatedIncrLogNumber = incrLogNumber;
+      }
+      data.log_number = dataLogNumber.trx_type + '-' + dataLogNumber.year + dataLogNumber.month + '-' + FormatedIncrLogNumber;
+      // update logNumber
+      const dataUpdateLogNumber = {
+        id: dataLogNumber.id,
+        increment_number: incrLogNumber ++,
+      };
+      // console.log(dataUpdateLogNumber)
+      // console.log(data.log_number)
+      await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
+
+      const idTrans = res.dataValues.id;
+      const trans = await newPalletDb.selectOne({ id: idTrans });
+      const dataAllTransaction = {}
+      if (trans.rowCount > 0) {
+        const dataTrans = trans.rows[0];
+        dataAllTransaction.log_number = data.log_number;
+        dataAllTransaction.id_change_quota = dataTrans.id_trx_change_quota;
+        dataAllTransaction.id_new_pallet = dataTrans.id;
+        dataAllTransaction.trx_number = dataTrans.trx_number;
+        dataAllTransaction.transaction = 'NEW PALLET';
+        dataAllTransaction.status = 'DRAFT';
+        dataAllTransaction.company = dataTrans.company_workshop;
+        dataAllTransaction.good_pallet = data.qty_request_pallet;
+        dataAllTransaction.created_by = data.created_by;
+      }
+      
+      await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
+
       // SEND MAIL
         // get data SJP
-        const idTrans = res.dataValues.id;
-        const trans = await newPalletDb.selectOne({ id: idTrans });
+        
         console.log(trans)
         if (trans.rowCount > 0) {
           const dataTrans = trans.rows[0];

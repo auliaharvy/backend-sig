@@ -1,4 +1,4 @@
-const updateSjp = ({ sjpDb, patchSjps, SENDMAIL,  CHANGE_DESTINATION_TEMPLATE, CHANGE_TRUCK_TEMPLATE }) => {
+const updateSjp = ({ sjpDb, patchSjps, trxNumbersDb, SENDMAIL,  CHANGE_DESTINATION_TEMPLATE, CHANGE_TRUCK_TEMPLATE }) => {
     return async function put({ id, ...info }) {
       let data = patchSjps(id, info);
 
@@ -11,6 +11,7 @@ const updateSjp = ({ sjpDb, patchSjps, SENDMAIL,  CHANGE_DESTINATION_TEMPLATE, C
         id_truck: data.getTruck(),
         id_new_truck: data.getNewTruck(),
         id_driver: data.getDriver(),
+        is_multiple: data.getIsMultiple(),
         second_driver: data.getSecondDriver(),
         no_do: data.getNoDo(),
         tonnage: data.getTonnage(),
@@ -33,14 +34,76 @@ const updateSjp = ({ sjpDb, patchSjps, SENDMAIL,  CHANGE_DESTINATION_TEMPLATE, C
         // update
         const res = await sjpDb.changeDestination({ data });
 
+      // all Transaction Record
+      // get LOG NUMBER
+      const logNumber = await sjpDb.getLogNumber();
+      const dataLogNumber = logNumber.rows[0];
+      var incrLogNumber = parseInt(dataLogNumber.increment_number) + 1;
+      var FormatedIncrLogNumber = '';
+      if (incrLogNumber < 10) {
+        FormatedIncrLogNumber = '000' + incrLogNumber;
+      } else if (incrLogNumber < 100) {
+        FormatedIncrLogNumber = '00' + incrLogNumber;
+      } else if (incrLogNumber < 1000) {
+        FormatedIncrLogNumber = '0' + incrLogNumber;
+      } else {
+        FormatedIncrLogNumber = incrLogNumber;
+      }
+      data.log_number = dataLogNumber.trx_type + '-' + dataLogNumber.year + dataLogNumber.month + '-' + FormatedIncrLogNumber;
+      // update logNumber
+      const dataUpdateLogNumber = {
+        id: dataLogNumber.id,
+        increment_number: incrLogNumber ++,
+      };
+      // console.log(dataUpdateLogNumber)
+      // console.log(data.log_number)
+      await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
+
+      console.log(res)
+      const trans = await sjpDb.selectOne({ id: id });
+      const dataAllTransaction = {}
+      if (checkId.rowCount > 0) {
+        const dataTrans = trans.rows[0];
+        console.log(dataTrans);
+        dataAllTransaction.log_number = data.log_number;
+        dataAllTransaction.id_sjp = dataTrans.id;
+        dataAllTransaction.trx_number = dataTrans.trx_number;
+        if(dataTrans.trx_status == 0) {
+          dataAllTransaction.status = 'DRAFT';
+        }
+        if(dataTrans.trx_status == 1) {
+          dataAllTransaction.status = 'SEND';
+        }
+        if(dataTrans.trx_status == 2) {
+          dataAllTransaction.status = 'RECEIVE';
+        }
+        if(dataTrans.trx_status == 3) {
+          dataAllTransaction.status = 'SENDBACK';
+        }
+        if(dataTrans.trx_status == 4) {
+          dataAllTransaction.status = 'RECEIVE SENDBACK';
+        }
+        dataAllTransaction.transaction = 'CHANGE DESTINATION';
+        dataAllTransaction.no_do = dataTrans.no_do;
+        dataAllTransaction.sender_reporter = dataTrans.reporter_name;
+        dataAllTransaction.company_departure = dataTrans.departure_company;
+        dataAllTransaction.company_destination = checkId.rows[0].destination_company;
+        dataAllTransaction.company_new_destination = dataTrans.destination_company;
+        dataAllTransaction.company_transporter = dataTrans.transporter_company;
+        dataAllTransaction.truck_number = dataTrans.license_plate;
+        dataAllTransaction.driver_name = dataTrans.driver_name;
+        dataAllTransaction.good_pallet = dataTrans.pallet_quantity;
+        dataAllTransaction.created_by = data.updated_by;
+      }
+      
+      await sjpDb.recordAllTransaction({ data: dataAllTransaction });
+
         const originDestination = await sjpDb.getCompanyDetail({ id: data.id_destination_company });
 
         const newDestination = await sjpDb.getCompanyDetail({ id: data.id_new_destination_company });
 
         // SEND MAIL
         // get data SJP
-        console.log(checkId.rows[0])
-        console.log(newDestination.rows[0])
         if (checkId.rowCount > 0) {
           const dataSjp = checkId.rows[0];
           data.trx_number = dataSjp.trx_number;
@@ -91,6 +154,72 @@ const updateSjp = ({ sjpDb, patchSjps, SENDMAIL,  CHANGE_DESTINATION_TEMPLATE, C
 
         // update
         const res = await sjpDb.changeTruck({ data });
+
+        // all Transaction Record
+      // get LOG NUMBER
+      const logNumber = await sjpDb.getLogNumber();
+      const dataLogNumber = logNumber.rows[0];
+      var incrLogNumber = parseInt(dataLogNumber.increment_number) + 1;
+      var FormatedIncrLogNumber = '';
+      if (incrLogNumber < 10) {
+        FormatedIncrLogNumber = '000' + incrLogNumber;
+      } else if (incrLogNumber < 100) {
+        FormatedIncrLogNumber = '00' + incrLogNumber;
+      } else if (incrLogNumber < 1000) {
+        FormatedIncrLogNumber = '0' + incrLogNumber;
+      } else {
+        FormatedIncrLogNumber = incrLogNumber;
+      }
+      data.log_number = dataLogNumber.trx_type + '-' + dataLogNumber.year + dataLogNumber.month + '-' + FormatedIncrLogNumber;
+      // update logNumber
+      const dataUpdateLogNumber = {
+        id: dataLogNumber.id,
+        increment_number: incrLogNumber ++,
+      };
+      // console.log(dataUpdateLogNumber)
+      // console.log(data.log_number)
+      await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
+
+      console.log(res)
+      const trans = await sjpDb.selectOne({ id: id });
+      const dataAllTransaction = {}
+      if (checkId.rowCount > 0) {
+        const dataTrans = trans.rows[0];
+        console.log(dataTrans);
+        dataAllTransaction.log_number = data.log_number;
+        dataAllTransaction.id_sjp = dataTrans.id;
+        dataAllTransaction.trx_number = dataTrans.trx_number;
+        if(dataTrans.trx_status == 0) {
+          dataAllTransaction.status = 'DRAFT';
+        }
+        if(dataTrans.trx_status == 1) {
+          dataAllTransaction.status = 'SEND';
+        }
+        if(dataTrans.trx_status == 2) {
+          dataAllTransaction.status = 'RECEIVE';
+        }
+        if(dataTrans.trx_status == 3) {
+          dataAllTransaction.status = 'SENDBACK';
+        }
+        if(dataTrans.trx_status == 4) {
+          dataAllTransaction.status = 'RECEIVE SENDBACK';
+        }
+        dataAllTransaction.transaction = 'CHANGE TRUCK';
+        dataAllTransaction.no_do = dataTrans.no_do;
+        dataAllTransaction.sender_reporter = dataTrans.reporter_name;
+        dataAllTransaction.company_departure = dataTrans.departure_company;
+        dataAllTransaction.company_destination = dataTrans.destination_company;
+        dataAllTransaction.company_new_truck = dataTrans.license_plate;
+        dataAllTransaction.company_transporter = dataTrans.transporter_company;
+        dataAllTransaction.truck_number_new = dataTrans.license_plate;
+        dataAllTransaction.truck_number = checkId.rows[0].license_plate;
+        dataAllTransaction.driver_name = dataTrans.driver_name;
+        dataAllTransaction.driver_name_new = dataTrans.second_driver;
+        dataAllTransaction.good_pallet = dataTrans.pallet_quantity;
+        dataAllTransaction.created_by = data.updated_by;
+      }
+      
+      await sjpDb.recordAllTransaction({ data: dataAllTransaction });
 
         const destination = await sjpDb.getCompanyDetail({ id: data.id_destination_company });
 

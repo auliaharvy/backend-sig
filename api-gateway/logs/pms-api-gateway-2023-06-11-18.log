@@ -1,0 +1,44 @@
+2023-06-11T11:01:31.113Z [32minfo[39m: 	undefined -> 201-post: http://localhost:8003api/sjp-statuss
+2023-06-11T11:06:34.685Z [31merror[39m: 	Request failed with status code 400
+2023-06-11T11:07:11.778Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/sjp-statuss/57
+2023-06-11T11:08:48.027Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/sjp-statuss/56
+2023-06-11T11:09:25.862Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-11T11:09:25.884Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-11T11:09:25.887Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-11T11:09:25.892Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-11T11:09:34.077Z [32minfo[39m: 	harby -> 200-get: http://localhost:8003/api/sjps
+2023-06-11T11:10:31.823Z [31merror[39m: 	timeout of 10000ms exceeded
+2023-06-11T11:10:55.726Z [32minfo[39m: 	undefined -> 200-post: http://localhost:8001/api/users/login
+2023-06-11T11:10:55.942Z [32minfo[39m: 	undefined -> 200-post: http://localhost:8001/api/users/token
+2023-06-11T11:10:56.355Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-11T11:10:56.361Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-11T11:10:56.363Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-11T11:10:56.368Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-11T11:11:05.303Z [32minfo[39m: 	harby -> 200-get: http://localhost:8003/api/sjps
+2023-06-11T11:11:40.346Z [32minfo[39m: 	undefined -> 200-post: http://localhost:8001/api/users/login
+2023-06-11T11:11:40.512Z [32minfo[39m: 	undefined -> 200-post: http://localhost:8001/api/users/token
+2023-06-11T11:11:40.870Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-11T11:11:40.903Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-11T11:11:40.907Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-11T11:11:40.914Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-11T11:11:44.019Z [32minfo[39m: 	harby -> 200-get: http://localhost:8003/api/sjps
+2023-06-11T11:28:55.356Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/pallet-transfers
+2023-06-11T11:29:16.780Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/pallet-transfers/12
+2023-06-11T11:30:25.953Z [31merror[39m: 	Request failed with status code 400
+2023-06-11T11:33:02.949Z [31merror[39m: 	Request failed with status code 400
+2023-06-11T11:34:11.697Z [31merror[39m: 	Request failed with status code 400
+2023-06-11T11:35:04.546Z [31merror[39m: 	Request failed with status code 400
+2023-06-11T11:35:26.282Z [31merror[39m: 	Request failed with status code 400
+2023-06-11T11:37:34.350Z [31merror[39m: 	The Quantity of Good Pallet exceeds.
+2023-06-11T11:38:26.699Z [31merror[39m: 	The Quantity of Good Pallet exceeds.
+2023-06-11T11:38:50.220Z [31merror[39m: 	The Quantity of Good Pallet exceeds.
+2023-06-11T11:39:16.653Z [31merror[39m: 	The Quantity of Good Pallet exceeds.
+2023-06-11T11:39:44.913Z [31merror[39m: 	The Quantity of Good Pallet exceeds.
+2023-06-11T11:40:18.498Z [31merror[39m: 	The Quantity of TBR Pallet exceeds.
+2023-06-11T11:40:28.467Z [31merror[39m: 	The Quantity of BER Pallet exceeds.
+2023-06-11T11:40:37.300Z [31merror[39m: 	The Quantity of Missing Pallet exceeds.
+2023-06-11T11:44:25.501Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/pallet-transfers/6
+2023-06-11T11:47:47.346Z [31merror[39m: 	The Quantity of Good Pallet exceeds.
+2023-06-11T11:48:40.248Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/pallet-transfers/12
+2023-06-11T11:49:28.700Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/pallet-transfers/12
+2023-06-11T11:57:30.912Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/pallet-transfers/12

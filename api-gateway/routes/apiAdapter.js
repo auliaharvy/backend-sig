@@ -21,20 +21,22 @@ module.exports = (baseUrl) => {
     })
 
     axiosInstance.interceptors.response.use((response) => {
-        const logMessage = response.status + '-' + response.config.method +': ' + response.config.baseURL + response.config.url;
+        console.log(response)
+        const logMessage = response.config.username + ' -> ' + response.status + '-' + response.config.method +': ' + response.config.baseURL + response.config.url;
         logger.info(logMessage)
         return response;
     },(error) => {
+        console.log(error)
         const errorMessage = {
             response: {
-                status: 500,
+                status: error.response.status,
                 code: error.code,
                 message: error.message,
-                data: error.message,
+                data: error.response.data.error,
             }
         }
 
-        logger.error(error.message || "ERROR")
+        logger.error(error.response.data.error || "ERROR")
         return Promise.reject(errorMessage)
     })
 

@@ -62,7 +62,6 @@ const query = ({ connects, models }) => {
     }
 
     async function patchTrxNumber( {dataUpdateTrxNumber} ) {
-      console.log(dataUpdateTrxNumber);
       try {
         // use sequelize on update
         const TrxNumber = models.TrxNumbers;

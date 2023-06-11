@@ -11,7 +11,6 @@ module.exports = async (req, res) => {
         const palletTransfer = await api.patch(`/api/pallet-transfers/${id}`, req.body);
         return res.json(palletTransfer.data);
     } catch (error) {
-        console.log(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',
@@ -19,10 +18,20 @@ module.exports = async (req, res) => {
             })
         }
 
+        if (error.code === "ECONNABORTED") {
+            return res.status(500).json({
+                status: 'error',
+                message: 'timeout of 10000ms exceeded'
+            })
+        }
+
         const {
             status,
             data
         } = error.response;
-        return res.status(status).json(data);
+        return res.status(status).json({
+            status: status,
+            message: data
+        });
     }
 }

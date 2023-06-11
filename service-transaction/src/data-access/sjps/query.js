@@ -37,6 +37,17 @@ const query = ({ connects, models }) => {
       }
     }
   
+    async function recordAllTransaction({ data }) {
+      try {
+        // use sequelize on inserting
+        const AllTransaction = models.AllTransactions;
+        const res = await AllTransaction.create(data);
+        return res;
+      } catch (e) {
+        console.log("Error: ", e);
+      }
+    }
+
     async function insertNewSjp({ data }) {
       try {
         // use sequelize on inserting
@@ -287,13 +298,14 @@ const query = ({ connects, models }) => {
         const res = await new Promise((resolve) => {
           const sql = `SELECT a.*, b.name as departure_company, b.email as email_departure,
           c.name as destination_company,  c.email as email_destination, d.name as transporter_company,
-          e.license_plate, f.name as driver_name
+          e.license_plate, f.name as driver_name, g.username as reporter_name
           FROM "trx_sjp" as a
           JOIN "mst_companies" as b ON a."id_departure_company" = b.id
           JOIN "mst_companies" as c ON a."id_destination_company" = c.id
           JOIN "mst_companies" as d ON a."id_transporter_company" = d.id
           JOIN "mst_truck" as e ON a."id_truck" = e.id
           JOIN "mst_driver" as f ON a."id_driver" = f.id
+          JOIN "users" as g ON a."created_by" = g.id
           WHERE a.is_deleted = 0 AND a.id = $1
           ORDER BY a.created_at DESC`;
           const params = [id];
@@ -423,30 +435,6 @@ const query = ({ connects, models }) => {
     }
   };
 
-  async function recordAllTransaction({ data }) {
-    try {
-      var dataAllTransaction = {
-        id_sjp: data.id_sjp,
-        transaction: 'SJP',
-        no_do: data.no_do,
-        status: 'DRAFT',
-        sender_reporter: data.reporter,
-        company_departure: data.departure,
-        company_destination: data.destination,
-        company_transporter: data.transporter,
-        truck_number: data.truck_number,
-        driver_name: data.driver,
-        good_pallet: data.good_pallet,
-        reason: data.reason,
-        note: data.note
-      }
-      // use sequelize on inserting
-      const AllTransaction = models.AllTransactions;
-      const res = await AllTransaction.create(dataAllTransaction);
-      return res;
-    } catch (e) {
-      console.log("Error: ", e);
-    }
-  }
+  
   
   module.exports = query;

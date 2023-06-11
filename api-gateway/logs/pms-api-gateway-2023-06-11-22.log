@@ -1,0 +1,30 @@
+2023-06-11T15:10:44.013Z [31merror[39m: 	The Quantity of BER Pallet exceeds.
+2023-06-11T15:10:51.317Z [31merror[39m: 	The Quantity of Missing Pallet exceeds.
+2023-06-11T15:11:45.523Z [31merror[39m: 	allTransactionDb is not defined
+2023-06-11T15:12:05.725Z [32minfo[39m: 	undefined -> 201-post: http://localhost:8003api/claim-pallets
+2023-06-11T15:20:46.834Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/claim-pallets/18
+2023-06-11T15:24:20.830Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/claim-pallets/18
+2023-06-11T15:25:25.416Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/claim-pallets/18
+2023-06-11T15:25:31.508Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/claim-pallets/18
+2023-06-11T15:25:47.941Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/claim-pallets/18
+2023-06-11T15:30:29.164Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/sewa-pallets/6
+2023-06-11T15:31:21.838Z [32minfo[39m: 	undefined -> 201-post: http://localhost:8003api/sewa-pallets
+2023-06-11T15:34:50.526Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/sewa-pallets/6
+2023-06-11T15:36:54.458Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/sewa-pallets/6
+2023-06-11T15:36:58.968Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/sewa-pallets/6
+2023-06-11T15:38:49.755Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/sewa-pallets/6
+2023-06-11T15:38:53.729Z [32minfo[39m: 	undefined -> 200-patch: http://localhost:8003/api/sewa-pallets/6
+2023-06-11T15:43:10.555Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/damaged-pallets/5
+2023-06-11T15:43:14.328Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/damaged-pallets
+2023-06-11T15:43:20.813Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/damaged-pallets/7
+2023-06-11T15:45:20.432Z [31merror[39m: 	allTransactionDb is not defined
+2023-06-11T15:45:58.658Z [32minfo[39m: 	undefined -> 201-post: http://localhost:8003api/damaged-pallets
+2023-06-11T15:47:56.005Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/repaired-pallets/1
+2023-06-11T15:47:59.934Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/repaired-pallets
+2023-06-11T15:48:04.889Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/repaired-pallets/4
+2023-06-11T15:48:45.754Z [32minfo[39m: 	undefined -> 201-post: http://localhost:8003api/repaired-pallets
+2023-06-11T15:52:41.299Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/transporter-adjusments
+2023-06-11T15:53:03.799Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/transporter-adjusments/8
+2023-06-11T15:54:49.512Z [32minfo[39m: 	undefined -> 201-post: http://localhost:8003api/transporter-adjusments
+2023-06-11T15:54:55.136Z [32minfo[39m: 	undefined -> 201-post: http://localhost:8003api/transporter-adjusments
+2023-06-11T15:57:14.924Z [32minfo[39m: 	undefined -> 201-post: http://localhost:8003api/transporter-adjusments

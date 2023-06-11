@@ -1,5 +1,6 @@
 const { makePalletTransfers, patchPalletTransfers } = require("../../entities/pallet-transfers/app"); // entity
 const palletTransfersDb = require("../../data-access/pallet-transfers/app"); // database queries
+const allTransactionDb = require("../../data-access/all-transactions/app"); // database queries
 const trxNumbersDb = require("../../data-access/trx-numbers/app"); // database queries
 const { encrypt, decrypt } = require("../../functions/app");
 // #########
@@ -12,7 +13,7 @@ const deletePalletTransfer = require("./delete-pallet-transfer");
 // #########
 const addPalletTransfers = addPalletTransfer({ makePalletTransfers, palletTransfersDb, trxNumbersDb, SENDMAIL, PALLET_TRANSFER_TEMPLATE });
 const selectPalletTransfers = selectPalletTransfer({ palletTransfersDb });
-const updatePalletTransfers = updatePalletTransfer({ palletTransfersDb, patchPalletTransfers });
+const updatePalletTransfers = updatePalletTransfer({ palletTransfersDb, patchPalletTransfers, trxNumbersDb, allTransactionDb});
 const deletePalletTransfers = deletePalletTransfer({ palletTransfersDb });
 // #########
 const services = Object.freeze({

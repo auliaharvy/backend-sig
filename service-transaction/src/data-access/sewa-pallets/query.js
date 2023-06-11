@@ -358,7 +358,7 @@ const query = ({ connects, models }) => {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT a.*, b.name as company_name, c.username as manager_name,
+        const sql = `SELECT a.*, b.name as company_name, b.email as company_email,c.username as manager_name, c.email as manager_email,
         d.username as pic_distributor
         FROM "trx_pengajuan_sewa" as a
         JOIN "mst_companies" as b ON a."id_company_distributor" = b.id

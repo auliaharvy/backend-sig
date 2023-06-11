@@ -237,10 +237,11 @@ const query = ({ connects, models }) => {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT a.*, b.name as company_name, c.username as reporter_name
-        FROM "trx_repaired_pallet" as a
-        JOIN "mst_companies" as b ON a."id_company" = b.id
-        LEFT JOIN "users" as c ON a."id_user_reporter" = c.id
+        const sql = `SELECT a.*, b.name as transporter_name, c.name as company_name,d.username as reporter_name
+        FROM "trx_transporter_adjusment" as a
+        JOIN "mst_companies" as b ON a."id_company_transporter" = b.id
+        JOIN "mst_companies" as c ON a."id_company" = c.id
+        LEFT JOIN "users" as d ON a."id_user_reporter" = d.id
         WHERE a.is_deleted = 0 AND a.id = $1
         ORDER BY a.created_at DESC`;
         const params = [id];

@@ -1,4 +1,4 @@
-const addChangeQuota = ({ makeChangeQuotas, changeQuotaDb, trxNumbersDb, SENDMAIL, CHANGE_QUOTA_TEMPLATE }) => {
+const addChangeQuota = ({ makeChangeQuotas, changeQuotaDb, allTransactionDb, trxNumbersDb, SENDMAIL, CHANGE_QUOTA_TEMPLATE }) => {
     return async function post(info) {
       let data = await makeChangeQuotas(info); // entity
   
@@ -38,10 +38,57 @@ const addChangeQuota = ({ makeChangeQuotas, changeQuotaDb, trxNumbersDb, SENDMAI
       };
       const trxNumberUpdate = await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber });
 
+         // all Transaction Record
+      // get LOG NUMBER
+      const logNumber = await allTransactionDb.getLogNumber();
+      const dataLogNumber = logNumber.rows[0];
+      var incrLogNumber = parseInt(dataLogNumber.increment_number) + 1;
+      var FormatedIncrLogNumber = '';
+      if (incrLogNumber < 10) {
+        FormatedIncrLogNumber = '000' + incrLogNumber;
+      } else if (incrLogNumber < 100) {
+        FormatedIncrLogNumber = '00' + incrLogNumber;
+      } else if (incrLogNumber < 1000) {
+        FormatedIncrLogNumber = '0' + incrLogNumber;
+      } else {
+        FormatedIncrLogNumber = incrLogNumber;
+      }
+      data.log_number = dataLogNumber.trx_type + '-' + dataLogNumber.year + dataLogNumber.month + '-' + FormatedIncrLogNumber;
+      // update logNumber
+      const dataUpdateLogNumber = {
+        id: dataLogNumber.id,
+        increment_number: incrLogNumber ++,
+      };
+      // console.log(dataUpdateLogNumber)
+      // console.log(data.log_number)
+      await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
+
+      const idTrans = res.dataValues.id;
+      const trans = await changeQuotaDb.selectOne({ id: idTrans });
+      const dataAllTransaction = {}
+      if (trans.rowCount > 0) {
+        const dataTrans = trans.rows[0];
+        dataAllTransaction.log_number = data.log_number;
+        dataAllTransaction.id_change_quota = dataTrans.id;
+        dataAllTransaction.trx_number = dataTrans.trx_number;
+        if(data.type == 0){
+          dataAllTransaction.transaction = 'CHANGE QUOTA ADDITION';
+        } else {
+          dataAllTransaction.transaction = 'CHANGE QUOTA REDUCTION';
+        }
+        dataAllTransaction.status = 'DRAFT';
+        dataAllTransaction.sender_reporter = dataTrans.requester_name;
+        dataAllTransaction.company = dataTrans.company_name;
+        dataAllTransaction.note = data.note;
+        dataAllTransaction.reason = data.reason;
+        dataAllTransaction.good_pallet = data.quantity;
+        dataAllTransaction.created_by = data.created_by;
+      }
+      
+      await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
+
       // SEND MAIL
         // get data SJP
-        const idTrans = res.dataValues.id;
-        const trans = await changeQuotaDb.selectOne({ id: idTrans });
         if (trans.rowCount > 0) {
           if(data.type == 0) {
             data.type_name = 'Addition'

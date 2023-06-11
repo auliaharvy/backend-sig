@@ -1,4 +1,4 @@
-const addSewaPallet = ({ makeSewaPallets, sewaPalletDb, trxNumbersDb }) => {
+const addSewaPallet = ({ makeSewaPallets, sewaPalletDb, allTransactionDb, trxNumbersDb, SENDMAIL, SEWA_PALLET_ADD_TEMPLATE }) => {
     return async function post(info) {
       let data = await makeSewaPallets(info); // entity
   
@@ -40,6 +40,77 @@ const addSewaPallet = ({ makeSewaPallets, sewaPalletDb, trxNumbersDb }) => {
         increment_number: incrNumber ++,
       };
       const trxNumberUpdate = await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber });
+
+         // all Transaction Record
+      // get LOG NUMBER
+      const logNumber = await allTransactionDb.getLogNumber();
+      const dataLogNumber = logNumber.rows[0];
+      var incrLogNumber = parseInt(dataLogNumber.increment_number) + 1;
+      var FormatedIncrLogNumber = '';
+      if (incrLogNumber < 10) {
+        FormatedIncrLogNumber = '000' + incrLogNumber;
+      } else if (incrLogNumber < 100) {
+        FormatedIncrLogNumber = '00' + incrLogNumber;
+      } else if (incrLogNumber < 1000) {
+        FormatedIncrLogNumber = '0' + incrLogNumber;
+      } else {
+        FormatedIncrLogNumber = incrLogNumber;
+      }
+      data.log_number = dataLogNumber.trx_type + '-' + dataLogNumber.year + dataLogNumber.month + '-' + FormatedIncrLogNumber;
+      // update logNumber
+      const dataUpdateLogNumber = {
+        id: dataLogNumber.id,
+        increment_number: incrLogNumber ++,
+      };
+      // console.log(dataUpdateLogNumber)
+      // console.log(data.log_number)
+      await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
+
+      const idTrans = res.dataValues.id;
+        const trans = await sewaPalletDb.selectOne({ id: idTrans });
+      const dataAllTransaction = {}
+      if (trans.rowCount > 0) {
+        const dataTrans = trans.rows[0];
+        dataAllTransaction.log_number = data.log_number;
+        dataAllTransaction.id_biaya_sewa = dataTrans.id;
+        dataAllTransaction.trx_number = dataTrans.trx_number;
+        dataAllTransaction.transaction = 'SEWA PALLET';
+        dataAllTransaction.status = 'DRAFT';
+        dataAllTransaction.price = data.price;
+        dataAllTransaction.company = dataTrans.company_name;
+        dataAllTransaction.good_pallet = data.good_pallet;
+        dataAllTransaction.tbr_pallet = data.tbr_pallet;
+        dataAllTransaction.ber_pallet = data.ber_pallet;
+        dataAllTransaction.missing_pallet = data.missing_pallet;
+        dataAllTransaction.reason = dataTrans.reason;
+        dataAllTransaction.note = dataTrans.note;
+        dataAllTransaction.created_by = data.created_by;
+      }
+      
+      await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
+
+      // SEND MAIL
+        // get data SJP
+        
+        console.log(trans)
+        if (trans.rowCount > 0) {
+          const dataTrans = trans.rows[0];
+          data.company_name = dataTrans.company_name;
+          data.total_price = parseInt(data.price) * (data.ber_pallet + data.missing_pallet + data.good_pallet + data.tbr_pallet);
+        }
+
+        const mailOptions = {
+          from: "no-reply <pms.sig.dev@gmail.com>", // sender address
+          to: "auliaharvy@gmail.com", // receiver email
+          subject: data.trx_number, // Subject line
+          text: data.trx_number,
+          html: SEWA_PALLET_ADD_TEMPLATE(data),
+        }
+
+        SENDMAIL(mailOptions, (info) => {
+          console.log("Email sent successfully");
+          console.log("MESSAGE ID: ", info.messageId);
+        });
 
       // ##
       let msg = `Error on inserting Sewa Pallet, please try again.`;

@@ -1,0 +1,31 @@
+2023-06-10T11:02:42.407Z [31merror[39m: 	Request failed with status code 304
+2023-06-10T11:03:13.004Z [32minfo[39m: 	200-get: http://localhost:8003/api/sjps
+2023-06-10T11:06:35.522Z [32minfo[39m: 	200-get: http://localhost:8003/api/sjps
+2023-06-10T11:07:08.025Z [32minfo[39m: 	200-get: http://localhost:8003/api/sjps
+2023-06-10T11:08:36.878Z [32minfo[39m: 	200-get: http://localhost:8003/api/sjps
+2023-06-10T11:09:42.627Z [32minfo[39m: 	harby : 200-get: http://localhost:8003/api/sjps
+2023-06-10T11:10:35.390Z [32minfo[39m: 	harby -> 200-get: http://localhost:8003/api/sjps
+2023-06-10T11:10:53.959Z [31merror[39m: 	timeout of 10000ms exceeded
+2023-06-10T11:11:08.631Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/pallet-transfers
+2023-06-10T11:25:00.782Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/pallet-transfers
+2023-06-10T11:31:30.959Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/pallet-transfers
+2023-06-10T11:32:38.143Z [31merror[39m: 	timeout of 10000ms exceeded
+2023-06-10T11:33:10.116Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/pallet-transfers
+2023-06-10T11:34:19.390Z [31merror[39m: 	timeout of 10000ms exceeded
+2023-06-10T11:34:41.467Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/pallet-transfers
+2023-06-10T11:35:05.310Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/pallet-transfers
+2023-06-10T11:36:50.000Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/pallet-transfers
+2023-06-10T11:38:04.311Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/pallet-transfers
+2023-06-10T11:38:51.116Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8003/api/pallet-transfers
+2023-06-10T11:40:44.404Z [32minfo[39m: 	undefined -> 200-post: http://localhost:8001/api/users/login
+2023-06-10T11:40:44.655Z [32minfo[39m: 	undefined -> 200-post: http://localhost:8001/api/users/token
+2023-06-10T11:40:44.713Z [32minfo[39m: 	undefined -> 200-post: http://localhost:8001/api/users/login
+2023-06-10T11:40:44.984Z [32minfo[39m: 	undefined -> 200-post: http://localhost:8001/api/users/token
+2023-06-10T11:40:45.594Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-10T11:40:45.602Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-10T11:40:45.604Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-10T11:40:45.609Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-10T11:41:00.063Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-10T11:41:00.113Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-10T11:41:00.119Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005
+2023-06-10T11:41:00.134Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8005

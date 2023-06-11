@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    trx_number: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     id_sjp: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -123,6 +127,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
     tbr_pallet: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    price: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },

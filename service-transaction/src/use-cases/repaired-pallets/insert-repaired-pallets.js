@@ -1,4 +1,4 @@
-const addRepairedPallet = ({ makeRepairedPallets, repairedPalletDb, trxNumbersDb }) => {
+const addRepairedPallet = ({ makeRepairedPallets, allTransactionDb, repairedPalletDb, trxNumbersDb }) => {
     return async function post(info) {
       let data = await makeRepairedPallets(info); // entity
   
@@ -46,6 +46,49 @@ const addRepairedPallet = ({ makeRepairedPallets, repairedPalletDb, trxNumbersDb
         increment_number: incrNumber ++,
       };
       const trxNumberUpdate = await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber });
+
+         // all Transaction Record
+      // get LOG NUMBER
+      const logNumber = await allTransactionDb.getLogNumber();
+      const dataLogNumber = logNumber.rows[0];
+      var incrLogNumber = parseInt(dataLogNumber.increment_number) + 1;
+      var FormatedIncrLogNumber = '';
+      if (incrLogNumber < 10) {
+        FormatedIncrLogNumber = '000' + incrLogNumber;
+      } else if (incrLogNumber < 100) {
+        FormatedIncrLogNumber = '00' + incrLogNumber;
+      } else if (incrLogNumber < 1000) {
+        FormatedIncrLogNumber = '0' + incrLogNumber;
+      } else {
+        FormatedIncrLogNumber = incrLogNumber;
+      }
+      data.log_number = dataLogNumber.trx_type + '-' + dataLogNumber.year + dataLogNumber.month + '-' + FormatedIncrLogNumber;
+      // update logNumber
+      const dataUpdateLogNumber = {
+        id: dataLogNumber.id,
+        increment_number: incrLogNumber ++,
+      };
+      // console.log(dataUpdateLogNumber)
+      // console.log(data.log_number)
+      await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
+
+      const idTrans = res.dataValues.id;
+      const trans = await repairedPalletDb.selectOne({ id: idTrans });
+      const dataAllTransaction = {}
+      if (trans.rowCount > 0) {
+        const dataTrans = trans.rows[0];
+        dataAllTransaction.log_number = data.log_number;
+        dataAllTransaction.trx_number = dataTrans.trx_number;
+        dataAllTransaction.transaction = 'REPAIRED PALLET';
+        dataAllTransaction.status = 'ISSUED';
+        dataAllTransaction.company = dataTrans.company_name;
+        dataAllTransaction.sender_reporter = dataTrans.reporter_name;
+        dataAllTransaction.good_pallet = data.qty_good_pallet;
+        dataAllTransaction.note = dataTrans.note;
+        dataAllTransaction.created_by = data.created_by;
+      }
+      
+      await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
 
       // ##
       let msg = `Error on inserting Repaired Pallet, please try again.`;

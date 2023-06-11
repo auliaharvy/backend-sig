@@ -1,4 +1,4 @@
-const addSjp = ({ makeSjps, sjpDb, trxNumbersDb }) => {
+const addSjp = ({ makeSjps, sjpDb, allTransactionDb, trxNumbersDb }) => {
     return async function post(info) {
       let data = await makeSjps(info); // entity
   
@@ -9,6 +9,7 @@ const addSjp = ({ makeSjps, sjpDb, trxNumbersDb }) => {
         id_truck: data.getTruck(),
         id_driver: data.getDriver(),
         no_do: data.getNoDo(),
+        is_multiple: data.getIsMultiple(),
         tonnage: data.getTonnage(),
         packaging: data.getPackaging(),
         product_quantity: data.getProductQuantity(),
@@ -50,10 +51,9 @@ const addSjp = ({ makeSjps, sjpDb, trxNumbersDb }) => {
       };
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber });
 
-      // TODO all transaction SJP
       // all Transaction Record
       // get LOG NUMBER
-      const logNumber = await sjpDb.getLogNumber();
+      const logNumber = await allTransactionDb.getLogNumber();
       const dataLogNumber = logNumber.rows[0];
       var incrLogNumber = parseInt(dataLogNumber.increment_number) + 1;
       var FormatedIncrLogNumber = '';
@@ -63,7 +63,7 @@ const addSjp = ({ makeSjps, sjpDb, trxNumbersDb }) => {
         FormatedIncrLogNumber = '00' + incrLogNumber;
       } else if (incrLogNumber < 1000) {
         FormatedIncrLogNumber = '0' + incrLogNumber;
-      } else {dataUpdateTrxNumber
+      } else {
         FormatedIncrLogNumber = incrLogNumber;
       }
       data.log_number = dataLogNumber.trx_type + '-' + dataLogNumber.year + dataLogNumber.month + '-' + FormatedIncrLogNumber;
@@ -72,16 +72,35 @@ const addSjp = ({ makeSjps, sjpDb, trxNumbersDb }) => {
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      await trxNumbersDb.patchTrxNumber({ dataUpdateLogNumber });
+      // console.log(dataUpdateLogNumber)
+      // console.log(data.log_number)
+      await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
-      await sjpDb.recordAllTransaction({ data });
-
-
-
+      const idTrans = res.dataValues.id;
+      const trans = await sjpDb.selectOne({ id: idTrans });
+      const dataAllTransaction = {}
+      if (trans.rowCount > 0) {
+        const dataTrans = trans.rows[0];
+        dataAllTransaction.log_number = data.log_number;
+        dataAllTransaction.id_sjp = dataTrans.id;
+        dataAllTransaction.trx_number = dataTrans.trx_number;
+        dataAllTransaction.transaction = 'SJP';
+        dataAllTransaction.no_do = dataTrans.no_do;
+        dataAllTransaction.status = 'DRAFT';
+        dataAllTransaction.sender_reporter = dataTrans.reporter_name;
+        dataAllTransaction.company_departure = dataTrans.departure_company;
+        dataAllTransaction.company_destination = dataTrans.destination_company;
+        dataAllTransaction.company_transporter = dataTrans.transporter_company;
+        dataAllTransaction.truck_number = dataTrans.license_plate;
+        dataAllTransaction.driver_name = dataTrans.driver_name;
+        dataAllTransaction.good_pallet = dataTrans.pallet_quantity;
+        dataAllTransaction.created_by = data.createdBy;
+      }
+      
+      await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
 
       // ##
       let msg = `Error on inserting SJP, please try again.`;
-  
       if (res) {
         msg = `SJP has been added successfully.`;
         return msg;

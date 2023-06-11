@@ -1,5 +1,6 @@
 const { makeSjps, patchSjps } = require("../../entities/sjps/app"); // entity
 const sjpDb = require("../../data-access/sjps/app"); // database queries
+const allTransactionDb = require("../../data-access/all-transactions/app"); // database queries
 const trxNumbersDb = require("../../data-access/trx-numbers/app"); // database queries
 const { encrypt, decrypt } = require("../../functions/app");
 // #########
@@ -11,9 +12,9 @@ const selectSjp = require("./select-sjp");
 const updateSjp = require("./update-sjp");
 const deleteSjp = require("./delete-sjp");
 // #########
-const addSjps = addSjp({ makeSjps, sjpDb, trxNumbersDb });
+const addSjps = addSjp({ makeSjps, sjpDb, trxNumbersDb, allTransactionDb });
 const selectSjps = selectSjp({ sjpDb });
-const updateSjps = updateSjp({ sjpDb, patchSjps, SENDMAIL,  CHANGE_DESTINATION_TEMPLATE, CHANGE_TRUCK_TEMPLATE});
+const updateSjps = updateSjp({ sjpDb, trxNumbersDb, patchSjps, allTransactionDb, SENDMAIL,  CHANGE_DESTINATION_TEMPLATE, CHANGE_TRUCK_TEMPLATE});
 const deleteSjps = deleteSjp({ sjpDb });
 // #########
 const services = Object.freeze({

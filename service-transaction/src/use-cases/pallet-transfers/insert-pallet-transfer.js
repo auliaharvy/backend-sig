@@ -21,6 +21,8 @@ const addPalletTransfer = ({ makePalletTransfers, palletTransfersDb, trxNumbersD
         createdBy: data.getCreatedBy(),
         updatedBy: data.getUpdatedBy(),
       };
+
+      
   
       // check truck on board 
       const check = await palletTransfersDb.checkTruck({ data });

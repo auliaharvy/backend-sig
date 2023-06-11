@@ -1,4 +1,4 @@
-const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss }) => {
+const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNumbersDb }) => {
     return async function put({ id, ...info }) {
       let data = patchSjpStatuss(id, info);
 
@@ -58,6 +58,77 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss }) => {
         const resUpdateQty = await sjpStatusDb.updatePalletQtyReceiving({ data });
         // update trx_status SJP
         const trx_statusSjp = await sjpStatusDb.updateStatusSjp({ data });
+
+        // all Transaction Record
+      // get LOG NUMBER
+      const logNumber = await allTransactionDb.getLogNumber();
+      const dataLogNumber = logNumber.rows[0];
+      var incrLogNumber = parseInt(dataLogNumber.increment_number) + 1;
+      var FormatedIncrLogNumber = '';
+      if (incrLogNumber < 10) {
+        FormatedIncrLogNumber = '000' + incrLogNumber;
+      } else if (incrLogNumber < 100) {
+        FormatedIncrLogNumber = '00' + incrLogNumber;
+      } else if (incrLogNumber < 1000) {
+        FormatedIncrLogNumber = '0' + incrLogNumber;
+      } else {
+        FormatedIncrLogNumber = incrLogNumber;
+      }
+      data.log_number = dataLogNumber.trx_type + '-' + dataLogNumber.year + dataLogNumber.month + '-' + FormatedIncrLogNumber;
+      // update logNumber
+      const dataUpdateLogNumber = {
+        id: dataLogNumber.id,
+        increment_number: incrLogNumber ++,
+      };
+      // console.log(dataUpdateLogNumber)
+      // console.log(data.log_number)
+      await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
+
+      const idTrans = data.id;
+      const trans = await sjpStatusDb.selectOne({ id: idTrans });
+      const dataAllTransaction = {}
+      if (trans.rowCount > 0) {
+        const dataTrans = trans.rows[0];
+        const resPalletQuantity = await sjpStatusDb.getPalletQuantity(dataTrans.id);
+
+      var qtyGoodPallet = 0;
+      var qtyTbrPallet = 0;
+      var qtyBerPallet = 0;
+      var qtyMissingPallet = 0;
+      for (const qtyPallet of resPalletQuantity.rows) {
+        if (qtyPallet.kondisi_pallet == "Good Pallet") {
+          qtyGoodPallet = parseInt(qtyPallet.quantity);
+        }
+        if (qtyPallet.kondisi_pallet == "TBR Pallet") {
+          qtyTbrPallet = parseInt(qtyPallet.quantity);
+        }
+        if (qtyPallet.kondisi_pallet == "BER Pallet") {
+          qtyBerPallet = parseInt(qtyPallet.quantity);
+        }
+        if (qtyPallet.kondisi_pallet == "Missing Pallet") {
+          qtyMissingPallet = parseInt(qtyPallet.quantity);
+        }
+      }
+        dataAllTransaction.log_number = data.log_number;
+        dataAllTransaction.id_sjp = dataTrans.id_sjp;
+        dataAllTransaction.id_sjp_status = dataTrans.id;
+        dataAllTransaction.trx_number = dataTrans.trx_number;
+        dataAllTransaction.transaction = 'SJP STATUS';
+        dataAllTransaction.status = 'RECEIVE';
+        dataAllTransaction.sender_reporter = dataTrans.sender_name;
+        dataAllTransaction.receiver_approver = dataTrans.receiver_name;
+        dataAllTransaction.note = dataTrans.note;
+        dataAllTransaction.company_departure = dataTrans.departure_company;
+        dataAllTransaction.company_destination = dataTrans.destination_company;
+        dataAllTransaction.company_transporter = dataTrans.transporter_company;
+        dataAllTransaction.good_pallet = qtyGoodPallet;
+        dataAllTransaction.tbr_pallet = qtyTbrPallet;
+        dataAllTransaction.ber_pallet = qtyBerPallet;
+        dataAllTransaction.missing_pallet = qtyMissingPallet;
+        dataAllTransaction.created_by = data.created_by;
+      }
+      
+      await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
     
         let msg = `SJP Status not updated, please try again`;
         if (res[0] == 1) {
@@ -101,6 +172,77 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss }) => {
         const resUpdateQty = await sjpStatusDb.updatePalletQtyReceiving({ data });
         // update trx_status SJP
         const trx_statusSjp = await sjpStatusDb.updateStatusSjp({ data });
+
+        // all Transaction Record
+      // get LOG NUMBER
+      const logNumber = await allTransactionDb.getLogNumber();
+      const dataLogNumber = logNumber.rows[0];
+      var incrLogNumber = parseInt(dataLogNumber.increment_number) + 1;
+      var FormatedIncrLogNumber = '';
+      if (incrLogNumber < 10) {
+        FormatedIncrLogNumber = '000' + incrLogNumber;
+      } else if (incrLogNumber < 100) {
+        FormatedIncrLogNumber = '00' + incrLogNumber;
+      } else if (incrLogNumber < 1000) {
+        FormatedIncrLogNumber = '0' + incrLogNumber;
+      } else {
+        FormatedIncrLogNumber = incrLogNumber;
+      }
+      data.log_number = dataLogNumber.trx_type + '-' + dataLogNumber.year + dataLogNumber.month + '-' + FormatedIncrLogNumber;
+      // update logNumber
+      const dataUpdateLogNumber = {
+        id: dataLogNumber.id,
+        increment_number: incrLogNumber ++,
+      };
+      // console.log(dataUpdateLogNumber)
+      // console.log(data.log_number)
+      await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
+
+      const idTrans = data.id;
+      const trans = await sjpStatusDb.selectOne({ id: idTrans });
+      const dataAllTransaction = {}
+      if (trans.rowCount > 0) {
+        const dataTrans = trans.rows[0];
+        const resPalletQuantity = await sjpStatusDb.getPalletQuantity(dataTrans.id);
+
+      var qtyGoodPallet = 0;
+      var qtyTbrPallet = 0;
+      var qtyBerPallet = 0;
+      var qtyMissingPallet = 0;
+      for (const qtyPallet of resPalletQuantity.rows) {
+        if (qtyPallet.kondisi_pallet == "Good Pallet") {
+          qtyGoodPallet = parseInt(qtyPallet.quantity);
+        }
+        if (qtyPallet.kondisi_pallet == "TBR Pallet") {
+          qtyTbrPallet = parseInt(qtyPallet.quantity);
+        }
+        if (qtyPallet.kondisi_pallet == "BER Pallet") {
+          qtyBerPallet = parseInt(qtyPallet.quantity);
+        }
+        if (qtyPallet.kondisi_pallet == "Missing Pallet") {
+          qtyMissingPallet = parseInt(qtyPallet.quantity);
+        }
+      }
+        dataAllTransaction.log_number = data.log_number;
+        dataAllTransaction.id_sjp = dataTrans.id_sjp;
+        dataAllTransaction.id_sjp_status = dataTrans.id;
+        dataAllTransaction.trx_number = dataTrans.trx_number;
+        dataAllTransaction.transaction = 'SJP STATUS';
+        dataAllTransaction.status = 'RECEIVE SEND BACK';
+        dataAllTransaction.sender_reporter = dataTrans.sender_name;
+        dataAllTransaction.receiver_approver = dataTrans.receiver_name;
+        dataAllTransaction.note = dataTrans.note;
+        dataAllTransaction.company_departure = dataTrans.departure_company;
+        dataAllTransaction.company_destination = dataTrans.destination_company;
+        dataAllTransaction.company_transporter = dataTrans.transporter_company;
+        dataAllTransaction.good_pallet = qtyGoodPallet;
+        dataAllTransaction.tbr_pallet = qtyTbrPallet;
+        dataAllTransaction.ber_pallet = qtyBerPallet;
+        dataAllTransaction.missing_pallet = qtyMissingPallet;
+        dataAllTransaction.created_by = data.created_by;
+      }
+      
+      await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
     
         let msg = `SJP Status was not updated, please try again`;
         if (res[0] == 1) {
