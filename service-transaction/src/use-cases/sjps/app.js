@@ -2,6 +2,9 @@ const { makeSjps, patchSjps } = require("../../entities/sjps/app"); // entity
 const sjpDb = require("../../data-access/sjps/app"); // database queries
 const allTransactionDb = require("../../data-access/all-transactions/app"); // database queries
 const trxNumbersDb = require("../../data-access/trx-numbers/app"); // database queries
+const companiesDB = require("../../data-access/companies/app"); // database queries
+const trucksDb = require("../../data-access/trucks/app"); // database queries
+const driversDb = require("../../data-access/drivers/app"); // database queries
 const { encrypt, decrypt } = require("../../functions/app");
 // #########
 const SENDMAIL = require("../../lib/mailer");
@@ -12,7 +15,7 @@ const selectSjp = require("./select-sjp");
 const updateSjp = require("./update-sjp");
 const deleteSjp = require("./delete-sjp");
 // #########
-const addSjps = addSjp({ makeSjps, sjpDb, trxNumbersDb, allTransactionDb });
+const addSjps = addSjp({ makeSjps, sjpDb, trxNumbersDb, allTransactionDb, companiesDB, trucksDb, driversDb });
 const selectSjps = selectSjp({ sjpDb });
 const updateSjps = updateSjp({ sjpDb, trxNumbersDb, patchSjps, allTransactionDb, SENDMAIL,  CHANGE_DESTINATION_TEMPLATE, CHANGE_TRUCK_TEMPLATE});
 const deleteSjps = deleteSjp({ sjpDb });

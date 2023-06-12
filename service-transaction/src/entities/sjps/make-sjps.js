@@ -8,6 +8,13 @@ const makeSjp = ({}) => {
     // second_driver,
     trx_number,
     is_multiple,
+    truck_number,
+    driver,
+    destination_code,
+    destination,
+    departure_code,
+    transporter_code,
+    transporter,
     no_do,
     tonnage,
     packaging,
@@ -23,18 +30,18 @@ const makeSjp = ({}) => {
     if (!id_departure_company) {
       throw new Error("Please enter Departure Company.");
     }
-    if (!id_destination_company) {
-      throw new Error("Please enter Destination Company.");
-    }
-    if (!id_transporter_company) {
-      throw new Error("Please enter Transporter Company.");
-    }
-    if (!id_truck) {
-      throw new Error("Please enter Truck.");
-    }
-    if (!id_driver) {
-      throw new Error("Please enter Driver.");
-    }
+    // if (!id_destination_company) {
+    //   throw new Error("Please enter Destination Company.");
+    // }
+    // if (!id_transporter_company) {
+    //   throw new Error("Please enter Transporter Company.");
+    // }
+    // if (!id_truck) {
+    //   throw new Error("Please enter Truck.");
+    // }
+    // if (!id_driver) {
+    //   throw new Error("Please enter Driver.");
+    // }
     if (!no_do) {
       throw new Error("Please enter No DO.");
     }
@@ -64,6 +71,13 @@ const makeSjp = ({}) => {
       getCreatedBy: () => created_by,
       getUpdatedBy: () => updated_by,
       getTrxNumber: () => trx_number,
+      getTruckNumber: () => truck_number,
+      getDriverName: () => driver,
+      getDestinationCode: () => destination_code,
+      getDestinationName: () => destination,
+      getDepartureCode: () => departure_code,
+      getTransporterCode: () => transporter_code,
+      getTransporterName: () => transporter,
     });
   };
 };

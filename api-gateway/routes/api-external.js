@@ -5,6 +5,7 @@ const verifyToken = require('../middlewares/verifyToken');
 
 router.post('/truck', apiExternalHandler.truck);
 router.post('/do', apiExternalHandler.dataDo);
+router.post('/login-sso', apiExternalHandler.loginSso);
 // router.get('/', verifyToken, companyHandler.getAll);
 // router.get('/', claimPalletHandler.getAll);
 // router.get('/:id', claimPalletHandler.getDetail);

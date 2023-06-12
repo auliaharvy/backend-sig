@@ -7,8 +7,7 @@ const api = apiAdapter(URL_API_SIG);
 
 module.exports = async (req, res) => {
     try {
-        console.log(req.body)
-        const data = await api.post(`/dev/sd/sdonline/service/sinkronTruck.php`, req.body);
+        const data = await api.post(`/dev/sd/sdonline/service/sinkronTruck.php`, req.body, req.headers);
         return res.json(data.data);
     } catch (error) {
         console.log(error);
@@ -19,10 +18,9 @@ module.exports = async (req, res) => {
             })
         }
 
-        const {
-            status,
-            data
-        } = error.response;
-        return res.status(status).json(data);
+        const response = {
+            message: 'no connection to API'
+        } 
+        return res.status(500).json(response);
     }
 }

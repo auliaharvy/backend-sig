@@ -1,25 +1,21 @@
 const apiAdapter = require('../../apiAdapter');
 const {
-    URL_API_SIG
+    URL_API_SSO
 } = process.env;
 const logger = require('../../../lib/logger');
 
 
-const api = apiAdapter(URL_API_SIG);
+const api = apiAdapter(URL_API_SSO);
 const FormData = require('form-data');
 
 module.exports = async (req, res) => {
     try {
         var bodyFormData = new FormData();
-        bodyFormData.append('token', req.body.token);
-        bodyFormData.append('X_TGL1', req.body.X_TGL1);
-        bodyFormData.append('X_TGL2', req.body.X_TGL2);
-        bodyFormData.append('X_WERKS', req.body.X_WERKS);
-        bodyFormData.append('X_VKORG', req.body.X_VKORG);
-        bodyFormData.append('X_NOPOLISI', req.body.X_NOPOLISI);
-        bodyFormData.append('X_LINE_SO', req.body.X_LINE_SO);
-        bodyFormData.append('X_SO', req.body.X_SO);
-        const data = await api.post(`/dev/sd/sdonline/service/get_realisasi.php`, bodyFormData ,req.headers);
+        bodyFormData.append('token', '9fd977dad8b0e2231b7a2112faa889df');
+        bodyFormData.append('username', req.body.username);
+        bodyFormData.append('password', req.body.password);
+        req.headers.token = '$2y$10$3DDqyL./M7Qn4h426rnOAux3H20.VWXE2sq0B3tk6n24QDtswGwF.'
+        const data = await api.post(`/api/login`, bodyFormData ,req.headers);
         return res.json(data.data);
     } catch (error) {
         console.log(error);
@@ -29,6 +25,7 @@ module.exports = async (req, res) => {
                 message: 'Service Unavailable'
             })
         }
+        
 
         // const {
         //     data

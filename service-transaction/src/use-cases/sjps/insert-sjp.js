@@ -1,4 +1,6 @@
-const addSjp = ({ makeSjps, sjpDb, allTransactionDb, trxNumbersDb }) => {
+const trucksDb = require("../../data-access/trucks/app");
+
+const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, trucksDb, driversDb }) => {
     return async function post(info) {
       let data = await makeSjps(info); // entity
   
@@ -18,12 +20,96 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, trxNumbersDb }) => {
         pallet_quantity: data.getPalletQuantity(),
         createdBy: data.getCreatedBy(),
         updatedBy: data.getUpdatedBy(),
+        truck_number: data.getTruckNumber(),
+        driver_name: data.getDriverName(),
+        destination_code: data.getDestinationCode(),
+        destination: data.getDestinationName(),
+        departure_code: data.getDepartureCode(),
+        transporter_code: data.getTransporterCode(),
+        transporter: data.getTransporterName(),
       };
   
-      // check truck on board 
-      const check = await sjpDb.checkTruck({ data });
-      if (check.rowCount > 0)
-        throw new Error(`This Truck not yet close SJP, please check or change truck.`);
+      // check company destination
+      const checkCompanyDestination = await companiesDB.checkCompanyExist({ data: {code: data.destination_code} });
+      if (checkCompanyDestination.rowCount == 0) {
+        dataCreateCompany = {
+          id_organization: 1,
+          id_company_type: 3,
+          name: data.destination,
+          code: data.destination_code,
+          address: 'AUTO CREATE FROM SJP',
+          city: 'AUTO CREATE FROM SJP',
+          phone: 'AUTO CREATE FROM SJP',
+          email: 'AUTO CREATE FROM SJP',
+          tag: 'POOL PALLET',
+          createdBy: data.createdBy,
+          updatedBy: data.updatedBy,
+        };
+        const newDestination = await companiesDB.insertCompany({ data: dataCreateCompany });
+        data.id_destination_company = newDestination.dataValues.id
+      } if (checkCompanyDestination.rowCount > 0) { 
+        data.id_destination_company = checkCompanyDestination.rows[0].id
+      }
+        
+
+      // check company transporter
+      const checkCompanyTransporter = await companiesDB.checkCompanyExist({ data: {code: data.transporter_code} });
+      if (checkCompanyTransporter.rowCount == 0) {
+        dataCreateCompany = {
+          id_organization: 6,
+          id_company_type: 4,
+          name: data.transporter,
+          code: data.transporter_code,
+          address: 'AUTO CREATE FROM SJP',
+          city: 'AUTO CREATE FROM SJP',
+          phone: 'AUTO CREATE FROM SJP',
+          email: 'AUTO CREATE FROM SJP',
+          tag: 'TRANSPORTER',
+          createdBy: data.createdBy,
+          updatedBy: data.updatedBy,
+        };
+        const newTransporter = await companiesDB.insertCompany({ data: dataCreateCompany });
+        data.id_transporter_company = newTransporter.dataValues.id
+      } if (checkCompanyTransporter.rowCount > 0) { 
+        data.id_transporter_company = checkCompanyTransporter.rows[0].id
+      }
+
+      // check truck
+      const checkTruck = await trucksDb.checkTruckExist({ data: {license_plate: data.truck_number} });
+      if (checkTruck.rowCount == 0) {
+        dataCreateTruck = {
+          id_company: data.id_transporter_company,
+          license_plate: data.truck_number,
+          createdBy: data.createdBy,
+          updatedBy: data.updatedBy
+        };
+        const newTruck = await trucksDb.insertTruck({ data: dataCreateTruck });
+        data.id_truck = newTruck.dataValues.id
+      } if (checkTruck.rowCount > 0) { 
+        data.id_truck = checkTruck.rows[0].id
+      }
+
+      // check driver
+      const checkDriver = await driversDb.checkDriverExist({ data: {name: data.driver_name} });
+      if (checkDriver.rowCount == 0) {
+        dataCreateDriver = {
+          id_company: data.id_transporter_company,
+          name: data.driver_name,
+          createdBy: data.createdBy,
+          updatedBy: data.updatedBy
+        };
+        const newDriver = await driversDb.insertDriver({ data: dataCreateDriver });
+        data.id_driver = newDriver.dataValues.id
+      } if (checkDriver.rowCount > 0) { 
+        data.id_driver = checkDriver.rows[0].id
+      }
+
+      if (data.is_multiple == 0) {
+        // check truck on board 
+        const check = await sjpDb.checkTruck({ data });
+        if (check.rowCount > 0)
+          throw new Error(`This Truck not yet close SJP, please check or change truck.`);
+      }
 
       // get TRX NUMBER
       const trxNumber = await sjpDb.getTrxNumber();

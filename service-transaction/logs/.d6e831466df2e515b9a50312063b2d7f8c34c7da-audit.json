@@ -129,6 +129,31 @@
             "date": 1686496236058,
             "name": "logs/pms-service-transaction-2023-06-11-22.log",
             "hash": "57156d3e2397691f412f1001ce9718a1fce34b4fe6f14cf91dffeafff1303253"
+        },
+        {
+            "date": 1686534657230,
+            "name": "logs/pms-service-transaction-2023-06-12-08.log",
+            "hash": "504cfffce3bc0a618e1105a50f61308a15efbfd3d241a7f70783585b18e2e488"
+        },
+        {
+            "date": 1686542442585,
+            "name": "logs/pms-service-transaction-2023-06-12-11.log",
+            "hash": "04fa1025b1d72cd5f57d546a808ec7f0b83ec843b889ffffd6df854354fbb27a"
+        },
+        {
+            "date": 1686546140748,
+            "name": "logs/pms-service-transaction-2023-06-12-12.log",
+            "hash": "9450d57bf534a0a8a386577fff7668b11d080f17462b91096c57697097a7734f"
+        },
+        {
+            "date": 1686550575487,
+            "name": "logs/pms-service-transaction-2023-06-12-13.log",
+            "hash": "7e273672913c5da89181118fd36eaff0ca2964e7ffba9ad789f874ddf5140539"
+        },
+        {
+            "date": 1686560504412,
+            "name": "logs/pms-service-transaction-2023-06-12-16.log",
+            "hash": "6f06b22494821c4e5b7e25a5027d4d76dd88115e3a243a1df51378f28193871d"
         }
     ],
     "hashType": "sha256"
