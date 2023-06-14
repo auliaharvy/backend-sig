@@ -1,4 +1,6 @@
-FROM node
+FROM node:14-alpine
+
+RUN apk add g++ make py3-pi
 
 WORKDIR /app/reporting
 

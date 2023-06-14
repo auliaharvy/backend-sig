@@ -4,7 +4,8 @@ const query = ({ connects, models }) => {
       palletCondition,
       detailPallet,
       getPalletOut,
-      getPalletIn
+      getPalletIn,
+      palletConditionCompany
     });
   
     async function totalPallet({}) {
@@ -192,6 +193,46 @@ const query = ({ connects, models }) => {
         });
 
         return res;
+      } catch (e) {
+        console.log("Error: ", e);
+      }
+    }
+
+    async function palletConditionCompany({query}) {
+      try {
+
+          // Tambahkan kode di bawah ini untuk menjalankan permintaan Sequelize
+          const res = await models.Pallets.findAll({
+            attributes: [
+              'name',
+              [
+                models.Sequelize.literal(`sum("CompaniesPallets"."quantity")`),
+                'jumlah_pallet'
+              ]
+            ],
+            include: [
+              {
+                model: models.CompaniesPallet,
+                attributes: [],
+                where: {
+                  mst_companies_id: {
+                    [models.Sequelize.Op.ne]: null
+                  }
+                },
+                include: [
+                  {
+                    model: models.Companies,
+                    attributes: [],
+                    where: { id: query.id },
+                  }
+                ]
+              },
+            ],
+            // where: { is_deleted: 0 },
+            group: ['Pallets.id'],
+            order: [['id', 'ASC']]
+          });
+          return res;
       } catch (e) {
         console.log("Error: ", e);
       }

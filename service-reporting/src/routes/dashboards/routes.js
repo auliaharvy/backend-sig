@@ -9,6 +9,7 @@ const {
     // GET
     router.get("/total-pallet", makeExpressCallback(totalPalletsSelects));
     router.get("/pallet-condition", makeExpressCallback(palletConditionsSelects));
+    router.get("/pallet-condition-company", makeExpressCallback(palletConditionsSelects));
     router.get("/detail-pallet", makeExpressCallback(detailPalletsSelects));
   
     return router;

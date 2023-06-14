@@ -3,24 +3,48 @@ const selectPalletCondition = ({ dashboardDb }) => {
     let data = [];
 
     const { query } = info;
+    console.log(query);
 
-    // select all
-    const res = await dashboardDb.palletCondition({query});
-    if (res) {
-      // only when there is data returned
-      const items = res;
-      // console.log(items);
-      for (let i = 0; i < items.length; i++) {
-        const e = items[i].dataValues;
-        // push items to array
-        data.push({
-          id: e.id,
-          name: e.name ? e.name : null,
-          jumlah_pallet: e.jumlah_pallet ? e.jumlah_pallet : 0,
-        });
+    if (query.type) {
+      // select all
+      const res = await dashboardDb.palletCondition({query});
+      if (res) {
+        // only when there is data returned
+        const items = res;
+        // console.log(items);
+        for (let i = 0; i < items.length; i++) {
+          const e = items[i].dataValues;
+          // push items to array
+          data.push({
+            id: e.id,
+            name: e.name ? e.name : null,
+            jumlah_pallet: e.jumlah_pallet ? e.jumlah_pallet : 0,
+          });
+        }
       }
+      return res;
     }
-    return res;
+
+    if (query.id) {
+      // select all
+      const res = await dashboardDb.palletConditionCompany({query});
+      if (res) {
+        // only when there is data returned
+        const items = res;
+        // console.log(items);
+        for (let i = 0; i < items.length; i++) {
+          const e = items[i].dataValues;
+          // push items to array
+          data.push({
+            id: e.id,
+            name: e.name ? e.name : null,
+            jumlah_pallet: e.jumlah_pallet ? e.jumlah_pallet : 0,
+          });
+        }
+      }
+      return res;
+    }
+    
   };
 };
 
