@@ -8,7 +8,7 @@ const api = apiAdapter(URL_SERVICE_MASTER);
 module.exports = async (req, res) => {
     try {
         const id = req.params.id;
-        const pallet = await api.get(`/api/pallets/${id}`);
+        const pallet = await api.get(`/api/pallets/${id}`, req.headers);
         return res.json(pallet.data);
     } catch (error) {
         console.log(error);

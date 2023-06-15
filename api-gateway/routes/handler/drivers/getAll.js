@@ -7,7 +7,7 @@ const api = apiAdapter(URL_SERVICE_MASTER);
 
 module.exports = async (req, res) => {
     try {
-        const driver = await api.get(`/api/drivers`);
+        const driver = await api.get(`/api/drivers`, req.headers);
         return res.status(200).json({
             code: 200,
             status: 'success',

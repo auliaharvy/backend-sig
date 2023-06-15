@@ -7,7 +7,7 @@ const api = apiAdapter(URL_SERVICE_TRANSACTION);
 
 module.exports = async (req, res) => {
     try {
-        const data = await api.get(`/api/change-quotas`);
+        const data = await api.get(`/api/change-quotas`, req.headers);
         return res.json(data.data);
     } catch (error) {
         console.log(error);

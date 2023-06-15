@@ -40,6 +40,7 @@ const transporterAdjusmentRouter = require('./routes/transporter-adjusments');
 //Service-reporting
 const palletMovementsRouter = require('./routes/pallet-movements');
 const dashboardsRouter = require('./routes/dashboards');
+const allTransactionsRouter = require('./routes/all-transactions');
 
 //API - External
 const apiExternalRouter = require('./routes/api-external');
@@ -99,6 +100,7 @@ app.use('/transporter-adjusments', transporterAdjusmentRouter);
 //Service-reporting routes
 app.use('/pallet-movements', palletMovementsRouter);
 app.use('/dashboards', dashboardsRouter);
+app.use('/all-transactions', allTransactionsRouter);
 
 //API - External routes
 app.use('/api-external', apiExternalRouter);

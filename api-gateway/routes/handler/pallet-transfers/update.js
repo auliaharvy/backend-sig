@@ -8,7 +8,7 @@ const api = apiAdapter(URL_SERVICE_TRANSACTION);
 module.exports = async (req, res) => {
     try {
         const id = req.params.id;
-        const palletTransfer = await api.patch(`/api/pallet-transfers/${id}`, req.body);
+        const palletTransfer = await api.patch(`/api/pallet-transfers/${id}`, req.body, req.headers);
         return res.json(palletTransfer.data);
     } catch (error) {
         if (error.code === "ECONNREFUSED") {

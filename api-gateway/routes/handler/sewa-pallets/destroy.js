@@ -8,7 +8,7 @@ const api = apiAdapter(URL_SERVICE_TRANSACTION);
 module.exports = async (req, res) => {
     try {
         const id = req.params.id;
-        const data = await api.delete(`api/sewa-pallets/${id}`);
+        const data = await api.delete(`api/sewa-pallets/${id}`, req.headers);
         return res.json(data.data);
     } catch (error) {
 

@@ -7,7 +7,7 @@ const api = apiAdapter(URL_SERVICE_TRANSACTION);
 
 module.exports = async (req, res) => {
     try {
-        const sjp = await api.post('api/sjps', req.body);
+        const sjp = await api.post('api/sjps', req.body, req.headers);
         return res.json(sjp.data);
     } catch (error) {
 

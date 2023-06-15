@@ -10,7 +10,7 @@ const api = apiAdapter(URL_SERVICE_REPORTING);
 module.exports = async (req, res) => {
     try {
         // const id = req.params.id;
-        const data = await api.get(`/api/dashboards/total-pallet`);
+        const data = await api.get(`/api/dashboards/total-pallet`, req.headers);
         return res.json(data.data);
     } catch (error) {
         console.log(error);

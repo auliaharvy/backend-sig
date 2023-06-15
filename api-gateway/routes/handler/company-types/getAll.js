@@ -7,7 +7,7 @@ const api = apiAdapter(URL_SERVICE_MASTER);
 
 module.exports = async (req, res) => {
     try {
-        const companyType = await api.get(`/api/company-types`);
+        const companyType = await api.get(`/api/company-types`, req.headers);
         return res.json(companyType.data);
     } catch (error) {
         console.log(error);

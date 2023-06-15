@@ -9,7 +9,7 @@ const api = apiAdapter(URL_SERVICE_MASTER);
 module.exports = async (req, res) => {
     try {
         const id = req.params.id;
-        const driver = await api.patch(`/api/drivers/${id}`, req.body);
+        const driver = await api.patch(`/api/drivers/${id}`, req.body, req.headers);
         const logMessage = driver.status + '-' + driver.config.method +': ' + driver.config.baseURL + driver.config.url;
         logger.info(logMessage);
         return res.json(driver.data);

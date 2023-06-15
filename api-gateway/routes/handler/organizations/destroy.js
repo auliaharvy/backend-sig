@@ -8,7 +8,7 @@ const api = apiAdapter(URL_SERVICE_MASTER);
 module.exports = async (req, res) => {
     try {
         const id = req.params.id;
-        const organization = await api.delete(`api/organizations/${id}`);
+        const organization = await api.delete(`api/organizations/${id}`, req.headers);
         return res.json(organization.data);
     } catch (error) {
 

@@ -1,5 +1,6 @@
 const selectCompany = ({ companiesDB }) => {
   return async function select(info) {
+    console.log(info)
     let data = [];
 
     const { id } = info; // deconstruct

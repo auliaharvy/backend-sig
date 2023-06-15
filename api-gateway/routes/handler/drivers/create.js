@@ -8,7 +8,7 @@ const api = apiAdapter(URL_SERVICE_MASTER);
 
 module.exports = async (req, res) => {
     try {
-        const driver = await api.post('api/drivers', req.body);
+        const driver = await api.post('api/drivers', req.body, req.headers);
         const logMessage = driver.status + '-' + driver.config.method +': ' + driver.config.baseURL + driver.config.url;
         logger.info(logMessage);
         return res.json(driver.data);

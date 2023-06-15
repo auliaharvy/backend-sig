@@ -7,7 +7,7 @@ const api = apiAdapter(URL_SERVICE_USER);
 
 module.exports = async (req, res) => {
     try {
-        const permission = await api.post('api/permissions', req.body);
+        const permission = await api.post('api/permissions', req.body, req.headers);
         return res.json(permission.data);
     } catch (error) {
 

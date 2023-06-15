@@ -8,7 +8,7 @@ const api = apiAdapter(URL_SERVICE_USER);
 module.exports = async (req, res) => {
     try {
         const id = req.params.id;
-        const permission = await api.delete(`api/permissions/${id}`);
+        const permission = await api.delete(`api/permissions/${id}`, req.headers);
         return res.json(permission.data);
     } catch (error) {
 

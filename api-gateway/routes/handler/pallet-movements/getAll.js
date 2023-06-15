@@ -7,7 +7,7 @@ const api = apiAdapter(URL_SERVICE_REPORTING);
 
 module.exports = async (req, res) => {
     try {
-        const data = await api.get(`/api/pallet-movements`);
+        const data = await api.get(`/api/pallet-movements`, req.headers);
         return res.json(data.data);
     } catch (error) {
         console.log(error);

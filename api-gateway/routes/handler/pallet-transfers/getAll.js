@@ -7,7 +7,7 @@ const api = apiAdapter(URL_SERVICE_TRANSACTION);
 
 module.exports = async (req, res) => {
     try {
-        const palletTransfer = await api.get(`/api/pallet-transfers`);
+        const palletTransfer = await api.get(`/api/pallet-transfers`, req.headers);
         return res.json(palletTransfer.data);
     } catch (error) {
         console.log(error);

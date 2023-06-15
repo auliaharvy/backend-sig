@@ -7,7 +7,7 @@ const api = apiAdapter(URL_SERVICE_USER);
 
 module.exports = async (req, res) => {
     try {
-        const permission = await api.get(`/api/permissions`);
+        const permission = await api.get(`/api/permissions`, req.headers);
         return res.json(permission.data);
     } catch (error) {
         console.log(error);

@@ -8,7 +8,7 @@ const api = apiAdapter(URL_SERVICE_USER);
 module.exports = async (req, res) => {
     try {
         const id = req.params.id;
-        const permission = await api.patch(`/api/permissions/${id}`, req.body);
+        const permission = await api.patch(`/api/permissions/${id}`, req.body, req.headers);
         return res.json(permission.data);
     } catch (error) {
         console.log(error);

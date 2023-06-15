@@ -7,7 +7,7 @@ const api = apiAdapter(URL_SERVICE_MASTER);
 
 module.exports = async (req, res) => {
     try {
-        const pallet = await api.post('api/pallets', req.body);
+        const pallet = await api.post('api/pallets', req.body, req.headers);
         return res.json(pallet.data);
     } catch (error) {
 

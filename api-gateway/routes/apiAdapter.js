@@ -27,10 +27,10 @@ module.exports = (baseUrl) => {
     },(error) => {
         const errorMessage = {
             response: {
-                status: error.response.status,
-                code: error.code,
-                message: error.message,
-                data: error.response.data.error,
+                status: error.response.status || 'Error',
+                code: error.code || 400,
+                message: error.message || "error",
+                data: error.response.data.error || 'error',
             }
         }
 

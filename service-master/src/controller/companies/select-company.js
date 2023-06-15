@@ -15,10 +15,12 @@ const companiesSelects = ({
       if (httpRequest.headers["Referer"]) {
         source.referrer = httpRequest.headers["Referer"];
       }
+      console.log(httpRequest)
       const toView = {
         ...info,
         source,
         id: httpRequest.params.id, // when id is passed
+        userId: httpRequest.headers.userid
       };
       const data = await selectCompanies(toView);
       return {

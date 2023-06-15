@@ -11,6 +11,7 @@ var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users');
 var palletMovementsRouter = require('./src/routes/pallet-movements/app');
 var dashboardsRouter = require('./src/routes/dashboards/app');
+var allTransactionsRouter = require('./src/routes/all-transactions/app');
 
 var app = express();
 
@@ -35,6 +36,8 @@ app.use("/api/employees", require("./src/routes/employees/app"))
 app.use("/api/pallet-movements", palletMovementsRouter)
 // dashboard
 app.use("/api/dashboards", dashboardsRouter)
+// all transaction
+app.use("/api/all-transactions", allTransactionsRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

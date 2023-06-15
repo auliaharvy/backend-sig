@@ -79,14 +79,17 @@ const query = ({ connects, models, bcrypt }) => {
       const pool = await connects();
 
       const resRole = await new Promise((resolve) => {
-        const sql = `SELECT a.*, b.name AS role_name, c.name AS company_name, ARRAY_AGG(e.name) AS permissions
+        const sql = `SELECT a.*, b.name AS role_name, c.name AS company_name, ARRAY_AGG(e.name) AS permissions,
+        f.name as organization_name, f.id as organization_id, g.name as company_type, g.id as company_type_id
         FROM "user_has_role" AS a
         JOIN "roles" AS b ON a."role_id" = b.id
         JOIN "mst_companies" AS c ON a."company_id" = c.id
         LEFT JOIN "role_has_permission" AS d ON a."role_id" = d.id_role
         LEFT JOIN "permissions" AS e ON d."id_permission" = e.id
+        LEFT JOIN "mst_organization" AS f ON c."id_organization" = f.id
+        LEFT JOIN "mst_company_type" AS g ON c."id_company_type" = g.id
         WHERE a."user_id" = $1
-        GROUP BY a.role_id , a.user_id , a.company_id, b.id, c.id;`;
+        GROUP BY a.role_id , a.user_id , a.company_id, b.id, c.id, f.id, g.id;`;
         const params = [user.id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
@@ -133,7 +136,6 @@ const query = ({ connects, models, bcrypt }) => {
           },
         },
       };
-      console.log(res);
       return res;
       // return res;
     } catch (e) {

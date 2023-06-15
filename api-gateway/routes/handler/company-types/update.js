@@ -8,7 +8,7 @@ const api = apiAdapter(URL_SERVICE_MASTER);
 module.exports = async (req, res) => {
     try {
         const id = req.params.id;
-        const companyType = await api.patch(`/api/company-types/${id}`, req.body);
+        const companyType = await api.patch(`/api/company-types/${id}`, req.body, req.headers);
         return res.json(companyType.data);
     } catch (error) {
         console.log(error);

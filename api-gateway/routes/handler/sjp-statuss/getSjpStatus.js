@@ -8,7 +8,7 @@ const api = apiAdapter(URL_SERVICE_TRANSACTION);
 module.exports = async (req, res) => {
     try {
         const id = req.params.id;
-        const sjpStatus = await api.get(`/api/sjp-statuss/${id}`);
+        const sjpStatus = await api.get(`/api/sjp-statuss/${id}`, req.headers);
         return res.json(sjpStatus.data);
     } catch (error) {
         console.log(error);

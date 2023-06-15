@@ -8,7 +8,7 @@ const api = apiAdapter(URL_SERVICE_TRANSACTION);
 module.exports = async (req, res) => {
     try {
         const id = req.params.id;
-        const sjpStatus = await api.patch(`/api/sjp-statuss/${id}`, req.body);
+        const sjpStatus = await api.patch(`/api/sjp-statuss/${id}`, req.body, req.headers);
         return res.json(sjpStatus.data);
     } catch (error) {
         console.log(error);
