@@ -1,4 +1,0 @@
-2023-06-12T09:02:34.559Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8005/api/dashboards/pallet-condition?type=all
-2023-06-12T09:02:34.576Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8005/api/dashboards/pallet-condition?type=Transporter
-2023-06-12T09:02:34.583Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8005/api/dashboards/total-pallet
-2023-06-12T09:02:34.796Z [32minfo[39m: 	undefined -> 200-get: http://localhost:8005/api/dashboards/detail-pallet?type=Pool Pallet

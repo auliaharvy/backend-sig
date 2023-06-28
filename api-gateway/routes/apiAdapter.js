@@ -27,14 +27,14 @@ module.exports = (baseUrl) => {
     },(error) => {
         const errorMessage = {
             response: {
-                status: error.response.status || 'Error',
+                // status: error.response.status || 'Error',
                 code: error.code || 400,
                 message: error.message || "error",
-                data: error.response.data.error || 'error',
+                // data: error.response.data.error || 'error',
             }
         }
 
-        logger.error(error.response.data.error || "ERROR")
+        // logger.error(error.response.data.error || "ERROR")
         return Promise.reject(errorMessage)
     })
 

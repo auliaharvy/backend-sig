@@ -1,5 +1,0 @@
-2023-06-08T04:36:42.214Z [31merror[39m: 	undefined
-2023-06-08T04:37:00.668Z [31merror[39m: 	connect ECONNREFUSED 127.0.0.1:8002
-2023-06-08T04:51:11.708Z [32minfo[39m: 	/api/drivers -> success
-2023-06-08T04:58:02.344Z [32minfo[39m: 	200-undefined: undefinedundefined
-2023-06-08T04:59:35.119Z [32minfo[39m: 	200-get: undefinedundefined

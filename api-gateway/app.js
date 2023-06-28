@@ -10,6 +10,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const rolesRouter = require('./routes/roles');
 const userHasRoleRouter = require('./routes/userHasRole');
+const roleHasPermissionRouter = require('./routes/role-has-permission');
 
 //Service-master
 const permissionsRouter = require('./routes/permissions');
@@ -71,6 +72,7 @@ app.use('/users', usersRouter);
 app.use('/roles', rolesRouter);
 app.use('/permissions', permissionsRouter);
 app.use('/userhasrole', userHasRoleRouter);
+app.use('/rolehaspermission', roleHasPermissionRouter);
 
 
 //Service-master routes

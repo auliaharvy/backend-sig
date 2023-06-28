@@ -7,8 +7,8 @@ const api = apiAdapter(URL_SERVICE_USER);
 
 module.exports = async (req, res) => {
     try {
-        const role = await api.post('api/roles/rolehaspermissions', req.body);
-        return res.json(role.data);
+        const roleHasPermission = await api.post('api/rolehaspermission', req.body);
+        return res.json(roleHasPermission.data);
     } catch (error) {
 
         if (error.code === "ECONNREFUSED") {
@@ -22,8 +22,6 @@ module.exports = async (req, res) => {
             status,
             data
         } = error.response;
-        console.log(error.response);
-        console.log(error);
         return res.status(status).json(data);
     }
 }
