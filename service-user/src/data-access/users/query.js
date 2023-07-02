@@ -195,7 +195,14 @@ const query = ({ connects, models, bcrypt }) => {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "users" WHERE id = $1 AND is_deleted = 0;`;
+        const sql = `SELECT a.*, jsonb_agg    ( json_build_object('role', c."name", 'company', d."name" )) as roles
+        FROM "users" AS a
+        JOIN "user_has_role" AS b ON b."user_id" = a.id
+        JOIN "roles" AS c ON c."id" = b.role_id
+        JOIN "mst_companies" AS d ON d."id" = b.company_id
+        WHERE a.id = $1
+        GROUP BY a.id
+        ;`;
         const params = [id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
