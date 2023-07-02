@@ -8,10 +8,12 @@ const addClaimPallet = ({ makeClaimPallets, allTransactionDb, claimPalletDb, trx
         status: data.getStatus(),
         ber_pallet: data.getBerPallet(),
         missing_pallet: data.getMissingPallet(),
+        photo: data.getPhoto(),
         created_by: data.getCreatedBy(),
         updated_by: data.getUpdatedBy(),
       };
-  
+
+      
       const checkQty = await claimPalletDb.checkCompanyQty({ data });
         if (checkQty.rowCount > 0) {
           for (const mstPallet of checkQty.rows) {

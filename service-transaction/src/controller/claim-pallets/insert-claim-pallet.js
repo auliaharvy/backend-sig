@@ -1,5 +1,6 @@
 const claimPalletsAdd = ({ addClaimPallets }) => {
     return async function post(httpRequest) {
+
       try {
         const { source = {}, ...info } = httpRequest.body;
         source.ip = httpRequest.ip;
@@ -7,6 +8,7 @@ const claimPalletsAdd = ({ addClaimPallets }) => {
         if (httpRequest.headers["Referer"]) {
           source.referrer = httpRequest.headers["Referer"];
         }
+        
         const posted = await addClaimPallets({
           ...info,
           source,

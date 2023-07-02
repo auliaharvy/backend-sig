@@ -9,6 +9,7 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, allTransactionDb,sjpDb,trxN
         id_destination_company: data.getDestination(),
         id_transporter_company: data.getTransporter(),
         sending_driver_approval: data.getDriverApproval(),
+        receiving_driver_approval: data.getReceivingDriverApproval(),
         status: data.getStatus(),
         is_sendback: data.getIsSendback(),
         note: data.getNote(),
@@ -20,6 +21,8 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, allTransactionDb,sjpDb,trxN
         updated_by: data.getUpdatedBy(),
         sjp_status: data.getSjpStatus(),
       };
+
+      console.log(data);
   
       // check Departure Quantity
       if(data.is_sendback == 0) {

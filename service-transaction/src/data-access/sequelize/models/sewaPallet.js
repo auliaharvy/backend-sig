@@ -73,6 +73,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
+    },
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: '/public/uploads/sewa-pallets/photo.png',
     }
   }, {
     sequelize,

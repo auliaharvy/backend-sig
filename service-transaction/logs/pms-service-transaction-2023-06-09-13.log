@@ -1,7 +1,0 @@
-2023-06-09T06:14:39.396Z [32minfo[39m: 	200-GET: /api/claim-pallets | undefined
-2023-06-09T06:16:03.601Z [32minfo[39m: 	200-GET: /api/claim-pallets | undefined
-2023-06-09T06:45:47.889Z [32minfo[39m: 	400-POST: /api/claim-pallets | newPalletDb is not defined
-2023-06-09T06:46:08.394Z [32minfo[39m: 	201-POST: /api/claim-pallets | undefined
-2023-06-09T06:46:20.337Z [32minfo[39m: 	250 2.0.0 OK  1686293180 2-20020a630d42000000b0052863112065sm2246082pgn.35 - gsmtp | from : pms.sig.dev@gmail.com | to : auliaharvy@gmail.com
-2023-06-09T06:47:31.827Z [32minfo[39m: 	201-POST: /api/claim-pallets | undefined
-2023-06-09T06:47:35.104Z [32minfo[39m: 	250 2.0.0 OK  1686293255 z1-20020aa785c1000000b0064aea45b040sm1997142pfn.168 - gsmtp | from : pms.sig.dev@gmail.com | to : auliaharvy@gmail.com

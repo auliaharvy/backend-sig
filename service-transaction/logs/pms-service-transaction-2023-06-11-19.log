@@ -1,8 +1,0 @@
-2023-06-11T12:00:47.738Z [32minfo[39m: 	200-PATCH: /api/pallet-transfers | undefined
-2023-06-11T12:02:36.056Z [32minfo[39m: 	200-PATCH: /api/pallet-transfers | undefined
-2023-06-11T12:48:44.846Z [32minfo[39m: 	200-GET: /api/change-quotas | undefined
-2023-06-11T12:54:37.418Z [32minfo[39m: 	400-POST: /api/change-quotas | palletTransfersDb is not defined
-2023-06-11T12:55:04.654Z [32minfo[39m: 	201-POST: /api/change-quotas | undefined
-2023-06-11T12:55:09.457Z [32minfo[39m: 	250 2.0.0 OK  1686488109 iw3-20020a170903044300b001b03b1e2e1bsm787013plb.115 - gsmtp | from : pms.sig.dev@gmail.com | to : auliaharvy@gmail.com
-2023-06-11T12:56:06.914Z [32minfo[39m: 	201-POST: /api/change-quotas | undefined
-2023-06-11T12:56:12.539Z [32minfo[39m: 	250 2.0.0 OK  1686488172 jm18-20020a17090304d200b001ac6b926621sm6292449plb.292 - gsmtp | from : pms.sig.dev@gmail.com | to : auliaharvy@gmail.com

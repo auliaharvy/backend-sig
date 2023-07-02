@@ -7,6 +7,7 @@ router.post('/', sjpStatusHandler.create);
 // router.get('/', verifyToken, companyHandler.getAll);
 router.get('/', sjpStatusHandler.getAll);
 router.get('/export', sjpStatusHandler.exportData);
+router.get('/download', sjpStatusHandler.downloadImage);
 router.get('/:id', sjpStatusHandler.getSjpStatus);
 router.patch('/:id', sjpStatusHandler.update);
 router.delete('/:id', sjpStatusHandler.destroy);

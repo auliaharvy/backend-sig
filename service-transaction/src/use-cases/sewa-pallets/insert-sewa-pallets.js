@@ -11,6 +11,7 @@ const addSewaPallet = ({ makeSewaPallets, sewaPalletDb, allTransactionDb, trxNum
         tbr_pallet: data.getTbrPallet(),
         ber_pallet: data.getBerPallet(),
         missing_pallet: data.getMissingPallet(),
+        photo: data.getPhoto(),
         created_by: data.getCreatedBy(),
         updated_by: data.getUpdatedBy(),
       };

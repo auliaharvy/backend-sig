@@ -6,6 +6,7 @@ const makeSjpStatus = ({}) => {
     id_destination_company,
     id_transporter_company,
     sending_driver_approval,
+    receiving_driver_approval,
     note,
     status,
     good_pallet,
@@ -35,7 +36,7 @@ const makeSjpStatus = ({}) => {
     if (!good_pallet) {
       throw new Error("Please enter Good Pallet.");
     }
-    
+
     return Object.freeze({
       getSjp: () => id_sjp,
       getSender: () => id_user_sender,
@@ -43,6 +44,7 @@ const makeSjpStatus = ({}) => {
       getDestination: () => id_destination_company,
       getTransporter: () => id_transporter_company,
       getDriverApproval: () => sending_driver_approval,
+      getReceivingDriverApproval: () => receiving_driver_approval,
       getStatus: () => status,
       getIsSendback: () => is_sendback,
       getNote: () => note,

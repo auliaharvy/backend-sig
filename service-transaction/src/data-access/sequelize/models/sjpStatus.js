@@ -37,10 +37,12 @@ module.exports = (sequelize, DataTypes) => {
     sending_driver_approval: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: '/public/uploads/sjp-statuss/Screenshot from 2023-07-01 14-41-48.png',
     },
     receiving_driver_approval: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue: '/public/uploads/sjp-statuss/Screenshot from 2023-07-01 14-41-48.png',
     },
     note: {
       type: DataTypes.STRING,
@@ -70,7 +72,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
-    }
+    },
   }, {
     sequelize,
     modelName: 'SjpStatuss',

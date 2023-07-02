@@ -7,6 +7,7 @@ const sewaPalletsAdd = ({ addSewaPallets }) => {
         if (httpRequest.headers["Referer"]) {
           source.referrer = httpRequest.headers["Referer"];
         }
+
         const posted = await addSewaPallets({
           ...info,
           source,

@@ -8,6 +8,7 @@ const makeSewaPallets = ({}) => {
     tbr_pallet,
     ber_pallet,
     missing_pallet,
+    photo,
     created_by,
     updated_by,
   } = {}) {
@@ -16,6 +17,9 @@ const makeSewaPallets = ({}) => {
     }
     if (!price) {
       throw new Error("Please enter Price.");
+    }
+    if (!photo) {
+      throw new Error("Please enter Photo.");
     }
 
     return Object.freeze({
@@ -27,6 +31,7 @@ const makeSewaPallets = ({}) => {
       getTbrPallet: () => tbr_pallet,
       getBerPallet: () => ber_pallet,
       getMissingPallet: () => missing_pallet,
+      getPhoto: () => photo,
       getCreatedBy: () => created_by,
       getUpdatedBy: () => updated_by,
     });

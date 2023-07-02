@@ -22,6 +22,7 @@ const makeSjp = ({}) => {
     pallet_quantity,
     eta,
     departure_time,
+    photo,
     // trx_status,
     // distribution,
     created_by,
@@ -47,6 +48,9 @@ const makeSjp = ({}) => {
     }
     if (!pallet_quantity) {
       throw new Error("Please enter Pallet Quantity.");
+    }
+    if (!photo) {
+      throw new Error("Please enter Photo.");
     }
     // if (!trx_number) {
     //   throw new Error("Please enter Driver.");
@@ -78,6 +82,7 @@ const makeSjp = ({}) => {
       getDepartureCode: () => departure_code,
       getTransporterCode: () => transporter_code,
       getTransporterName: () => transporter,
+      getPhoto: () => photo,
     });
   };
 };

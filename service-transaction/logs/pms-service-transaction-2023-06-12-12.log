@@ -1,2 +1,0 @@
-2023-06-12T05:02:20.748Z [32minfo[39m: 	400-POST: /api/sjps | This Truck not yet close SJP, please check or change truck.
-2023-06-12T05:03:37.202Z [32minfo[39m: 	400-POST: /api/sjps | Cannot read property 'dataValues' of undefined
