@@ -22,6 +22,7 @@ const selectTruck = ({ trucksDb }) => {
             transporter_code: e.transporter_code,
             license_plate: e.license_plate,
             company_name: e.company_name,
+            is_deleted: e.is_deleted,
           });
         }
       }
@@ -41,6 +42,7 @@ const selectTruck = ({ trucksDb }) => {
             transporter_code: e.transporter_code,
             license_plate: e.license_plate,
             company_name: e.company_name,
+            is_deleted: e.is_deleted,
           });
         }
       }

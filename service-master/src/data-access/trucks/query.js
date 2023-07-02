@@ -67,8 +67,7 @@ const query = ({ connects, models }) => {
       const res = await new Promise((resolve) => {
         const sql = `SELECT a.*, b.name as company_name
         FROM "mst_truck" as a
-        JOIN "mst_companies" as b ON a."id_company" = b.id
-        WHERE a.is_deleted = 0;`;
+        LEFT JOIN "mst_companies" as b ON a."transporter_code" = b.code;`;
         pool.query(sql, (err, res) => {
           pool.end(); // end connection
           if (err) resolve(err);
@@ -87,9 +86,9 @@ const query = ({ connects, models }) => {
       const res = await new Promise((resolve) => {
         const sql = `SELECT a.*, b.name as company_name
         FROM "mst_truck" as a
-        JOIN "mst_companies" as b ON a."id_company" = b.id
-        WHERE a.is_deleted = $2 AND a.id=$1;`;
-        const params = [id, 0];
+        LEFT JOIN "mst_companies" as b ON a."transporter_code" = b.code
+        WHERE a.id=$1;`;
+        const params = [id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
           
@@ -134,6 +133,7 @@ const query = ({ connects, models }) => {
       const res = await Truck.update(
         {
           license_plate: data.license_plate,
+          transporter_code: data.transporter_code,
         },
         {
           where: {
