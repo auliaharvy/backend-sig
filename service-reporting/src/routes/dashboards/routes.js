@@ -1,7 +1,8 @@
 const {
   totalPalletsSelects,
   palletConditionsSelects,
-  detailPalletsSelects
+  detailPalletsSelects,
+  palletSendReceivesSelects,
   } = require("../../controller/dashboards/app");
   
   const route = ({ router, makeExpressCallback, validateAuth }) => {
@@ -11,6 +12,7 @@ const {
     router.get("/pallet-condition", makeExpressCallback(palletConditionsSelects));
     router.get("/pallet-condition-company", makeExpressCallback(palletConditionsSelects));
     router.get("/detail-pallet", makeExpressCallback(detailPalletsSelects));
+    router.get("/pallet-send-receive", makeExpressCallback(palletSendReceivesSelects));
   
     return router;
   };

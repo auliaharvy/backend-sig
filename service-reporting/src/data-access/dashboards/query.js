@@ -1,3 +1,4 @@
+const moment = require('moment');
 const query = ({ connects, models }) => {
     return Object.freeze({
       totalPallet,
@@ -5,7 +6,8 @@ const query = ({ connects, models }) => {
       detailPallet,
       getPalletOut,
       getPalletIn,
-      palletConditionCompany
+      palletConditionCompany,
+      getPalletSendReceive
     });
   
     async function totalPallet({}) {
@@ -294,6 +296,80 @@ const query = ({ connects, models }) => {
       } catch (e) {
         console.log("Error: ", e);
       }
+    }
+
+    function generateDateArray(month) {
+      const parse = moment().month(month - 1); // Menggunakan bulan yang diberikan
+      const startDate = parse.startOf('month').format('D');
+      const endDate = parse.endOf('month').format('D');
+      const dateArray = Array.from({ length: endDate - startDate + 1 }, (_, index) => parseInt(startDate) + index);
+      return dateArray;
+    }
+
+    async function getPalletSendReceive(year, month, distribution) {
+      try {
+        // Tambahkan kode di bawah ini untuk menjalankan permintaan Sequelize
+        // const year = 2023; // Tahun
+        // const month = 7; // Bulan
+        // const sendStatus = 'SEND';
+        // const sendBackStatus = 'SEND BACK';
+        console.log(year)
+        const chartData = await Promise.all([
+          getChartData(year, month, 0, distribution),
+          getChartData(year, month, 1, distribution),
+        ]);
+        
+        return chartData;
+      } catch (e) {
+        console.log("Error: ", e);
+      }
+    }
+
+    async function getChartData(year, month, sjpStatus, distribution) {
+      const filter = `${year}-${month}`;
+      const parse = moment(filter);
+      const startDate = parse.startOf('month').format('YYYY-MM-DD');
+      const endDate = parse.endOf('month').format('YYYY-MM-DD');
+    
+      const transactions = await models.SjpStatuss.findAll({
+        attributes: [
+          [models.Sequelize.fn('date', models.Sequelize.col('SjpStatuss.created_at')), 'date'],
+          [
+            models.Sequelize.literal(`sum("SjpStatusPallets"."quantity")`),
+            'total'
+          ],
+        ],
+        where: {
+          created_at: {
+            [models.Sequelize.Op.between]: [startDate, endDate],
+          },
+          status: sjpStatus,
+          is_sendback: distribution,
+        },
+        include: [
+          {
+            model: models.SjpStatusPallet,
+            attributes: [],
+          },
+        ],
+        group: [
+          models.Sequelize.fn('date', models.Sequelize.col('SjpStatuss.created_at')),
+        ],
+        raw: true,
+      });
+    
+      const arrayDate = Array.from({ length: parse.daysInMonth() }, (_, index) =>
+        moment(startDate).add(index, 'days').format('YYYY-MM-DD')
+      );
+    
+      const data = arrayDate.map((date) => {
+        const total = transactions.find((transaction) => transaction.date === date);
+        return {
+          date,
+          total: total ? parseInt(total.total) : 0,
+        };
+      });
+      return data;
     }
   };
   
