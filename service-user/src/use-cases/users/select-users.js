@@ -48,6 +48,7 @@ const selectUser = ({
             fullname: e.fullname ? e.fullname : null,
             username: e.username ? e.username : null,
             email: e.email ? e.email : null,
+            roles: e.roles ? e.roles : [],
           });
         }
       }

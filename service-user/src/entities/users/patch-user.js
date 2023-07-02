@@ -17,9 +17,6 @@ const patchUser = ({}) => {
     if (!email) {
       throw new Error("Please enter Email.");
     }
-    if (!password) {
-      throw new Error("Please enter Password.");
-    }
     return Object.freeze({
       getId: () => id,
       getUsername: () => username,
