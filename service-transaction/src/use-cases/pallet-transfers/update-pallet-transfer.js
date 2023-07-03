@@ -26,13 +26,83 @@ const updatePalletTransfer = ({ palletTransfersDb, patchPalletTransfers, trxNumb
       };
 
       if (data.update_type == 'approval') {
+        const checkQty = await palletTransfersDb.checkDepartureQty({ data });
+        if (checkQty.rowCount > 0) {
+          for (const mstPallet of checkQty.rows) {
+            if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < data.good_pallet) {
+              throw new Error(`The Quantity of Good Pallet exceeds.`);
+            }
+            if (mstPallet.kondisi_pallet == 'TBR Pallet' && mstPallet.quantity < data.tbr_pallet) {
+              throw new Error(`The Quantity of TBR Pallet exceeds.`);
+            }
+            if (mstPallet.kondisi_pallet == 'BER Pallet' && mstPallet.quantity < data.ber_pallet) {
+              throw new Error(`The Quantity of BER Pallet exceeds.`);
+            }
+            if (mstPallet.kondisi_pallet == 'Missing Pallet' && mstPallet.quantity < data.missing_pallet) {
+              throw new Error(`The Quantity of Missing Pallet exceeds.`);
+            }
+          }
+        }
         // check id if employee exist
         const checkId = await palletTransfersDb.selectOne({ id: data.id });
         if (checkId.rowCount == 0)
           throw new Error(`Pallet Transfer doesn't exist, please check.`);
 
+        
         // update
         const res = await palletTransfersDb.approval({ data });
+
+          // all Transaction Record
+      // get LOG NUMBER
+      const logNumber = await allTransactionDb.getLogNumber();
+      const dataLogNumber = logNumber.rows[0];
+      var incrLogNumber = parseInt(dataLogNumber.increment_number) + 1;
+      var FormatedIncrLogNumber = '';
+      if (incrLogNumber < 10) {
+        FormatedIncrLogNumber = '000' + incrLogNumber;
+      } else if (incrLogNumber < 100) {
+        FormatedIncrLogNumber = '00' + incrLogNumber;
+      } else if (incrLogNumber < 1000) {
+        FormatedIncrLogNumber = '0' + incrLogNumber;
+      } else {
+        FormatedIncrLogNumber = incrLogNumber;
+      }
+      data.log_number = dataLogNumber.trx_type + '-' + dataLogNumber.year + dataLogNumber.month + '-' + FormatedIncrLogNumber;
+      // update logNumber
+      const dataUpdateLogNumber = {
+        id: dataLogNumber.id,
+        increment_number: incrLogNumber ++,
+      };
+      // console.log(dataUpdateLogNumber)
+      // console.log(data.log_number)
+      await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
+
+      const idTrans = data.id;
+      const trans = await palletTransfersDb.selectOne({ id: idTrans });
+      const dataAllTransaction = {}
+      if (trans.rowCount > 0) {
+        const dataTrans = trans.rows[0];
+        dataAllTransaction.log_number = data.log_number;
+        dataAllTransaction.id_pallet_transfer = dataTrans.id;
+        dataAllTransaction.trx_number = dataTrans.trx_code;
+        dataAllTransaction.transaction = 'PALLET TRANSFER';
+        dataAllTransaction.status = 'APPROVAL';
+        dataAllTransaction.sender_reporter = dataTrans.approver_name;
+        dataAllTransaction.driver_name = dataTrans.driver_name;
+        dataAllTransaction.note = dataTrans.note;
+        dataAllTransaction.reason = dataTrans.reason;
+        dataAllTransaction.company_departure = dataTrans.departure_company;
+        dataAllTransaction.company_destination = dataTrans.destination_company;
+        dataAllTransaction.company_transporter = dataTrans.transporter_company;
+        dataAllTransaction.truck_number = dataTrans.license_plate;
+        dataAllTransaction.good_pallet = data.good_pallet;
+        dataAllTransaction.tbr_pallet = data.tbr_pallet;
+        dataAllTransaction.ber_pallet = data.ber_pallet;
+        dataAllTransaction.missing_pallet = data.missing_pallet;
+        dataAllTransaction.created_by = data.updated_by;
+      }
+      
+      await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
     
         let msg = `Pallet Transfer was not updated, please try again`;
         if (res[0] == 1) {
@@ -199,7 +269,7 @@ const updatePalletTransfer = ({ palletTransfersDb, patchPalletTransfers, trxNumb
         dataAllTransaction.trx_number = dataTrans.trx_code;
         dataAllTransaction.transaction = 'PALLET TRANSFER';
         dataAllTransaction.status = 'RECEIVE';
-        dataAllTransaction.receiver_approver = dataTrans.sender_name;
+        dataAllTransaction.receiver_approver = dataTrans.receiver_name;
         dataAllTransaction.driver_name = dataTrans.driver_name;
         dataAllTransaction.note = dataTrans.note;
         dataAllTransaction.reason = dataTrans.reason;

@@ -110,6 +110,7 @@ const query = ({ connects, models }) => {
 
     async function approval({ data }) {
       try {
+        console.log(data)
         // use sequelize on inserting
         const PalletTransfer = models.PalletTransfers;
         const res = await PalletTransfer.update(
@@ -125,6 +126,52 @@ const query = ({ connects, models }) => {
             },
           }
         );
+
+        const pool = await connects();
+
+        const mstPallets = await new Promise((resolve) => {
+        const sql = `SELECT * FROM "mst_pallet" WHERE is_deleted = 0;`;
+          pool.query(sql, (err, res) => {
+            pool.end(); // end connection
+
+            if (err) resolve(err);
+            resolve(res.rows);
+          });
+        });
+        
+        for (const mstPallet of mstPallets) {
+          var dataPalletinPalletTransfers = {
+            'mst_pallet_id': mstPallet.id,
+            'trx_pallet_transfer_id': data.id,
+            'quantity': 0
+          }
+          if (mstPallet.name == 'Good Pallet') {
+            dataPalletinPalletTransfers.quantity = data.good_pallet
+          }
+          if (mstPallet.name == 'TBR Pallet') {
+            dataPalletinPalletTransfers.quantity = data.tbr_pallet
+          }
+          if (mstPallet.name == 'BER Pallet') {
+            dataPalletinPalletTransfers.quantity = data.ber_pallet
+          }
+          if (mstPallet.name == 'Missing Pallet') {
+            dataPalletinPalletTransfers.quantity = data.missing_pallet
+          }
+
+          const palletTransferPallet = models.PalletTransferPallet;
+          const updatePalletQty = await palletTransferPallet.update(
+            {
+              quantity: dataPalletinPalletTransfers.quantity,
+            },
+            {
+              where: {
+                trx_pallet_transfer_id: dataPalletinPalletTransfers.trx_pallet_transfer_id,
+                mst_pallet_id: dataPalletinPalletTransfers.mst_pallet_id,
+              },
+            }
+          );
+          
+        }
         return res;
       } catch (e) {
         console.log("Error: ", e);
@@ -331,6 +378,8 @@ const query = ({ connects, models }) => {
               resolve(res);
             });
           });
+
+          console.log(data);
 
           var dataPalletCompanyDestination = {
             'mst_pallet_id': mstPallet.id,
@@ -588,7 +637,7 @@ const query = ({ connects, models }) => {
         const res = await new Promise((resolve) => {
           const sql = `SELECT a.*, b.name as departure_company,
           c.name as destination_company,  d.name as transporter_company,
-          e.license_plate, f.name as driver_name, g.username as sender_name
+          e.license_plate, f.name as driver_name, g.username as sender_name, h.username as receiver_name, i.username as approver_name
           FROM "trx_pallet_transfer" as a
           JOIN "mst_companies" as b ON a."id_company_departure" = b.id
           JOIN "mst_companies" as c ON a."id_company_destination" = c.id
@@ -596,6 +645,8 @@ const query = ({ connects, models }) => {
           JOIN "mst_truck" as e ON a."id_truck" = e.id
           JOIN "mst_driver" as f ON a."id_driver" = f.id
           LEFT JOIN "users" as g ON a."id_user_checker_sender" = g.id
+          LEFT JOIN "users" as h ON a."id_user_checker_receiver" = h.id
+          LEFT JOIN "users" as i ON a."id_user_approver" = i.id
           WHERE a.is_deleted = 0
           ORDER BY a.created_at DESC`;
           pool.query(sql, (err, res) => {
@@ -620,7 +671,7 @@ const query = ({ connects, models }) => {
         const res = await new Promise((resolve) => {
           const sql = `SELECT a.*, b.name as departure_company,
           c.name as destination_company,  d.name as transporter_company,
-          e.license_plate, f.name as driver_name, g.username as sender_name
+          e.license_plate, f.name as driver_name, g.username as sender_name, h.username as receiver_name, i.username as approver_name
           FROM "trx_pallet_transfer" as a
           JOIN "mst_companies" as b ON a."id_company_departure" = b.id
           JOIN "mst_companies" as c ON a."id_company_destination" = c.id
@@ -628,6 +679,8 @@ const query = ({ connects, models }) => {
           JOIN "mst_truck" as e ON a."id_truck" = e.id
           JOIN "mst_driver" as f ON a."id_driver" = f.id
           LEFT JOIN "users" as g ON a."id_user_checker_sender" = g.id
+          LEFT JOIN "users" as h ON a."id_user_checker_receiver" = h.id
+          LEFT JOIN "users" as i ON a."id_user_approver" = i.id
           WHERE a.is_deleted = 0 AND a.created_at >= $1 AND a.created_at < $2
           ORDER BY a.created_at DESC`;
           const params = [from, to];
@@ -651,7 +704,7 @@ const query = ({ connects, models }) => {
         const res = await new Promise((resolve) => {
           const sql = `SELECT a.*, b.name as departure_company, b.email as email_departure,
           c.name as destination_company,  c.email as email_destination,  d.name as transporter_company,
-          e.license_plate, f.name as driver_name, g.username as sender_name
+          e.license_plate, f.name as driver_name, g.username as sender_name, h.username as receiver_name, i.username as approver_name
           FROM "trx_pallet_transfer" as a
           JOIN "mst_companies" as b ON a."id_company_departure" = b.id
           JOIN "mst_companies" as c ON a."id_company_destination" = c.id
@@ -659,6 +712,8 @@ const query = ({ connects, models }) => {
           JOIN "mst_truck" as e ON a."id_truck" = e.id
           JOIN "mst_driver" as f ON a."id_driver" = f.id
           LEFT JOIN "users" as g ON a."id_user_checker_sender" = g.id
+          LEFT JOIN "users" as h ON a."id_user_checker_receiver" = h.id
+          LEFT JOIN "users" as i ON a."id_user_approver" = i.id
           WHERE a.is_deleted = 0 AND a.id = $1
           ORDER BY a.created_at DESC`;
           const params = [id];

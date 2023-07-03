@@ -159,6 +159,8 @@ const selectPalletTransfer = ({ palletTransfersDb }) => {
               ],
               driver_name: e.driver_name ? e.driver_name : null,
               sender_name: e.sender_name ? e.sender_name : null,
+              receiver_name: e.receiver_name ? e.receiver_name : null,
+              approver_name: e.approver_name ? e.approver_name : null,
               created_at: e.created_at,
               updated_at: e.updated_at,
             });
@@ -238,6 +240,8 @@ const selectPalletTransfer = ({ palletTransfersDb }) => {
               ],
               driver_name: e.driver_name ? e.driver_name : null,
               sender_name: e.sender_name ? e.sender_name : null,
+              receiver_name: e.receiver_name ? e.receiver_name : null,
+              approver_name: e.approver_name ? e.approver_name : null,
               created_at: e.created_at,
               updated_at: e.updated_at,
             });

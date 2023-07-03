@@ -22,7 +22,23 @@ const addPalletTransfer = ({ makePalletTransfers, palletTransfersDb, trxNumbersD
         updatedBy: data.getUpdatedBy(),
       };
 
-      
+      const checkQty = await palletTransfersDb.checkDepartureQty({ data });
+        if (checkQty.rowCount > 0) {
+          for (const mstPallet of checkQty.rows) {
+            if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < data.good_pallet) {
+              throw new Error(`The Quantity of Good Pallet exceeds.`);
+            }
+            if (mstPallet.kondisi_pallet == 'TBR Pallet' && mstPallet.quantity < data.tbr_pallet) {
+              throw new Error(`The Quantity of TBR Pallet exceeds.`);
+            }
+            if (mstPallet.kondisi_pallet == 'BER Pallet' && mstPallet.quantity < data.ber_pallet) {
+              throw new Error(`The Quantity of BER Pallet exceeds.`);
+            }
+            if (mstPallet.kondisi_pallet == 'Missing Pallet' && mstPallet.quantity < data.missing_pallet) {
+              throw new Error(`The Quantity of Missing Pallet exceeds.`);
+            }
+          }
+        }
   
       // check truck on board 
       const check = await palletTransfersDb.checkTruck({ data });
