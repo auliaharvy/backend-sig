@@ -51,6 +51,7 @@ const selectUser = ({
             username: e.username ? e.username : null,
             email: e.email ? e.email : null,
             is_deleted: e.is_deleted ? e.is_deleted : 0,
+            updated_at: e.updated_at ? e.updated_at : 0,
             roles: e.roles ? e.roles : [],
           });
         }

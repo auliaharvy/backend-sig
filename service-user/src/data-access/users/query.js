@@ -173,9 +173,9 @@ const query = ({ connects, models, bcrypt }) => {
       const res = await new Promise((resolve) => {
         const sql = `SELECT a.*, jsonb_agg    ( json_build_object('role', c."name", 'company', d."name" )) as roles
         FROM "users" AS a
-        JOIN "user_has_role" AS b ON b."user_id" = a.id
-        JOIN "roles" AS c ON c."id" = b.role_id
-        JOIN "mst_companies" AS d ON d."id" = b.company_id
+        LEFT JOIN "user_has_role" AS b ON b."user_id" = a.id
+        LEFT JOIN "roles" AS c ON c."id" = b.role_id
+        LEFT JOIN "mst_companies" AS d ON d."id" = b.company_id
         GROUP BY a.id;`;
         pool.query(sql, (err, res) => {
           pool.end(); // end connection
@@ -197,9 +197,9 @@ const query = ({ connects, models, bcrypt }) => {
       const res = await new Promise((resolve) => {
         const sql = `SELECT a.*, jsonb_agg    ( json_build_object('role', c."name", 'company', d."name" )) as roles
         FROM "users" AS a
-        JOIN "user_has_role" AS b ON b."user_id" = a.id
-        JOIN "roles" AS c ON c."id" = b.role_id
-        JOIN "mst_companies" AS d ON d."id" = b.company_id
+        LEFT JOIN "user_has_role" AS b ON b."user_id" = a.id
+        LEFT JOIN "roles" AS c ON c."id" = b.role_id
+        LEFT JOIN "mst_companies" AS d ON d."id" = b.company_id
         WHERE a.id = $1
         GROUP BY a.id
         ;`;
@@ -246,7 +246,7 @@ const query = ({ connects, models, bcrypt }) => {
       // use sequelize on update
 
       const User = models.Users;
-      const password = await bcrypt.hash(data.password, 10);
+      // const password = await bcrypt.hash(data.password, 10);
       const res = await User.update(
         {
           fullname: data.fullname,

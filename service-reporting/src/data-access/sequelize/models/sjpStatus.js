@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       SjpStatuss.belongsToMany(models.Pallets, {
         through: "SjpStatusPallet",
         foreignKey: "trx_sjp_status_id",
+        as: "pallets"
       });
       SjpStatuss.hasMany(models.SjpStatusPallet, {
         foreignKey: "trx_sjp_status_id",
@@ -87,11 +88,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0,
     },
-    photo: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: '/public/uploads/claim-pallets/photo.png',
-    }
   }, {
     sequelize,
     modelName: 'SjpStatuss',
