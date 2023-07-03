@@ -324,10 +324,10 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, allTransactionDb,sjpDb,trxN
           data.driver = dataSjp.driver_name;
         }
 
-
+        var email = data.email_destination ? data.email_destination : 'pms.sig.dev@gmail.com'
         const mailOptions = {
           from: "no-reply <pms.sig.dev@gmail.com>", // sender address
-          to: data.email_destination, // receiver email
+          to: email, // receiver email
           subject: data.trx_number, // Subject line
           text: data.trx_number,
           html: SJP_TEMPLATE(data),

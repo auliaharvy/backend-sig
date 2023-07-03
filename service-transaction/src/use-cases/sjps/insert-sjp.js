@@ -127,6 +127,7 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
       }
       data.trx_number = dataTrxNumber.trx_type + '-' + dataTrxNumber.year + dataTrxNumber.month + '-' + FormatedIncrNumber;
     
+      console.log(data)
       //   insert SJP
       const res = await sjpDb.insertNewSjp({ data });
       

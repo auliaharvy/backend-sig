@@ -47,10 +47,26 @@ module.exports = (sequelize, DataTypes) => {
     second_driver: DataTypes.STRING,
     trx_number: DataTypes.STRING,
     no_do: DataTypes.STRING,
-    tonnage: DataTypes.INTEGER,
-    packaging: DataTypes.INTEGER,
-    product_quantity: DataTypes.INTEGER,
-    pallet_quantity: DataTypes.INTEGER,
+    tonnage: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    packaging: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    product_quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    pallet_quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
     eta: DataTypes.DATEONLY,
     departure_time: DataTypes.DATEONLY,
     trx_status: {
