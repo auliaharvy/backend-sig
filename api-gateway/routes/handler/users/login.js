@@ -32,7 +32,6 @@ module.exports = async (req, res) => {
             }
         });
     } catch (error) {
-        console.log(error)
         if(error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',
@@ -40,7 +39,10 @@ module.exports = async (req, res) => {
             })
         }
 
-        const { status, data } = error.response;
+        const {
+            status,
+            data
+        } = error.response;
         return res.status(status).json(data);
     }
 }

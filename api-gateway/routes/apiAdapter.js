@@ -31,7 +31,7 @@ module.exports = (baseUrl) => {
                 status: error.response.status || 'Error',
                 code: error.code || 400,
                 message: error.message || "error",
-                data: error.response.data.error || 'error',
+                data: error.response.data.error || error.response.data,
             }
         }
 
