@@ -147,11 +147,11 @@ const query = ({ connects, models, bcrypt }) => {
     try {
       const pool = await connects();
 
-      const { username, fullname } = data; // deconstruct
+      const { username, email } = data; // deconstruct
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT id FROM "Users" WHERE "username" = $1 AND "fullname" = $2;`;
-        const params = [username, fullname];
+        const sql = `SELECT id FROM "users" WHERE "username" = $1 AND "email" = $2;`;
+        const params = [username, email];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
 
@@ -159,7 +159,7 @@ const query = ({ connects, models, bcrypt }) => {
           resolve(res);
         });
       });
-
+      console.log(res);
       return res;
     } catch (e) {
       console.log("Error: ", e);

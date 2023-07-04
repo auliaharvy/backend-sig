@@ -1,5 +1,5 @@
 const makeUser = ({ }) => {
-    return function make({ username, fullname, email, password } = {}) {
+    return function make({ username, fullname, email, password, is_sso, nopeg } = {}) {
       if (!username) {
         throw new Error("Please enter username.");
       }
@@ -17,6 +17,8 @@ const makeUser = ({ }) => {
         getFullname: () => fullname,
         getEmail: () => email,
         getPassword: () => password,
+        getSso: () => is_sso,
+        getNopeg: () => nopeg,
       });
     };
   };

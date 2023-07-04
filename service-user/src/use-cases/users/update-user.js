@@ -14,6 +14,7 @@ const updateUser = ({
       fullname: data.getFullname(),
       email: data.getEmail(),
       password: data.getPassword(),
+      is_sso: data.getSso(),
     };
 
     // check id if employee exist

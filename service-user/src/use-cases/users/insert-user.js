@@ -8,6 +8,8 @@ const registerUser = ({ makeUsers, usersDB, bcrypt }) => {
         fullname: data.getFullname(),
         email: data.getEmail(),
         password: password,
+        is_sso: data.getSso(),
+        nopeg: data.getNopeg(),
       };
       // to do checking if name already exist
       const check = await usersDB.checkNameExist({ data });

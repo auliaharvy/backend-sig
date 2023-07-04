@@ -6,21 +6,6 @@
     "auditLog": "logs/.9939c08d8f9a525bafe6ce44efd05ed4780984d8-audit.json",
     "files": [
         {
-            "date": 1687229534720,
-            "name": "logs/pms-service-user-2023-06-20-09.log",
-            "hash": "229ed937fab79a05afb2ed8310f610dbb473132c9f6ecaa0fdf6d7c3ff369d80"
-        },
-        {
-            "date": 1687230963273,
-            "name": "logs/pms-service-user-2023-06-20-10.log",
-            "hash": "58612e16d9001d28a763edbdfe93c81e009b40bf1881d86cd7de6837c12e88d0"
-        },
-        {
-            "date": 1687233612674,
-            "name": "logs/pms-service-user-2023-06-20-11.log",
-            "hash": "ba0ba7df0dc4d3b82af75f684da1d5c9d1cdd1e6b3dbe9587e7398d1acad9032"
-        },
-        {
             "date": 1687271500352,
             "name": "logs/pms-service-user-2023-06-20-21.log",
             "hash": "389ddb3b8f0ee00b7ebf2e18e1d8a6d7438de8cce020f16ce6a114ff23e5cab2"
@@ -194,6 +179,46 @@
             "date": 1688403719801,
             "name": "logs/pms-service-user-2023-07-04-00.log",
             "hash": "ea17962dc6c16b2d2dfb341626b9ebaa7beeec47b28ae48787623e71ed9700c3"
+        },
+        {
+            "date": 1688411737304,
+            "name": "logs/pms-service-user-2023-07-04-02.log",
+            "hash": "9d43458b886cd00ac36bec1b3acab10692e6796e6ced86d5ca2eafd5d87ae1df"
+        },
+        {
+            "date": 1688438607285,
+            "name": "logs/pms-service-user-2023-07-04-09.log",
+            "hash": "1c3618aac57b7b3e8e9a7133d7abb1ab22f1abd62cb04c22a5e61f843b85859f"
+        },
+        {
+            "date": 1688451812666,
+            "name": "logs/pms-service-user-2023-07-04-13.log",
+            "hash": "80a26d5e7adc3a19b60ad44e3ec0208380901e52f522d9a0950e3a62b0a34a02"
+        },
+        {
+            "date": 1688454850933,
+            "name": "logs/pms-service-user-2023-07-04-14.log",
+            "hash": "ca92d5eb6ea5705153b021415b01a531577e7506390f757030927897acafdcbc"
+        },
+        {
+            "date": 1688459009099,
+            "name": "logs/pms-service-user-2023-07-04-15.log",
+            "hash": "1ad23a4a5abc47ad3c6ffe7c4f456179670294685eae049263afb14eb2bfad1e"
+        },
+        {
+            "date": 1688471024420,
+            "name": "logs/pms-service-user-2023-07-04-18.log",
+            "hash": "e44ded72e6b8097bc483409a8ba0d23addd08f9a3d23ffd99214d4cce997d410"
+        },
+        {
+            "date": 1688478100916,
+            "name": "logs/pms-service-user-2023-07-04-20.log",
+            "hash": "eb5ea60ff60cb6ec5da9c94ea5272dec7da775dfb11619a2c88c8fa2b3522553"
+        },
+        {
+            "date": 1688480096720,
+            "name": "logs/pms-service-user-2023-07-04-21.log",
+            "hash": "3610531dd76a548dabfc7d79b2bc3450bcf1f2456dff1878eef96319ae137c72"
         }
     ],
     "hashType": "sha256"
