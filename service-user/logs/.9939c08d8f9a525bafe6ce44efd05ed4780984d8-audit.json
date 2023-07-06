@@ -219,6 +219,11 @@
             "date": 1688664775365,
             "name": "logs/pms-service-user-2023-07-07-00.log",
             "hash": "16759f005a6494408e06aedc88c75d5c45aa3ef6900a1925d33c2c1a1ba377c8"
+        },
+        {
+            "date": 1688667466492,
+            "name": "logs/pms-service-user-2023-07-07-01.log",
+            "hash": "581014908587fbf1ae199a962c17e1700387586a69e0b010b617975bfffd49cf"
         }
     ],
     "hashType": "sha256"

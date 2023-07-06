@@ -246,14 +246,26 @@ const query = ({ connects, models, bcrypt }) => {
       // use sequelize on update
 
       const User = models.Users;
-      // const password = await bcrypt.hash(data.password, 10);
-      const res = await User.update(
-        {
+      var password;
+      var dataObject;
+      if (data.password) {
+        password = await bcrypt.hash(data.password, 10);
+        dataObject = {
           fullname: data.fullname,
           username: data.username,
           email: data.email,
-          // password: password,
-        },
+          password: password,
+        }
+      } else {
+        dataObject = {
+          fullname: data.fullname,
+          username: data.username,
+          email: data.email,
+        }
+      }
+      
+      const res = await User.update(
+        dataObject,
         {
           where: {
             id: data.id,

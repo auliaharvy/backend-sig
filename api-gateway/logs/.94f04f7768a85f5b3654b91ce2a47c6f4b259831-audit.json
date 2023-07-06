@@ -474,6 +474,11 @@
             "date": 1688620413121,
             "name": "logs/pms-api-gateway-2023-07-06-12.log",
             "hash": "f934b8524eaa1bf89d0cf2dcb2f181a7d79e8341db40c441c5cddb2e34d74c7e"
+        },
+        {
+            "date": 1688665449959,
+            "name": "logs/pms-api-gateway-2023-07-07-00.log",
+            "hash": "bc973ed368957c0cc4999df473bf86ec8e73a3400c91ddd0f0aca0026178dc4f"
         }
     ],
     "hashType": "sha256"

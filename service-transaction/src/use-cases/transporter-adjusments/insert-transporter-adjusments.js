@@ -30,17 +30,17 @@ const addTransporterAdjusment = ({ makeTransporterAdjusments, allTransactionDb, 
       if (checkQuantity.rowCount > 0) {
         for (const mstPallet of checkQuantity.rows) {
           if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < data.good_pallet) {
-            throw new Error(`The Quantity of Good Pallet exceeds woy.`);
+            throw new Error(`The Quantity of Good Pallet exceeds.`);
           }
           else if (mstPallet.kondisi_pallet == 'TBR Pallet' && mstPallet.quantity < data.tbr_pallet) {
-            throw new Error(`The Quantity of TBR Pallet exceeds woy.`);
+            throw new Error(`The Quantity of TBR Pallet exceeds.`);
           }
-          else if (mstPallet.kondisi_pallet == 'BER Pallet' && mstPallet.quantity < data.ber_pallet) {
-            throw new Error(`The Quantity of BER Pallet exceeds woy.`);
-          }
-          else if (mstPallet.kondisi_pallet == 'Missing Pallet' && mstPallet.quantity < data.missing_pallet) {
-            throw new Error(`The Quantity of Missing Pallet exceeds woy.`);
-          }
+          // else if (mstPallet.kondisi_pallet == 'BER Pallet' && mstPallet.quantity < data.ber_pallet) {
+          //   throw new Error(`The Quantity of BER Pallet exceeds.`);
+          // }
+          // else if (mstPallet.kondisi_pallet == 'Missing Pallet' && mstPallet.quantity < data.missing_pallet) {
+          //   throw new Error(`The Quantity of Missing Pallet exceeds.`);
+          // }
         }
         
       } else {

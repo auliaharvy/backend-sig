@@ -469,6 +469,8 @@ const query = ({ connects, models }) => {
 
       return 'success update pallet';
     } catch (e) {
+
+      console.log(e);
       //("Error: ", e);
     }
   }

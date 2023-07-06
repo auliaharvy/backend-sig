@@ -10,8 +10,32 @@ const query = ({ connects, models }) => {
     approvalDistributor,
     updateNewPallet,
     getPalletQuantity,
-    approvalManager
+    approvalManager,
+    checkCompanyQty
   });
+
+  async function checkCompanyQty({ data }) {
+    try {
+      const pool = await connects();
+
+      const res = await new Promise((resolve) => {
+        const sql = `SELECT b.name as kondisi_pallet , a.quantity
+        FROM "mst_pallet_mst_companies" as a
+        JOIN "mst_pallet" as b ON a."mst_pallet_id" = b.id
+        WHERE a.mst_companies_id = $1;`;
+        const params = [data.id_company];
+        pool.query(sql, params, (err, res) => {
+          pool.end(); // end connection
+          if (err) resolve(err);
+          resolve(res);
+        });
+      });
+
+      return res;
+    } catch (e) {
+      //("Error: ", e);
+    }
+  }
 
   async function deleteItem({ id }) {
     try {

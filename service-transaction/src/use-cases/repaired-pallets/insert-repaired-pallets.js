@@ -12,6 +12,16 @@ const addRepairedPallet = ({ makeRepairedPallets, allTransactionDb, repairedPall
         updated_by: data.getUpdatedBy(),
       };
 
+       // to do checking if quantity
+      const checkQty = await repairedPalletDb.checkCompanyQty({ data });
+        if (checkQty.rowCount > 0) {
+          for (const mstPallet of checkQty.rows) {
+            if (mstPallet.kondisi_pallet == 'TBR Pallet' && mstPallet.quantity < data.qty_good_pallet) {
+              throw new Error(`The Quantity of TBR Pallet exceeds.`);
+            }
+          }
+        }
+
       // to do checking if company not workshop
       const check = await repairedPalletDb.checkCompany({
         data,

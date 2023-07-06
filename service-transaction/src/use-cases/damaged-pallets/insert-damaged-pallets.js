@@ -12,6 +12,15 @@ const addDamagedPallet = ({ makeDamagedPallets, allTransactionDb, damagedPalletD
         updated_by: data.getUpdatedBy(),
       };
   
+      const checkQty = await damagedPalletDb.checkCompanyQty({ data });
+        if (checkQty.rowCount > 0) {
+          for (const mstPallet of checkQty.rows) {
+            if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < data.qty_tbr_pallet) {
+              throw new Error(`The Quantity of Good Pallet exceeds.`);
+            }
+          }
+        }
+
       // get TRX NUMBER
       const trxNumber = await damagedPalletDb.getTrxNumber();
       const dataTrxNumber = trxNumber.rows[0];
