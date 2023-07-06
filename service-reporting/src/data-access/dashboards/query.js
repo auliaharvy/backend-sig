@@ -331,6 +331,23 @@ const query = ({ connects, models }) => {
       const startDate = parse.startOf('month').format('YYYY-MM-DD');
       const endDate = parse.endOf('month').format('YYYY-MM-DD');
     
+      var whereClause;
+      if (sjpStatus == 0) {
+          whereClause = {
+            created_at: {
+              [models.Sequelize.Op.between]: [startDate, endDate],
+            },
+            is_sendback: distribution,
+          };
+      } else {
+        whereClause = {
+          created_at: {
+            [models.Sequelize.Op.between]: [startDate, endDate],
+          },
+          status: sjpStatus,
+          is_sendback: distribution,
+        };
+      }
       const transactions = await models.SjpStatuss.findAll({
         attributes: [
           [models.Sequelize.fn('date', models.Sequelize.col('SjpStatuss.created_at')), 'date'],
@@ -339,13 +356,7 @@ const query = ({ connects, models }) => {
             'total'
           ],
         ],
-        where: {
-          created_at: {
-            [models.Sequelize.Op.between]: [startDate, endDate],
-          },
-          status: sjpStatus,
-          is_sendback: distribution,
-        },
+        where: whereClause,
         include: [
           {
             model: models.SjpStatusPallet,

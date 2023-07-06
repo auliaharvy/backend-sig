@@ -121,6 +121,12 @@ const query = ({ connects, models }) => {
             parseInt(dataPalletCompany.quantity) +
             parseInt(data.qty_tbr_pallet);
         }
+        if (mstPallet.name == "BER Pallet") {
+          dataPalletCompany.quantityNew = parseInt(dataPalletCompany.quantity)
+        }
+        if (mstPallet.name == "Missing Pallet") {
+          dataPalletCompany.quantityNew = parseInt(dataPalletCompany.quantity)
+        }
         
         const CompanyPallet = models.CompaniesPallet;
         const updateWorkshopPalletQty = await CompanyPallet.update(
