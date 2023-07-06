@@ -15,7 +15,7 @@ const companiesSelects = ({
       if (httpRequest.headers["Referer"]) {
         source.referrer = httpRequest.headers["Referer"];
       }
-      console.log(httpRequest)
+      //(httpRequest)
       const toView = {
         ...info,
         source,
@@ -34,7 +34,7 @@ const companiesSelects = ({
       };
     } catch (e) {
       // TODO: Error logging
-      console.log(e);
+      //(e);
       return {
         headers,
         statusCode: 400,

@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
     const token = await RefreshToken.findOne({
         where: { token: refreshToken}
     });
-    console.log(refreshToken);
+    //(refreshToken);
     if(!token) {
         return res.status(404).json({
             status: 'error',

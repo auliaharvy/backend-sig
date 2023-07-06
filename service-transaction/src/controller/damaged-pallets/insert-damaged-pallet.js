@@ -20,7 +20,7 @@ const damagedPalletsAdd = ({ addDamagedPallets }) => {
         };
       } catch (e) {
         // TODO: Error logging
-        console.log(e);
+        //(e);
   
         return {
           headers: {

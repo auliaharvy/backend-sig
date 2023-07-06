@@ -1,6 +1,6 @@
 const userLogin = ({ loginUsers }) => {
     return async function post(httpRequest) {
-      console.log(httpRequest);
+      //(httpRequest);
       try {
         const { source = {}, ...info } = httpRequest.body;
         source.ip = httpRequest.ip;
@@ -13,7 +13,7 @@ const userLogin = ({ loginUsers }) => {
           ...info,
           source,
         });
-        console.log(posted)
+        //(posted)
         return {
           headers: {
             "Content-Type": "application/json",
@@ -23,7 +23,7 @@ const userLogin = ({ loginUsers }) => {
         };
       } catch (e) {
         // TODO: Error logging
-        console.log(e);
+        //(e);
   
         return {
           headers: {

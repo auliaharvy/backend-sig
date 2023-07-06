@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
         const company = await api.patch(`/api/sjps/${id}`, req.body, req.headers);
         return res.json(company.data);
     } catch (error) {
-        console.log(error);
+        //(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

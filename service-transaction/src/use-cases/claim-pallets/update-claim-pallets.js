@@ -48,8 +48,8 @@ const updateClaimPallet = ({ claimPalletDb, trxNumbersDb, allTransactionDb,patch
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
       const idTrans = data.id;
@@ -83,7 +83,7 @@ const updateClaimPallet = ({ claimPalletDb, trxNumbersDb, allTransactionDb,patch
         // get data SJP
         if (checkId.rowCount > 0) {
           const dataTrans = checkId.rows[0];
-          console.log(dataTrans)
+          //(dataTrans)
           data.company_name = dataTrans.company_name;
           data.trx_number = dataTrans.trx_number;
           data.company_email = dataTrans.company_email;
@@ -101,8 +101,8 @@ const updateClaimPallet = ({ claimPalletDb, trxNumbersDb, allTransactionDb,patch
         }
 
         SENDMAIL(mailOptions, (info) => {
-          console.log("Email sent successfully");
-          console.log("MESSAGE ID: ", info.messageId);
+          //("Email sent successfully");
+          //("MESSAGE ID: ", info.messageId);
         });
       }
   
@@ -147,8 +147,8 @@ const updateClaimPallet = ({ claimPalletDb, trxNumbersDb, allTransactionDb,patch
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
       const idTrans = data.id;
@@ -182,7 +182,7 @@ const updateClaimPallet = ({ claimPalletDb, trxNumbersDb, allTransactionDb,patch
         // get data SJP
         if (checkId.rowCount > 0) {
           const dataTrans = checkId.rows[0];
-          console.log(dataTrans)
+          //(dataTrans)
           data.company_name = dataTrans.company_name;
           data.trx_number = dataTrans.trx_number;
           data.company_email = dataTrans.company_email;
@@ -201,8 +201,8 @@ const updateClaimPallet = ({ claimPalletDb, trxNumbersDb, allTransactionDb,patch
         }
 
         SENDMAIL(mailOptions, (info) => {
-          console.log("Email sent successfully");
-          console.log("MESSAGE ID: ", info.messageId);
+          //("Email sent successfully");
+          //("MESSAGE ID: ", info.messageId);
         });
       }
   

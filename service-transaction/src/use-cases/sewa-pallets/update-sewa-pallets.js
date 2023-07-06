@@ -44,8 +44,8 @@ const updateSewaPallet = ({ sewaPalletDb, allTransactionDb, trxNumbersDb, patchS
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
       const idTrans = data.id;
@@ -126,8 +126,8 @@ const updateSewaPallet = ({ sewaPalletDb, allTransactionDb, trxNumbersDb, patchS
         }
 
         SENDMAIL(mailOptions, (info) => {
-          console.log("Email sent successfully");
-          console.log("MESSAGE ID: ", info.messageId);
+          //("Email sent successfully");
+          //("MESSAGE ID: ", info.messageId);
         });
       }
 
@@ -170,8 +170,8 @@ const updateSewaPallet = ({ sewaPalletDb, allTransactionDb, trxNumbersDb, patchS
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
       const idTrans = data.id;
@@ -251,8 +251,8 @@ const updateSewaPallet = ({ sewaPalletDb, allTransactionDb, trxNumbersDb, patchS
         }
 
         SENDMAIL(mailOptions, (info) => {
-          console.log("Email sent successfully");
-          console.log("MESSAGE ID: ", info.messageId);
+          //("Email sent successfully");
+          //("MESSAGE ID: ", info.messageId);
         });
       }
   

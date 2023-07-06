@@ -3,7 +3,7 @@ const selectPermissionByRoleId = ({
 }) => {
   return async function select(info) {
     let data = [];
-    console.log(info)
+    //(info)
     const {
       id
     } = info; // deconstruct

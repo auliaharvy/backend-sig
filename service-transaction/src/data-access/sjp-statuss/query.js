@@ -47,7 +47,7 @@ const query = ({ connects, models }) => {
         );
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -76,7 +76,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -99,7 +99,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -122,7 +122,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
   
@@ -142,7 +142,7 @@ const query = ({ connects, models }) => {
         );
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -165,7 +165,7 @@ const query = ({ connects, models }) => {
         );
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -288,7 +288,7 @@ const query = ({ connects, models }) => {
 
         return 'success update pallet';
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -301,6 +301,7 @@ const query = ({ connects, models }) => {
             note: data.note,
             status: data.status,
             id_user_receiver: data.id_user_receiver,
+            receiving_driver_approval: data.receiving_driver_approval,
           },
           {
             where: {
@@ -311,7 +312,7 @@ const query = ({ connects, models }) => {
 
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -371,7 +372,7 @@ const query = ({ connects, models }) => {
             dataPalletCompanyDestination.quantityNew = parseInt(dataPalletCompanyDestination.quantity) + parseInt(data.missing_pallet)
           }
           
-          // console.log(data.good_pallet);
+          // //(data.good_pallet);
           const DestinationCompanyPallet = models.CompaniesPallet;
           const updateDestinationPalletQty = await DestinationCompanyPallet.update(
             {
@@ -507,7 +508,7 @@ const query = ({ connects, models }) => {
 
         return 'success update pallet';
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -517,7 +518,7 @@ const query = ({ connects, models }) => {
         const SjpStatus = models.SjpStatuss;
         const res = await SjpStatus.create(data);
         const idSjpStatus = res.id;
-        console.log(res.id);
+        //(res.id);
 
         const pool = await connects();
 
@@ -557,7 +558,7 @@ const query = ({ connects, models }) => {
 
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -615,7 +616,7 @@ const query = ({ connects, models }) => {
         }
         
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -643,7 +644,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -666,7 +667,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
   
@@ -698,7 +699,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -731,7 +732,7 @@ const query = ({ connects, models }) => {
         });
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
   
@@ -765,7 +766,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
   
@@ -788,7 +789,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
   };

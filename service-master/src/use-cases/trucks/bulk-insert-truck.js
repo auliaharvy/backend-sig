@@ -12,7 +12,7 @@ const bulkAddTruck = ({ bulkTrucks, trucksDb }) => {
     var dataTruck = data.getData();
     var dataBulk = [];
 
-    // console.log(dataTruck.length)
+    // //(dataTruck.length)
     for(var i=0; i < dataTruck.length; i++)  {
       dataBulk.push({
         id_company: 4,

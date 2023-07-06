@@ -4,7 +4,7 @@ const selectSjpStatus = ({ sjpStatusDb }) => {
 
     const { id } = info; // deconstruct
     const { from, to } = info;
-    console.log(from)
+    //(from)
 
     if (id) {
       // select one
@@ -106,7 +106,7 @@ const selectSjpStatus = ({ sjpStatusDb }) => {
           var qtyTbrPallet = 0;
           var qtyBerPallet = 0;
           var qtyMissingPallet = 0;
-          console.log(resPalletQuantity.rows);
+          //(resPalletQuantity.rows);
           for (const qtyPallet of resPalletQuantity.rows) {
             if (qtyPallet.kondisi_pallet == "Good Pallet") {
               qtyGoodPallet = parseInt(qtyPallet.quantity);
@@ -189,7 +189,7 @@ const selectSjpStatus = ({ sjpStatusDb }) => {
           var qtyTbrPallet = 0;
           var qtyBerPallet = 0;
           var qtyMissingPallet = 0;
-          console.log(resPalletQuantity.rows);
+          //(resPalletQuantity.rows);
           for (const qtyPallet of resPalletQuantity.rows) {
             if (qtyPallet.kondisi_pallet == "Good Pallet") {
               qtyGoodPallet = parseInt(qtyPallet.quantity);

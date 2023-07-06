@@ -20,7 +20,7 @@ const palletRealizationsAdd = ({ addPalletRealizations }) => {
         };
       } catch (e) {
         // TODO: Error logging
-        console.log(e);
+        //(e);
   
         return {
           headers: {

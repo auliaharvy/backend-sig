@@ -22,8 +22,6 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, allTransactionDb,sjpDb,trxN
         sjp_status: data.getSjpStatus(),
       };
 
-      console.log(data);
-  
       // check Departure Quantity
       if(data.is_sendback == 0) {
         const check = await sjpStatusDb.checkDepartureQty({ data });
@@ -60,7 +58,6 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, allTransactionDb,sjpDb,trxN
         }
         data.trx_number = dataTrxNumber.trx_type + '-' + dataTrxNumber.year + dataTrxNumber.month + '-' + FormatedIncrNumber;
 
-        
         //   insert SJP Status
         const res = await sjpStatusDb.insertNewSjpStatus({ data });
 
@@ -97,11 +94,10 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, allTransactionDb,sjpDb,trxN
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
-      console.log(res)
       const idTrans = res.dataValues.id;
       const trans = await sjpStatusDb.selectOne({ id: idTrans });
       const dataAllTransaction = {}
@@ -152,9 +148,7 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, allTransactionDb,sjpDb,trxN
         // SEND MAIL
         // get data SJP
         const idSjp = data.id_sjp;
-        console.log(idSjp);
         const sjp = await sjpDb.selectOne({ id: idSjp });
-        console.log(sjp);
         if (sjp.rowCount > 0) {
           const dataSjp = sjp.rows[0];
           data.departure = dataSjp.departure_company;
@@ -175,8 +169,8 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, allTransactionDb,sjpDb,trxN
         }
 
         SENDMAIL(mailOptions, (info) => {
-          console.log("Email sent successfully");
-          console.log("MESSAGE ID: ", info.messageId);
+          //("Email sent successfully");
+          //("MESSAGE ID: ", info.messageId);
         });
 
         let msg = `Error on inserting SJP Status, please try again.`;
@@ -258,8 +252,8 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, allTransactionDb,sjpDb,trxN
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
       const idTrans = res.dataValues.id;
@@ -312,7 +306,7 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, allTransactionDb,sjpDb,trxN
         // get data SJP
         const idSjp = data.id_sjp;
         const sjp = await sjpDb.selectOne({ id: idSjp });
-        console.log(sjp);
+        //(sjp);
         if (sjp.rowCount > 0) {
           const dataSjp = sjp.rows[0];
           data.departure = dataSjp.destination_company;
@@ -334,8 +328,8 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, allTransactionDb,sjpDb,trxN
         }
 
         SENDMAIL(mailOptions, (info) => {
-          console.log("Email sent successfully");
-          console.log("MESSAGE ID: ", info.messageId);
+          //("Email sent successfully");
+          //("MESSAGE ID: ", info.messageId);
         });
         let msg = `Error on inserting SJP Status, please try again.`;
         if (res) {

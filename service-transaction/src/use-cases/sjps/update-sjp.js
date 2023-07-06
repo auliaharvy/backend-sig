@@ -55,16 +55,16 @@ const updateSjp = ({ sjpDb, patchSjps, trxNumbersDb, SENDMAIL,  CHANGE_DESTINATI
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
-      console.log(res)
+      //(res)
       const trans = await sjpDb.selectOne({ id: id });
       const dataAllTransaction = {}
       if (checkId.rowCount > 0) {
         const dataTrans = trans.rows[0];
-        console.log(dataTrans);
+        //(dataTrans);
         dataAllTransaction.log_number = data.log_number;
         dataAllTransaction.id_sjp = dataTrans.id;
         dataAllTransaction.trx_number = dataTrans.trx_number;
@@ -128,8 +128,8 @@ const updateSjp = ({ sjpDb, patchSjps, trxNumbersDb, SENDMAIL,  CHANGE_DESTINATI
         }
 
         SENDMAIL(mailOptions, (info) => {
-          console.log("Email sent successfully");
-          console.log("MESSAGE ID: ", info.messageId);
+          //("Email sent successfully");
+          //("MESSAGE ID: ", info.messageId);
         });
     
         let msg = `SJP was not updated, please try again`;
@@ -176,16 +176,16 @@ const updateSjp = ({ sjpDb, patchSjps, trxNumbersDb, SENDMAIL,  CHANGE_DESTINATI
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
-      console.log(res)
+      //(res)
       const trans = await sjpDb.selectOne({ id: id });
       const dataAllTransaction = {}
       if (checkId.rowCount > 0) {
         const dataTrans = trans.rows[0];
-        console.log(dataTrans);
+        //(dataTrans);
         dataAllTransaction.log_number = data.log_number;
         dataAllTransaction.id_sjp = dataTrans.id;
         dataAllTransaction.trx_number = dataTrans.trx_number;
@@ -228,7 +228,7 @@ const updateSjp = ({ sjpDb, patchSjps, trxNumbersDb, SENDMAIL,  CHANGE_DESTINATI
         const originTruck = await sjpDb.getTruckDetail({ id: data.id_truck });
         const newTruck = await sjpDb.getTruckDetail({ id: data.id_new_truck });
 
-        console.log(originTruck.rows[0])
+        //(originTruck.rows[0])
         // SEND MAIL
         // get data SJP
         if (checkId.rowCount > 0) {
@@ -264,8 +264,8 @@ const updateSjp = ({ sjpDb, patchSjps, trxNumbersDb, SENDMAIL,  CHANGE_DESTINATI
         }
 
         SENDMAIL(mailOptions, (info) => {
-          console.log("Email sent successfully");
-          console.log("MESSAGE ID: ", info.messageId);
+          //("Email sent successfully");
+          //("MESSAGE ID: ", info.messageId);
         });
     
         let msg = `SJP was not updated, please try again`;

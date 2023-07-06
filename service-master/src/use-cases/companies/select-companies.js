@@ -1,6 +1,6 @@
 const selectCompany = ({ companiesDB }) => {
   return async function select(info) {
-    console.log(info)
+    //(info)
     let data = [];
 
     const { id } = info; // deconstruct
@@ -25,7 +25,7 @@ const selectCompany = ({ companiesDB }) => {
           var qtyTbrPallet = 0;
           var qtyBerPallet = 0;
           var qtyMissingPallet = 0;
-          console.log(resPalletQuantity.rows);
+          //(resPalletQuantity.rows);
           for (const qtyPallet of resPalletQuantity.rows) {
             if(qtyPallet.kondisi_pallet == 'Good Pallet') {
               qtyGoodPallet = parseInt(qtyPallet.quantity)
@@ -77,7 +77,7 @@ const selectCompany = ({ companiesDB }) => {
         for (let i = 0; i < items.length; i++) {
           const e = items[i];
           const idCompany = items[i]['id'];
-          console.log(idCompany);
+          //(idCompany);
 
           // mendapatkan jumlah pallet di company
           var resPalletQuantity = await companiesDB.getPalletQuantity(
@@ -88,7 +88,7 @@ const selectCompany = ({ companiesDB }) => {
           var qtyTbrPallet = 0;
           var qtyBerPallet = 0;
           var qtyMissingPallet = 0;
-          console.log(resPalletQuantity.rows);
+          //(resPalletQuantity.rows);
           for (const qtyPallet of resPalletQuantity.rows) {
             if(qtyPallet.kondisi_pallet == 'Good Pallet') {
               qtyGoodPallet = parseInt(qtyPallet.quantity)

@@ -11,7 +11,6 @@ module.exports = async (req, res) => {
         const companyType = await api.get(`/api/company-types/${id}`, req.headers);
         return res.json(companyType.data);
     } catch (error) {
-        console.log(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

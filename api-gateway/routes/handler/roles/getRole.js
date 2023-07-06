@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
         const role = await api.get(`/api/roles/${id}`);
         return res.json(role.data);
     } catch (error) {
-        console.log(error);
+        //(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

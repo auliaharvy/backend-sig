@@ -22,7 +22,7 @@ const query = ({
       const res = await CompanyType.create(data);
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -49,7 +49,7 @@ const query = ({
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -69,7 +69,7 @@ const query = ({
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -92,7 +92,7 @@ const query = ({
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -120,7 +120,7 @@ const query = ({
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -139,7 +139,7 @@ const query = ({
       });
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -158,7 +158,7 @@ const query = ({
       });
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -182,7 +182,7 @@ const query = ({
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 

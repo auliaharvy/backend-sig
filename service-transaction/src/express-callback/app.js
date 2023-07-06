@@ -28,7 +28,7 @@ const makeExpressCallback = (controller) => {
         res.status(httpResponse.statusCode).send(httpResponse.body);
       })
       .catch((e) => {
-        console.log(e)
+        //(e)
         logger.error(e.message || "ERROR")
         res.sendStatus(500)
       });

@@ -42,7 +42,7 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNu
         // check pallet di transporter agar tidak mines
         const check = await sjpStatusDb.checkTransporterQty({ data });
         if (check.rowCount > 0) {
-          console.log(check)
+          //(check)
           for (const mstPallet of check.rows) {
             if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < totalReceivedPallet) {
               throw new Error(`The Quantity of Good Pallet exceeds.`);
@@ -80,8 +80,8 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNu
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
       const idTrans = data.id;
@@ -153,7 +153,7 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNu
         // check pallet di transporter agar tidak mines
         const check = await sjpStatusDb.checkTransporterQty({ data });
         if (check.rowCount > 0) {
-          console.log(check)
+          //(check)
           for (const mstPallet of check.rows) {
             if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < data) {
               throw new Error(`The Quantity of Good Pallet exceeds.`);
@@ -194,8 +194,8 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNu
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
       const idTrans = data.id;

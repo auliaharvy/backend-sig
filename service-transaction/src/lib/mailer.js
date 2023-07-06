@@ -23,7 +23,7 @@ const SENDMAIL = async (mailDetails, callback) => {
     logger.info(logMessage)
     callback(info);
   } catch (error) {
-    console.log(error);
+    //(error);
     logger.info(error)
   }
 };

@@ -17,7 +17,7 @@ const addTransporterAdjusment = ({ makeTransporterAdjusments, allTransactionDb, 
         updated_by: data.getUpdatedBy(),
       };
 
-      console.log(data)
+      //(data)
       // to do checking if company transporter not transporter
       const check = await transporterAdjusmentDb.checkCompany({
         data,
@@ -97,8 +97,8 @@ const addTransporterAdjusment = ({ makeTransporterAdjusments, allTransactionDb, 
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
       const idTrans = res.dataValues.id;

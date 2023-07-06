@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
         const data = await api.post(`/dev/sd/sdonline/service/get_realisasi.php`, bodyFormData ,req.headers);
         return res.json(data.data);
     } catch (error) {
-        console.log(error);
+        //(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

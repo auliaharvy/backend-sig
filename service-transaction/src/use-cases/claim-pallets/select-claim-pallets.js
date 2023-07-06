@@ -20,7 +20,7 @@ const selectClaimPallet = ({ claimPalletDb }) => {
 
             var qtyBerPallet = 0;
             var qtyMissingPallet = 0;
-            console.log(resPalletQuantity.rows);
+            //(resPalletQuantity.rows);
             for (const qtyPallet of resPalletQuantity.rows) {
               if(qtyPallet.kondisi_pallet == 'BER Pallet') {
                 qtyBerPallet = parseInt(qtyPallet.quantity)
@@ -44,6 +44,7 @@ const selectClaimPallet = ({ claimPalletDb }) => {
               ber_pallet: qtyBerPallet ? qtyBerPallet : 0,
               missing_pallet: qtyMissingPallet ? qtyMissingPallet : 0,
               total_price: parseInt(e.price) * (qtyBerPallet + qtyMissingPallet),
+              photo: e.photo ? e.photo : 0,
               company_name: e.company_name ? e.company_name : null,
               manager_name: e.manager_name ? e.manager_name : null,
               pic_distributor: e.pic_distributor ? e.pic_distributor : null,
@@ -68,7 +69,7 @@ const selectClaimPallet = ({ claimPalletDb }) => {
 
             var qtyBerPallet = 0;
             var qtyMissingPallet = 0;
-            console.log(resPalletQuantity.rows);
+            //(resPalletQuantity.rows);
             for (const qtyPallet of resPalletQuantity.rows) {
               if(qtyPallet.kondisi_pallet == 'BER Pallet') {
                 qtyBerPallet = parseInt(qtyPallet.quantity)
@@ -91,6 +92,7 @@ const selectClaimPallet = ({ claimPalletDb }) => {
               price: parseInt(e.price) ? parseInt(e.price) : 0,
               ber_pallet: qtyBerPallet ? qtyBerPallet : 0,
               missing_pallet: qtyMissingPallet ? qtyMissingPallet : 0,
+              photo: e.photo ? e.photo : 0,
               total_price: parseInt(e.price) * (qtyBerPallet + qtyMissingPallet),
               company_name: e.company_name ? e.company_name : null,
               manager_name: e.manager_name ? e.manager_name : null,
@@ -116,7 +118,7 @@ const selectClaimPallet = ({ claimPalletDb }) => {
 
             var qtyBerPallet = 0;
             var qtyMissingPallet = 0;
-            console.log(resPalletQuantity.rows);
+            //(resPalletQuantity.rows);
             for (const qtyPallet of resPalletQuantity.rows) {
               if(qtyPallet.kondisi_pallet == 'BER Pallet') {
                 qtyBerPallet = parseInt(qtyPallet.quantity)
@@ -140,6 +142,7 @@ const selectClaimPallet = ({ claimPalletDb }) => {
               ber_pallet: qtyBerPallet ? qtyBerPallet : 0,
               missing_pallet: qtyMissingPallet ? qtyMissingPallet : 0,
               total_price: parseInt(e.price) * (qtyBerPallet + qtyMissingPallet),
+              photo: e.photo ? e.photo : 0,
               company_name: e.company_name ? e.company_name : null,
               manager_name: e.manager_name ? e.manager_name : null,
               pic_distributor: e.pic_distributor ? e.pic_distributor : null,

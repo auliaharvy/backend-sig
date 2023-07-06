@@ -25,7 +25,6 @@ module.exports = (baseUrl) => {
         // logger.info(logMessage)
         return response;
     },(error) => {
-        console.log(error);
         const errorMessage = {
             response: {
                 status: error.response.status || 'Error',

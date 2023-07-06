@@ -26,7 +26,7 @@ const query = ({ connects, models, bcrypt }) => {
       );
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -37,7 +37,7 @@ const query = ({ connects, models, bcrypt }) => {
       const res = await User.create(data);
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -98,7 +98,7 @@ const query = ({ connects, models, bcrypt }) => {
           resolve(res);
         });
       });
-      // console.log(user);
+      // //(user);
 
       var names = user.fullname.split(" ");
       var initials = "";
@@ -139,7 +139,7 @@ const query = ({ connects, models, bcrypt }) => {
       return res;
       // return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -159,10 +159,10 @@ const query = ({ connects, models, bcrypt }) => {
           resolve(res);
         });
       });
-      console.log(res);
+      //(res);
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -186,7 +186,7 @@ const query = ({ connects, models, bcrypt }) => {
       });
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -214,7 +214,7 @@ const query = ({ connects, models, bcrypt }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -237,7 +237,7 @@ const query = ({ connects, models, bcrypt }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -262,7 +262,7 @@ const query = ({ connects, models, bcrypt }) => {
       );
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 };

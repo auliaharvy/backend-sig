@@ -44,7 +44,7 @@ const query = ({ connects, models }) => {
 
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -139,7 +139,7 @@ const query = ({ connects, models }) => {
           return res;
         }
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -196,7 +196,7 @@ const query = ({ connects, models }) => {
 
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -236,7 +236,7 @@ const query = ({ connects, models }) => {
           });
           return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -265,7 +265,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -294,7 +294,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -313,7 +313,7 @@ const query = ({ connects, models }) => {
         // const month = 7; // Bulan
         // const sendStatus = 'SEND';
         // const sendBackStatus = 'SEND BACK';
-        console.log(year)
+        //(year)
         const chartData = await Promise.all([
           getChartData(year, month, 0, distribution),
           getChartData(year, month, 1, distribution),
@@ -321,7 +321,7 @@ const query = ({ connects, models }) => {
         
         return chartData;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 

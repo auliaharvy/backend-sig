@@ -7,7 +7,7 @@ const selectTotalPallet = ({ dashboardDb }) => {
     if (res) {
       // only when there is data returned
       const items = res;
-      // console.log(items);
+      // //(items);
       for (let i = 0; i < items.length; i++) {
         const e = items[i].dataValues;
         // push items to array

@@ -22,7 +22,7 @@ const sjpStatussUpdate = ({ updateSjpStatuss}) => {
         };
       } catch (e) {
         // TODO: Error logging
-        console.log(e);
+        //(e);
   
         return {
           headers: {

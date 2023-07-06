@@ -8,12 +8,12 @@ const api = apiAdapter(URL_SERVICE_TRANSACTION);
 
 module.exports = async (req, res) => {
     try {
-        console.log(req.params);
-        console.log(root + req.params.sending_driver_approval);
+        //(req.params);
+        //(root + req.params.sending_driver_approval);
         res.download(root + req.params.sending_driver_approval);
     } catch (error) {
 
-        console.log(error);
+        //(error);
 
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({

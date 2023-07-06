@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
         const data = await api.get(`/api/transporter-adjusments/${id}`, req.headers);
         return res.json(data.data);
     } catch (error) {
-        console.log(error);
+        //(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

@@ -17,7 +17,7 @@ const updateDriver = ({
     };
 
     // check id if company exist
-    console.log(data);
+    //(data);
     const checkId = await driversDb.selectOne({
       id: data.id
     });
@@ -35,7 +35,7 @@ const updateDriver = ({
       return msg;
     } else {
       // throw new Error(msg);
-      console.log(checkId);
+      //(checkId);
     }
   };
 };

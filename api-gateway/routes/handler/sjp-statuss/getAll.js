@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
         const sjpStatus = await api.get(`/api/sjp-statuss`, req.headers);
         return res.json(sjpStatus.data);
     } catch (error) {
-        console.log(error);
+        //(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',
@@ -18,10 +18,18 @@ module.exports = async (req, res) => {
             })
         }
 
-        const {
-            status,
-            data
-        } = error.response;
-        return res.status(status).json(data);
+        if (error.response) {
+            const {
+                status,
+                data
+            } = error.response;
+            return res.status(status).json(data);
+        }
+        
+
+        return res.status(400).json({
+                status: 'error',
+                message: 'Something went wrong'
+            });
     }
 }

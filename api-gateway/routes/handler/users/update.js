@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
             status,
             data
         } = error.response;
-        console.log(error.response);
+        //(error.response);
         return res.status(status).json(data);
     }
 }

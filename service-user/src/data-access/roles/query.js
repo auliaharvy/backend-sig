@@ -24,7 +24,7 @@ const query = ({
       const res = await Role.create(data);
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -37,7 +37,7 @@ const query = ({
       const res = await RoleHasPermission.bulkCreate(data_insert);
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -72,7 +72,7 @@ const query = ({
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -100,7 +100,7 @@ const query = ({
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -121,7 +121,7 @@ const query = ({
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -152,7 +152,7 @@ const query = ({
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -180,7 +180,7 @@ const query = ({
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -199,7 +199,7 @@ const query = ({
       });
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -218,7 +218,7 @@ const query = ({
       });
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -233,7 +233,7 @@ const query = ({
       });
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 

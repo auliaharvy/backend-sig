@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
         const organization = await api.get(`/api/organizations/${id}`, req.headers);
         return res.json(organization.data);
     } catch (error) {
-        console.log(error);
+        //(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

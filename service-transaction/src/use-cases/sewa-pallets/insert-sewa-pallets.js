@@ -63,8 +63,8 @@ const addSewaPallet = ({ makeSewaPallets, sewaPalletDb, allTransactionDb, trxNum
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
       const idTrans = res.dataValues.id;
@@ -93,7 +93,7 @@ const addSewaPallet = ({ makeSewaPallets, sewaPalletDb, allTransactionDb, trxNum
       // SEND MAIL
         // get data SJP
         
-        console.log(trans)
+        //(trans)
         if (trans.rowCount > 0) {
           const dataTrans = trans.rows[0];
           data.company_name = dataTrans.company_name;
@@ -109,8 +109,8 @@ const addSewaPallet = ({ makeSewaPallets, sewaPalletDb, allTransactionDb, trxNum
         }
 
         SENDMAIL(mailOptions, (info) => {
-          console.log("Email sent successfully");
-          console.log("MESSAGE ID: ", info.messageId);
+          //("Email sent successfully");
+          //("MESSAGE ID: ", info.messageId);
         });
 
       // ##

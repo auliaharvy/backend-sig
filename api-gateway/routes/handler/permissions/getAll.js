@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
         const permission = await api.get(`/api/permissions`, req.headers);
         return res.json(permission.data);
     } catch (error) {
-        console.log(error);
+        //(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

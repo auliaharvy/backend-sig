@@ -18,7 +18,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -33,7 +33,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -56,7 +56,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -77,7 +77,7 @@ const query = ({ connects, models }) => {
       });
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -100,7 +100,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -123,7 +123,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -143,7 +143,7 @@ const query = ({ connects, models }) => {
       );
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -163,7 +163,7 @@ const query = ({ connects, models }) => {
       );
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 };

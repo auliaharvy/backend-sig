@@ -20,7 +20,7 @@ const palletTransfersAdd = ({ addPalletTransfers }) => {
         };
       } catch (e) {
         // TODO: Error logging
-        console.log(e);
+        //(e);
   
         return {
           headers: {

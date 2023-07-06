@@ -10,10 +10,10 @@ module.exports = async (req, res) => {
     try {
         req.body.photo = '/public/uploads/sewa-pallets/' + req.files.photo.name;
         const photo = req.files.photo;
-        console.log(req.body);
+        //(req.body);
         photo.mv(`${root}/public/uploads/sewa-pallets/${photo.name}`, function (err) {
             if (err) {
-                console.log(err)
+                //(err)
                 return res.status(500).json({
                 status: 'error',
                 message: 'Error file upload'
@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
             })
         }
 
-        console.log(error);
+        //(error);
         const {
             status,
             data

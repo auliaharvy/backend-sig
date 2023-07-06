@@ -26,7 +26,7 @@ const query = ({ connects, models }) => {
         );
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -96,7 +96,7 @@ const query = ({ connects, models }) => {
         }
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -108,7 +108,7 @@ const query = ({ connects, models }) => {
 
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -139,7 +139,7 @@ const query = ({ connects, models }) => {
         });
         
         if (res.rowCount > 0) {
-          console.log(res);
+          //(res);
           return res;
         } else {
           // create txr number if not exist
@@ -163,12 +163,12 @@ const query = ({ connects, models }) => {
               resolve(res);
             });
           });
-          console.log(res);
+          //(res);
           return res;
         }
         
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -191,7 +191,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
   
@@ -219,7 +219,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
 
@@ -248,7 +248,7 @@ const query = ({ connects, models }) => {
         });
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
   
@@ -276,7 +276,7 @@ const query = ({ connects, models }) => {
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
   

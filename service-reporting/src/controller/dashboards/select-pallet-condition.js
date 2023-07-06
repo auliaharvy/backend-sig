@@ -26,7 +26,7 @@ const palletConditionsSelect = ({ selectPalletConditions }) => {
         };
       } catch (e) {
         // TODO: Error logging
-        console.log(e);
+        //(e);
         return {
           headers,
           statusCode: 400,

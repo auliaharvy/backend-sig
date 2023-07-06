@@ -27,7 +27,7 @@ const query = ({ connects, models }) => {
       );
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -94,7 +94,7 @@ const query = ({ connects, models }) => {
       }
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -173,8 +173,8 @@ const query = ({ connects, models }) => {
       var status;
       var jumlahPallet = parseInt(trxNewPallet.rows[0].qty_ready_pallet) + parseInt(data.qty_pallet);
       var jumlahPermintaanPallet = parseInt(trxNewPallet.rows[0].qty_request_pallet);
-      console.log(jumlahPallet);
-      console.log(jumlahPermintaanPallet);
+      //(jumlahPallet);
+      //(jumlahPermintaanPallet);
       if (jumlahPallet == jumlahPermintaanPallet) {
         status = 2;
       } else {
@@ -196,7 +196,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -208,7 +208,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -238,7 +238,7 @@ const query = ({ connects, models }) => {
       });
 
       if (res.rowCount > 0) {
-        console.log(res);
+        //(res);
         return res;
       } else {
         // create txr number if not exist
@@ -262,11 +262,11 @@ const query = ({ connects, models }) => {
             resolve(res);
           });
         });
-        console.log(res);
+        //(res);
         return res;
       }
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -289,7 +289,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -313,7 +313,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -337,7 +337,7 @@ const query = ({ connects, models }) => {
       });
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -362,7 +362,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 };

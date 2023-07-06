@@ -39,7 +39,7 @@ const updateCompanyType = ({
       return msg;
     } else {
       // throw new Error(msg);
-      console.log(checkId);
+      //(checkId);
     }
   };
 };

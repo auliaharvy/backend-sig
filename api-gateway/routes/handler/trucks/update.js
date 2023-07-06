@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
         const truck = await api.patch(`/api/trucks/${id}`, req.body);
         return res.json(truck.data);
     } catch (error) {
-        console.log(error);
+        //(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

@@ -27,7 +27,7 @@ const updateCompany = ({
     const checkId = await companiesDB.selectOne({
       id: data.id
     });
-    console.log(checkId);
+    //(checkId);
     if (checkId.rowCount == 0)
       throw new Error(`Company doesn't exist, please check.`);
 
@@ -49,7 +49,7 @@ const updateCompany = ({
       return msg;
     } else {
       // throw new Error(msg);
-      console.log(checkId);
+      //(checkId);
     }
   };
 };

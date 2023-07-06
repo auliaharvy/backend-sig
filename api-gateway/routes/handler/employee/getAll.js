@@ -10,7 +10,6 @@ module.exports = async (req, res) => {
         const employee = await api.get('/api/employees');
         return res.json(employee.data);
     } catch (error) {
-        console.log(error);
         if(error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

@@ -28,7 +28,7 @@ const companiesUpdate = ({
       };
     } catch (e) {
       // TODO: Error logging
-      console.log(e);
+      //(e);
 
       return {
         headers: {

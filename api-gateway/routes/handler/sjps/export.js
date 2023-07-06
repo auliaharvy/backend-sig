@@ -7,11 +7,11 @@ const api = apiAdapter(URL_SERVICE_TRANSACTION);
 
 module.exports = async (req, res) => {
     try {
-        // console.log(req)
+        // //(req)
         const sjp = await api.get(`/api/sjps?from=${req.query.from}&to=${req.query.to}`, req.headers);
         return res.json(sjp.data);
     } catch (error) {
-        console.log(error);
+        //(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
         const pallet = await api.get(`/api/pallets/${id}`, req.headers);
         return res.json(pallet.data);
     } catch (error) {
-        console.log(error);
+        //(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

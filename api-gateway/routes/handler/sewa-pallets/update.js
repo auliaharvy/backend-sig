@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
         const data = await api.patch(`/api/sewa-pallets/${id}`, req.body, req.headers);
         return res.json(data.data);
     } catch (error) {
-        console.log(error);
+        //(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

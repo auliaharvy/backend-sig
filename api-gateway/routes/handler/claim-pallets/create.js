@@ -12,7 +12,6 @@ module.exports = async (req, res) => {
         const photo = req.files.photo;
         photo.mv(`${root}/public/uploads/claim-pallets/${photo.name}`, function (err) {
             if (err) {
-                console.log(err)
                 return res.status(500).json({
                 status: 'error',
                 message: 'Error file upload'
@@ -32,9 +31,7 @@ module.exports = async (req, res) => {
 
         const {
             status,
-            data
         } = error.response;
-        console.log(error);
-        return res.status(status).json(data);
+        return res.status(status).json(error.response);
     }
 }

@@ -6,7 +6,7 @@ const v = new Validator();
 module.exports = async (req, res) => {
     const userId = req.body.user_id;
     const refreshToken = req.body.refresh_token;
-    console.log("user_id" ,userId)
+    //("user_id" ,userId)
     const schema = {
         refresh_token: 'string',
         user_id: 'string',

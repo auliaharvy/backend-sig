@@ -37,12 +37,12 @@ module.exports = (sequelize, DataTypes) => {
     sending_driver_approval: {
       type: DataTypes.STRING,
       allowNull: true,
-      // defaultValue: '/public/uploads/sjp-statuss/Screenshot from 2023-07-01 14-41-48.png',
+      // defaultValue: '0',
     },
     receiving_driver_approval: {
       type: DataTypes.STRING,
       allowNull: true,
-      // defaultValue: '/public/uploads/sjp-statuss/de.png',
+      // defaultValue: '0',
     },
     note: {
       type: DataTypes.STRING,

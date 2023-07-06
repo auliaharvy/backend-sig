@@ -127,7 +127,7 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
       }
       data.trx_number = dataTrxNumber.trx_type + '-' + dataTrxNumber.year + dataTrxNumber.month + '-' + FormatedIncrNumber;
     
-      console.log(data)
+      //(data)
       //   insert SJP
       const res = await sjpDb.insertNewSjp({ data });
       
@@ -159,8 +159,8 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
         id: dataLogNumber.id,
         increment_number: incrLogNumber ++,
       };
-      // console.log(dataUpdateLogNumber)
-      // console.log(data.log_number)
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
       const idTrans = res.dataValues.id;

@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
         const sjpStatus = await api.get(`/api/sjp-statuss/${id}`, req.headers);
         return res.json(sjpStatus.data);
     } catch (error) {
-        console.log(error);
+        //(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

@@ -11,7 +11,7 @@ const { body, validationResult } = require('express-validator')
   
   const validateRole = (req, res, next) => {
     const errors = validationResult(req)
-    console.log(errors)
+    //(errors)
     if (errors.isEmpty()) {
       return next()
     }

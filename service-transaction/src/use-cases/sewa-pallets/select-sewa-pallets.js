@@ -22,7 +22,7 @@ const selectSewaPallet = ({ sewaPalletDb }) => {
             var qtyTbrPallet = 0;
             var qtyBerPallet = 0;
             var qtyMissingPallet = 0;
-            console.log(resPalletQuantity.rows);
+            //(resPalletQuantity.rows);
             for (const qtyPallet of resPalletQuantity.rows) {
               if(qtyPallet.kondisi_pallet == 'Good Pallet') {
                 qtyGoodPallet = parseInt(qtyPallet.quantity)
@@ -80,7 +80,7 @@ const selectSewaPallet = ({ sewaPalletDb }) => {
             var qtyTbrPallet = 0;
             var qtyBerPallet = 0;
             var qtyMissingPallet = 0;
-            console.log(resPalletQuantity.rows);
+            //(resPalletQuantity.rows);
             for (const qtyPallet of resPalletQuantity.rows) {
               if(qtyPallet.kondisi_pallet == 'Good Pallet') {
                 qtyGoodPallet = parseInt(qtyPallet.quantity)
@@ -114,6 +114,7 @@ const selectSewaPallet = ({ sewaPalletDb }) => {
               total_price: parseInt(e.total) ? parseInt(e.total) : 0,
               company_name: e.company_name ? e.company_name : null,
               manager_name: e.manager_name ? e.manager_name : null,
+              photo: e.photo ? e.photo : 0,
               pic_distributor: e.pic_distributor ? e.pic_distributor : null,
               created_at: e.created_at,
               updated_at: e.updated_at,
@@ -138,7 +139,7 @@ const selectSewaPallet = ({ sewaPalletDb }) => {
             var qtyTbrPallet = 0;
             var qtyBerPallet = 0;
             var qtyMissingPallet = 0;
-            console.log(resPalletQuantity.rows);
+            //(resPalletQuantity.rows);
             for (const qtyPallet of resPalletQuantity.rows) {
               if(qtyPallet.kondisi_pallet == 'Good Pallet') {
                 qtyGoodPallet = parseInt(qtyPallet.quantity)
@@ -172,6 +173,7 @@ const selectSewaPallet = ({ sewaPalletDb }) => {
               total_price: parseInt(e.total) ? parseInt(e.total) : 0,
               company_name: e.company_name ? e.company_name : null,
               manager_name: e.manager_name ? e.manager_name : null,
+              photo: e.photo ? e.photo : 0,
               pic_distributor: e.pic_distributor ? e.pic_distributor : null,
               created_at: e.created_at,
               updated_at: e.updated_at,

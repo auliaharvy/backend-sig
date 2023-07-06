@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
         bodyFormData.append('username', req.body.username);
         bodyFormData.append('password', req.body.password);
         req.headers.token = '$2y$10$3DDqyL./M7Qn4h426rnOAux3H20.VWXE2sq0B3tk6n24QDtswGwF.';
-
+        // TODO : check apakah username sudah ada apa belum jika sudah ada jalankan login bisa jika belum jalankan login sso
         // login sso
         const data = await api.post(`/api/login`, bodyFormData ,req.headers);
 
@@ -95,15 +95,14 @@ module.exports = async (req, res) => {
         //         email: data.data.objResponse.email,
         //         is_sso: 1,
         //     };
-        //     console.log(data.data);
+        //     //(data.data);
         //     const register = await apiUser.post('/api/users/register', dataRegister);
         // } else {
-        //     console.log('errpr  ');
+        //     //('errpr  ');
         // }
         
         
     } catch (error) {
-        console.log(error);
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({
                 status: 'error',

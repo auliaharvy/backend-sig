@@ -45,11 +45,11 @@ const query = ({ connects, models }) => {
         //   order: [['created_at', 'DESC']]
         // });
 
-        // console.log(res);
+        // //(res);
   
         return res;
       } catch (e) {
-        console.log("Error: ", e);
+        //("Error: ", e);
       }
     }
   };

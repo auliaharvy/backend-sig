@@ -2,7 +2,7 @@ const addPalletTransfer = ({ makePalletTransfers, palletTransfersDb, trxNumbersD
     return async function post(info) {
       let data = await makePalletTransfers(info); // entity
   
-      console.log(data);
+      //(data);
 
       data = {
         id_company_departure: data.getDeparture(),
@@ -62,7 +62,7 @@ const addPalletTransfer = ({ makePalletTransfers, palletTransfersDb, trxNumbersD
       data.trx_code = dataTrxNumber.trx_type + '-' + dataTrxNumber.year + dataTrxNumber.month + '-' + FormatedIncrNumber;
       //   insert Pallet Transfer
       const res = await palletTransfersDb.insertNewPalletTransfer({ data });
-      console.log(res.dataValues);
+      //(res.dataValues);
       
       // update trxNumber
       const dataUpdateTrxNumber = {
@@ -96,8 +96,8 @@ const addPalletTransfer = ({ makePalletTransfers, palletTransfersDb, trxNumbersD
         }
 
         SENDMAIL(mailOptions, (info) => {
-          console.log("Email sent successfully");
-          console.log("MESSAGE ID: ", info.messageId);
+          //("Email sent successfully");
+          //("MESSAGE ID: ", info.messageId);
         });
 
       // ##

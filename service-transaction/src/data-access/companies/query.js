@@ -29,7 +29,7 @@ const query = ({ connects, models }) => {
         });
       });
 
-      // console.log(mstPallets);
+      // //(mstPallets);
       for (const mstPallet of mstPallets) {
         var dataCompanyPallet = {
           'mst_pallet_id': mstPallet.id,
@@ -37,13 +37,13 @@ const query = ({ connects, models }) => {
           'quantity': 0
         }
         const companiesPallet = models.CompaniesPallet;
-        console.log(companiesPallet);
+        //(companiesPallet);
         const res = await companiesPallet.create(dataCompanyPallet);
       }
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -66,7 +66,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -87,7 +87,7 @@ const query = ({ connects, models }) => {
       });
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -112,7 +112,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -135,7 +135,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -158,7 +158,7 @@ const query = ({ connects, models }) => {
 
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -188,7 +188,7 @@ const query = ({ connects, models }) => {
       );
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 
@@ -208,7 +208,7 @@ const query = ({ connects, models }) => {
       );
       return res;
     } catch (e) {
-      console.log("Error: ", e);
+      //("Error: ", e);
     }
   }
 };
