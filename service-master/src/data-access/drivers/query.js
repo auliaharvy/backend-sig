@@ -51,8 +51,7 @@ const query = ({ connects, models }) => {
       const res = await new Promise((resolve) => {
         const sql = `SELECT a.*, b.name as company_name
         FROM "mst_driver" as a
-        JOIN "mst_companies" as b ON a."id_company" = b.id
-        WHERE a.is_deleted = 0;`;
+        JOIN "mst_companies" as b ON a."id_company" = b.id;`;
         pool.query(sql, (err, res) => {
           pool.end(); // end connection
           if (err) resolve(err);
@@ -72,7 +71,7 @@ const query = ({ connects, models }) => {
         const sql = `SELECT a.*, b.name as company_name
         FROM "mst_driver" as a
         JOIN "mst_companies" as b ON a."id_company" = b.id
-        WHERE a.is_deleted = $2 AND a.id=$1;`;
+        WHERE a.id=$1;`;
         const params = [id, 0];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection

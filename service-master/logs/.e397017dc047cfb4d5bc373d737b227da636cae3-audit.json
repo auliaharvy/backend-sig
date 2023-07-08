@@ -6,16 +6,6 @@
     "auditLog": "logs/.e397017dc047cfb4d5bc373d737b227da636cae3-audit.json",
     "files": [
         {
-            "date": 1687526076626,
-            "name": "logs/pms-service-master-2023-06-23-20.log",
-            "hash": "7573956473755556c6c86054dc232d10235c3951fc0b5643f4c519a265b76a0a"
-        },
-        {
-            "date": 1687534172583,
-            "name": "logs/pms-service-master-2023-06-23-22.log",
-            "hash": "6ecbbd1b2d5309ed733eeeca43e9481c76adccad557bf40d953c0ce0809aa746"
-        },
-        {
             "date": 1687666724501,
             "name": "logs/pms-service-master-2023-06-25-11.log",
             "hash": "4ac9e44cf961db16e1ea8318c1276ff4c25a40a431e20e0f5aee3f46ed4245dc"
@@ -259,6 +249,21 @@
             "date": 1688666406775,
             "name": "logs/pms-service-master-2023-07-07-01.log",
             "hash": "2444a7eb796bd911c7ab73fd92818478a566348c5d2787436b9ff864a30da09d"
+        },
+        {
+            "date": 1688750548987,
+            "name": "logs/pms-service-master-2023-07-08-00.log",
+            "hash": "b6766fbed77e64cf46c755647d70550e6bd9c1f586c4b2cb1e5b265cdde2e116"
+        },
+        {
+            "date": 1688787776281,
+            "name": "logs/pms-service-master-2023-07-08-10.log",
+            "hash": "b3aa3ecaece3987ca8a8a37d68de86118ed92514a52b132c9f1e0489e9fd24df"
+        },
+        {
+            "date": 1688788943038,
+            "name": "logs/pms-service-master-2023-07-08-11.log",
+            "hash": "a8ee0fa448bcbde51fd9d094b4e0515d85d4e491d4e5c74f51735b06639990b5"
         }
     ],
     "hashType": "sha256"

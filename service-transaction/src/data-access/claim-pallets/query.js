@@ -11,7 +11,8 @@ const query = ({ connects, models }) => {
     updateNewPallet,
     getPalletQuantity,
     checkCompanyQty,
-    approvalManager
+    approvalManager,
+    editData
   });
 
   async function checkCompanyQty({ data }) {
@@ -51,6 +52,68 @@ const query = ({ connects, models }) => {
           },
         }
       );
+      return res;
+    } catch (e) {
+      //("Error: ", e);
+    }
+  }
+
+  async function editData({ data }) {
+    try {
+      // use sequelize on inserting
+      const ClaimPallet = models.ClaimPallets;
+      const res = await ClaimPallet.update(
+        {
+          price: data.price,
+        },
+        {
+          where: {
+            id: data.id,
+
+          },
+        }
+      );
+
+      const pool = await connects();
+
+        const mstPallets = await new Promise((resolve) => {
+        const sql = `SELECT * FROM "mst_pallet" WHERE is_deleted = 0;`;
+          pool.query(sql, (err, res) => {
+            pool.end(); // end connection
+
+            if (err) resolve(err);
+            resolve(res.rows);
+          });
+        });
+        
+        for (const mstPallet of mstPallets) {
+          var dataPalletinClaim = {
+            'mst_pallet_id': mstPallet.id,
+            'trx_claim_pallet_id': data.id,
+            'quantity': 0
+          }
+          if (mstPallet.name == 'BER Pallet') {
+            dataPalletinClaim.quantity = data.ber_pallet
+          }
+          if (mstPallet.name == 'Missing Pallet') {
+            dataPalletinClaim.quantity = data.missing_pallet
+          }
+
+          const palletPalletClaim = models.ClaimPalletPallets;
+          const updatePalletQty = await palletPalletClaim.update(
+            {
+              quantity: dataPalletinClaim.quantity,
+            },
+            {
+              where: {
+                trx_claim_pallet_id: dataPalletinClaim.trx_claim_pallet_id,
+                mst_pallet_id: dataPalletinClaim.mst_pallet_id,
+              },
+            }
+          );
+          
+        }
+
       return res;
     } catch (e) {
       //("Error: ", e);
@@ -291,8 +354,8 @@ const query = ({ connects, models }) => {
           }
           
           // tambah quantity pallet untuk claim pallet
-          const palletSjpStatus = models.ClaimPalletPallets;
-          const res = await palletSjpStatus.create(dataPalletinClaim);
+          const palletPalletClaim = models.ClaimPalletPallets;
+          const res = await palletPalletClaim.create(dataPalletinClaim);
         }
 
       return res;

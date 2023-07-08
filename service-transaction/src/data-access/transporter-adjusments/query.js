@@ -369,18 +369,18 @@ const query = ({ connects, models }) => {
         }
         if (mstPallet.name == 'BER Pallet') {
           if (data.is_from_pool == 0) {
-            dataPalletCompanyOrigin.quantityNew = parseInt(dataPalletCompanyOrigin.quantity) - parseInt(data.ber_pallet)
+            dataPalletCompanyOrigin.quantityNew = parseInt(dataPalletCompanyOrigin.quantity)
           }
           if (data.is_from_pool == 1) {
-            dataPalletCompanyOrigin.quantityNew = parseInt(dataPalletCompanyOrigin.quantity) + parseInt(data.ber_pallet)
+            dataPalletCompanyOrigin.quantityNew = parseInt(dataPalletCompanyOrigin.quantity)
           }
         }
         if (mstPallet.name == 'Missing Pallet') {
           if (data.is_from_pool == 0) {
-            dataPalletCompanyOrigin.quantityNew = parseInt(dataPalletCompanyOrigin.quantity) - parseInt(data.missing_pallet)
+            dataPalletCompanyOrigin.quantityNew = parseInt(dataPalletCompanyOrigin.quantity)
           }
           if (data.is_from_pool == 1) {
-            dataPalletCompanyOrigin.quantityNew = parseInt(dataPalletCompanyOrigin.quantity) + parseInt(data.missing_pallet)
+            dataPalletCompanyOrigin.quantityNew = parseInt(dataPalletCompanyOrigin.quantity)
           }
         }
         
@@ -436,18 +436,18 @@ const query = ({ connects, models }) => {
         }
         if (mstPallet.name == 'BER Pallet') {
           if (data.is_from_pool == 0) {
-            dataPalletCompanyTo.quantityNew = parseInt(dataPalletCompanyTo.quantity) + parseInt(data.ber_pallet)
+            dataPalletCompanyTo.quantityNew = parseInt(dataPalletCompanyTo.quantity)
           }
           if (data.is_from_pool == 1) {
-            dataPalletCompanyTo.quantityNew = parseInt(dataPalletCompanyTo.quantity) - parseInt(data.ber_pallet)
+            dataPalletCompanyTo.quantityNew = parseInt(dataPalletCompanyTo.quantity)
           }
         }
         if (mstPallet.name == 'Missing Pallet') {
           if (data.is_from_pool == 0) {
-            dataPalletCompanyTo.quantityNew = parseInt(dataPalletCompanyTo.quantity) + parseInt(data.missing_pallet)
+            dataPalletCompanyTo.quantityNew = parseInt(dataPalletCompanyTo.quantity) 
           }
           if (data.is_from_pool == 1) {
-            dataPalletCompanyTo.quantityNew = parseInt(dataPalletCompanyTo.quantity) - parseInt(data.missing_pallet)
+            dataPalletCompanyTo.quantityNew = parseInt(dataPalletCompanyTo.quantity)
           }
           
         }

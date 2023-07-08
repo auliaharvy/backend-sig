@@ -12,6 +12,8 @@ const updateClaimPallet = ({ claimPalletDb, trxNumbersDb, allTransactionDb,patch
       reason_manager: data.getReasonManager(),
       ber_pallet: data.getBerPallet(),
       missing_pallet: data.getMissingPallet(),
+      price: data.getPrice(),
+      total_price: data.getTotalPrice(),
       updated_by: data.getUpdatedBy(),
       update_type: data.getUpdateType(),
     };
@@ -205,6 +207,73 @@ const updateClaimPallet = ({ claimPalletDb, trxNumbersDb, allTransactionDb,patch
           //("MESSAGE ID: ", info.messageId);
         });
       }
+  
+      let msg = `Claim Pallet was not updated, please try again`;
+      if (res[0] == 1) {
+        msg = `Claim Pallet updated successfully.`;
+        return msg;
+      } else {
+        throw new Error(msg);
+      }
+    }
+
+    if (data.update_type == 'edit_data') {
+      // check id if employee exist
+      const checkIds = await claimPalletDb.selectOne({ id: data.id });
+      if (checkIds.rowCount == 0)
+        throw new Error(`Claim Pallet doesn't exist, please check.`);
+
+      // update
+      const res = await claimPalletDb.editData({ data });
+
+      const checkId = await claimPalletDb.selectOne({ id: data.id });
+
+        // all Transaction Record
+      // get LOG NUMBER
+      const logNumber = await allTransactionDb.getLogNumber();
+      const dataLogNumber = logNumber.rows[0];
+      var incrLogNumber = parseInt(dataLogNumber.increment_number) + 1;
+      var FormatedIncrLogNumber = '';
+      if (incrLogNumber < 10) {
+        FormatedIncrLogNumber = '000' + incrLogNumber;
+      } else if (incrLogNumber < 100) {
+        FormatedIncrLogNumber = '00' + incrLogNumber;
+      } else if (incrLogNumber < 1000) {
+        FormatedIncrLogNumber = '0' + incrLogNumber;
+      } else {
+        FormatedIncrLogNumber = incrLogNumber;
+      }
+      data.log_number = dataLogNumber.trx_type + '-' + dataLogNumber.year + dataLogNumber.month + '-' + FormatedIncrLogNumber;
+      // update logNumber
+      const dataUpdateLogNumber = {
+        id: dataLogNumber.id,
+        increment_number: incrLogNumber ++,
+      };
+      // //(dataUpdateLogNumber)
+      // //(data.log_number)
+      await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
+
+      const idTrans = data.id;
+      const trans = await claimPalletDb.selectOne({ id: idTrans });
+      const dataAllTransaction = {}
+      if (trans.rowCount > 0) {
+        const dataTrans = trans.rows[0];
+        dataAllTransaction.log_number = data.log_number;
+        dataAllTransaction.id_claim_pallet = dataTrans.id;
+        dataAllTransaction.trx_number = dataTrans.trx_number;
+        dataAllTransaction.transaction = 'CLAIM PALLET';
+        dataAllTransaction.status = 'EDIT DATA';
+        dataAllTransaction.receiver_approver = dataTrans.pic_distributor;
+        dataAllTransaction.note = dataTrans.note;
+        dataAllTransaction.reason = dataTrans.reason_distributor;
+        dataAllTransaction.company = dataTrans.company_name;
+        dataAllTransaction.price = data.price;
+        dataAllTransaction.ber_pallet = data.ber_pallet;
+        dataAllTransaction.missing_pallet = data.missing_pallet;
+        dataAllTransaction.created_by = data.updated_by;
+      }
+      
+      await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
   
       let msg = `Claim Pallet was not updated, please try again`;
       if (res[0] == 1) {

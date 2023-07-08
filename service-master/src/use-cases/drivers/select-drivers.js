@@ -21,6 +21,7 @@ const selectDriver = ({ driversDb }) => {
             id_company: e.id_company,
             name: e.name,
             company_name: e.company_name,
+            is_deleted: e.is_deleted,
           });
         }
       }
@@ -39,6 +40,7 @@ const selectDriver = ({ driversDb }) => {
             id_company: e.id_company,
             name: e.name,
             company_name: e.company_name,
+            is_deleted: e.is_deleted,
           });
         }
       }
