@@ -53,32 +53,34 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
         
 
       // check company transporter
-      const checkCompanyTransporter = await companiesDB.checkCompanyExist({ data: {code: data.transporter_code} });
-      if (checkCompanyTransporter.rowCount == 0) {
-        dataCreateCompany = {
-          id_organization: 6,
-          id_company_type: 4,
-          name: data.transporter,
-          code: data.transporter_code,
-          address: 'AUTO CREATE FROM SJP',
-          city: 'AUTO CREATE FROM SJP',
-          phone: 'AUTO CREATE FROM SJP',
-          email: 'AUTO CREATE FROM SJP',
-          tag: 'TRANSPORTER',
-          createdBy: data.createdBy,
-          updatedBy: data.updatedBy,
-        };
-        const newTransporter = await companiesDB.insertCompany({ data: dataCreateCompany });
-        data.id_transporter_company = newTransporter.dataValues.id
-      } if (checkCompanyTransporter.rowCount > 0) { 
-        data.id_transporter_company = checkCompanyTransporter.rows[0].id
-      }
+      // const checkCompanyTransporter = await companiesDB.checkCompanyExistName({ data: {name: data.transporter} });
+      // if (checkCompanyTransporter.rowCount == 0) {
+      //   dataCreateCompany = {
+      //     id_organization: 13,
+      //     id_company_type: 4,
+      //     name: data.transporter,
+      //     code: data.transporter_code,
+      //     address: 'AUTO CREATE FROM SJP',
+      //     city: 'AUTO CREATE FROM SJP',
+      //     phone: 'AUTO CREATE FROM SJP',
+      //     email: 'AUTO CREATE FROM SJP',
+      //     tag: 'TRANSPORTER',
+      //     createdBy: data.createdBy,
+      //     updatedBy: data.updatedBy,
+      //   };
+      //   const newTransporter = await companiesDB.insertCompany({ data: dataCreateCompany });
+      //   data.id_transporter_company = newTransporter.dataValues.id
+      // } if (checkCompanyTransporter.rowCount > 0) { 
+      //   data.id_transporter_company = checkCompanyTransporter.rows[0].id
+      // }
 
       // check truck
       const checkTruck = await trucksDb.checkTruckExist({ data: {license_plate: data.truck_number} });
       if (checkTruck.rowCount == 0) {
         dataCreateTruck = {
-          id_company: data.id_transporter_company,
+          id_company: 70,
+          transporter_code: data.transporter_code,
+          transporter_name: data.transporter,
           license_plate: data.truck_number,
           createdBy: data.createdBy,
           updatedBy: data.updatedBy
@@ -93,7 +95,7 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
       const checkDriver = await driversDb.checkDriverExist({ data: {name: data.driver_name} });
       if (checkDriver.rowCount == 0) {
         dataCreateDriver = {
-          id_company: data.id_transporter_company,
+          id_company: 70,
           name: data.driver_name,
           createdBy: data.createdBy,
           updatedBy: data.updatedBy
@@ -108,7 +110,7 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
         // check truck on board 
         const check = await sjpDb.checkTruck({ data });
         if (check.rowCount > 0)
-          throw new Error(`This Truck not yet close SJP, please check or change truck.`);
+          throw new Error(`Truk ini belum melakukan proses Close SJP, Mohon di cek atau ganti truk.`);
       }
 
       // get TRX NUMBER

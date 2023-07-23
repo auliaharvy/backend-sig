@@ -15,7 +15,7 @@ const bulkAddTruck = ({ bulkTrucks, trucksDb }) => {
     // //(dataTruck.length)
     for(var i=0; i < dataTruck.length; i++)  {
       dataBulk.push({
-        id_company: 4,
+        id_company: 70,
         license_plate: dataTruck[i].NO_POL,
         transporter_code: dataTruck[i].EXPEDITUR_CODE,
         createdBy: data.getCreatedBy(),

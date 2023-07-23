@@ -8,6 +8,7 @@ const query = ({ connects, models }) => {
     patchCompany,
     deleteCompany,
     getPalletQuantity,
+    checkCompanyExistName
   });
 
   async function insertCompany({ data }) {
@@ -56,6 +57,29 @@ const query = ({ connects, models }) => {
       const res = await new Promise((resolve) => {
         const sql = `SELECT id FROM "mst_companies" WHERE "code" = $1;`;
         const params = [code];
+        pool.query(sql, params, (err, res) => {
+          pool.end(); // end connection
+
+          if (err) resolve(err);
+          resolve(res);
+        });
+      });
+
+      return res;
+    } catch (e) {
+      //("Error: ", e);
+    }
+  }
+
+  async function checkCompanyExistName({ data }) {
+    try {
+      const pool = await connects();
+
+      const { name } = data; // deconstruct
+
+      const res = await new Promise((resolve) => {
+        const sql = `SELECT id FROM "mst_companies" WHERE "name" = $1;`;
+        const params = [name];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
 

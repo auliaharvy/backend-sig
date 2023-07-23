@@ -36,7 +36,7 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNu
         data.totalReceivedPallet = totalReceivedPallet;
         data.totalSendPallet = totalSendPallet;
         if (totalReceivedPallet > totalSendPallet) {
-          throw new Error(`Received Pallet cannot be greater than pallet send or ` + totalSendPallet);
+          throw new Error(`Pallet yang di terima tidak boleh melebihi pallet yang di kirim atau ` + totalSendPallet);
         } 
 
         // check pallet di transporter agar tidak mines
@@ -45,7 +45,7 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNu
           //(check)
           for (const mstPallet of check.rows) {
             if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < totalReceivedPallet) {
-              throw new Error(`The Quantity of Good Pallet exceeds.`);
+              throw new Error(`Jumlah Good Pallet tidak mencukupi.`);
             }
           }
           
@@ -59,7 +59,7 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNu
         // update trx_status SJP
         const trx_statusSjp = await sjpStatusDb.updateStatusSjp({ data });
 
-        // all Transaction Record
+      // all Transaction Record
       // get LOG NUMBER
       const logNumber = await allTransactionDb.getLogNumber();
       const dataLogNumber = logNumber.rows[0];
@@ -130,9 +130,9 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNu
       
       await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
     
-        let msg = `SJP Status not updated, please try again`;
+        let msg = `SJP Status gagal di update, mohon ulangi kembali`;
         if (res[0] == 1) {
-          msg = `SJP Status updated successfully.`;
+          msg = `SJP Status berhasil diupdate.`;
           return msg;
         } else {
           throw new Error(msg);
@@ -147,7 +147,7 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNu
         data.totalReceivedPallet = totalReceivedPallet;
         data.totalSendPallet = totalSendPallet;
         if (totalReceivedPallet > totalSendPallet) {
-          throw new Error(`Received Pallet cannot be greater than pallet send or ` + totalSendPallet);
+          throw new Error(`Pallet yang di terima tidak boleh melebihi pallet yang dikirim atau ` + totalSendPallet);
         } 
 
         // check pallet di transporter agar tidak mines
@@ -156,7 +156,7 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNu
           //(check)
           for (const mstPallet of check.rows) {
             if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < data) {
-              throw new Error(`The Quantity of Good Pallet exceeds.`);
+              throw new Error(`Jumlah Good Pallet tidak mencukupi.`);
             }
             if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < totalReceivedPallet) {
               throw new Error(`The Quantity of Good Pallet exceeds.`);
@@ -244,9 +244,9 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNu
       
       await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
     
-        let msg = `SJP Status was not updated, please try again`;
+        let msg = `SJP Status gagal di update, mohon ulangi kembali`;
         if (res[0] == 1) {
-          msg = `SJP Status updated successfully.`;
+          msg = `SJP Status berhasil diupdate.`;
           return msg;
         } else {
           throw new Error(msg);

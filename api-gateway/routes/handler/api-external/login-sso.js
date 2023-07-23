@@ -19,11 +19,11 @@ const FormData = require('form-data');
 module.exports = async (req, res) => {
     try {
         var bodyFormData = new FormData();
-        bodyFormData.append('token', '9fd977dad8b0e2231b7a2112faa889df');
+        // bodyFormData.append('token', '9fd977dad8b0e2231b7a2112faa889df');
+        bodyFormData.append('token', '9821d310309b8ec228b5cc45c19b4e0f');
         bodyFormData.append('username', req.body.username);
         bodyFormData.append('password', req.body.password);
         req.headers.token = '$2y$10$3DDqyL./M7Qn4h426rnOAux3H20.VWXE2sq0B3tk6n24QDtswGwF.';
-        // TODO : check apakah username sudah ada apa belum jika sudah ada jalankan login bisa jika belum jalankan login sso
         // login sso
         const data = await api.post(`/api/login`, bodyFormData ,req.headers);
 
@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
                 // register user if new
                 var dataRegister = {
                     username: req.body.username,
-                    password: req.body.password,
+                    password: 'l0g1n550',
                     fullname: data.data.messages.mk_nopeg,
                     email: data.data.messages.email,
                     is_sso: 1,
@@ -64,7 +64,11 @@ module.exports = async (req, res) => {
                 });
             }
         } else {
-            const user = await api.post('/api/users/login', req.body);
+            const dataLoginSSo = {
+                username: req.body.username,
+                password: 'l0g1n550',
+            }
+            const user = await apiUser.post('/api/users/login', req.body);
             const data = user.data.data;
 
             const token = jwt.sign({

@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     id_company: DataTypes.INTEGER,
     license_plate: DataTypes.STRING,
     transporter_code: DataTypes.STRING,
+    transporter_name: DataTypes.STRING,
     createdBy: {
       field: 'created_by',
       type: DataTypes.INTEGER,

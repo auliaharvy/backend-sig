@@ -48,9 +48,19 @@ const allTransactionsRouter = require('./routes/all-transactions');
 const apiExternalRouter = require('./routes/api-external');
 
 const verifyToken = require('./middlewares/verifyToken');
+const { requestRateLimiter } = require('./middlewares/rateLimiter');
 const can = require('./middlewares/permission');
 
+const swaggerUi = require("swagger-ui-express"),
+swaggerDocument = require("./swagger.json");
+
 const app = express();
+app.use(requestRateLimiter);
+app.use(
+    '/api-docs',
+    swaggerUi.serve, 
+    swaggerUi.setup(swaggerDocument)
+  );
 app.use('/public', express.static('public'))
 app.use(cors());
 app.use(logger('dev'));
@@ -79,32 +89,32 @@ app.use('/rolehaspermission', roleHasPermissionRouter);
 
 //Service-master routes
 app.use('/employee', employeeRouter);
-app.use('/organizations', organizationsRouter);
-app.use('/company-types', companyTypesRouter);
-app.use('/companies', companiesRouter);
-app.use('/drivers', driversRouter);
-app.use('/trucks', trucksRouter);
-app.use('/pallets', palletsRouter);
-app.use('/transaction', transactionRouter);
+app.use('/organizations', verifyToken, organizationsRouter);
+app.use('/company-types', verifyToken, companyTypesRouter);
+app.use('/companies', verifyToken, companiesRouter);
+app.use('/drivers', verifyToken, driversRouter);
+app.use('/trucks', verifyToken, trucksRouter);
+app.use('/pallets', verifyToken, palletsRouter);
+app.use('/transaction', verifyToken, transactionRouter);
 app.use('/token', refreshTokenRouter);
 
 //Service-transaction routes
-app.use('/sjps', sjpsRouter);
-app.use('/sjp-statuss', sjpStatussRouter);
-app.use('/pallet-transfers', palletTransfersRouter);
-app.use('/change-quotas', changeQuotasRouter);
-app.use('/new-pallets', newPalletsRouter);
-app.use('/pallet-realizations', palletRealizationsRouter);
-app.use('/claim-pallets', claimPalletsRouter);
-app.use('/sewa-pallets', sewaPalletsRouter);
-app.use('/damaged-pallets', damagedPalletsRouter);
-app.use('/repaired-pallets', repairedPalletsRouter);
-app.use('/transporter-adjusments', transporterAdjusmentRouter);
+app.use('/sjps', verifyToken, sjpsRouter);
+app.use('/sjp-statuss', verifyToken, sjpStatussRouter);
+app.use('/pallet-transfers', verifyToken, palletTransfersRouter);
+app.use('/change-quotas', verifyToken, changeQuotasRouter);
+app.use('/new-pallets', verifyToken, newPalletsRouter);
+app.use('/pallet-realizations', verifyToken, palletRealizationsRouter);
+app.use('/claim-pallets', verifyToken, claimPalletsRouter);
+app.use('/sewa-pallets', verifyToken, sewaPalletsRouter);
+app.use('/damaged-pallets', verifyToken, damagedPalletsRouter);
+app.use('/repaired-pallets', verifyToken, repairedPalletsRouter);
+app.use('/transporter-adjusments', verifyToken, transporterAdjusmentRouter);
 
 //Service-reporting routes
-app.use('/pallet-movements', palletMovementsRouter);
+app.use('/pallet-movements', verifyToken, palletMovementsRouter);
 app.use('/dashboards', dashboardsRouter);
-app.use('/all-transactions', allTransactionsRouter);
+app.use('/all-transactions', verifyToken, allTransactionsRouter);
 
 //API - External routes
 app.use('/api-external', apiExternalRouter);

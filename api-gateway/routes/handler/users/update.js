@@ -19,11 +19,18 @@ module.exports = async (req, res) => {
             })
         }
 
-        const {
-            status,
-            data
-        } = error.response;
-        //(error.response);
-        return res.status(status).json(data);
+        if (error.response.status) {
+            const {
+                status,
+                data
+            } = error.response;
+            return res.status(status).json(data);
+        }
+        
+
+        return res.status(400).json({
+                status: 'error',
+                message: 'Something went wrong'
+            });
     }
 }
