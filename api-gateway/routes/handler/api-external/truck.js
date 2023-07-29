@@ -17,9 +17,10 @@ module.exports = async (req, res) => {
             })
         }
 
+        console.log(error)
         const response = {
-            message: 'no connection to API'
+            message: 'Terjadi Kesalahan, silakan coba lagi'
         } 
-        return res.status(500).json(response);
+        return res.status(400).json(response);
     }
 }

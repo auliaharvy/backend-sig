@@ -13,7 +13,7 @@ const logger = require('../../../lib/logger');
 
 const api = apiAdapter(URL_API_SSO);
 const apiUser = apiAdapter(URL_SERVICE_USER);
-const apiTest = apiAdapter('http://38.47.180.138:4000/api/v1');
+const apiTest = apiAdapter('https://api.mockfly.dev/mocks/c597ff39-ac42-4b49-ab01-81039879c888');
 const FormData = require('form-data');
 
 module.exports = async (req, res) => {
@@ -26,24 +26,130 @@ module.exports = async (req, res) => {
         req.headers.token = '$2y$10$3DDqyL./M7Qn4h426rnOAux3H20.VWXE2sq0B3tk6n24QDtswGwF.';
         // login sso
         const data = await api.post(`/api/login`, bodyFormData ,req.headers);
+        // console.log(data);
 
         if(data.data.success == false) {
             if(data.data.msg == 'user dan password tidak sesuai') {
                 return res.json(data.data);
+            } else if(data.data.msg == 'Single Authentication, Error Validation Data. Please Complete Send Data Correctly') {
+                try {
+                    // login pms
+                    const user = await apiUser.post('/api/users/login', req.body);
+                    const data = user.data.data;
+    
+                    const token = jwt.sign({
+                        data
+                    }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
+    
+                    const refreshtoken =  jwt.sign({
+                        data
+                    }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
+                    await apiUser.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
+                    return res.json({
+                        status: 'success',
+                        data: {
+                            token,
+                            refresh_token: refreshtoken,
+                            data: data
+                        }
+                    });
+                } catch (error) {
+                    if(error.code === "ECONNREFUSED") {
+                        return res.status(500).json({
+                            status: 'error',
+                            message: 'Service Unavailable on HOST ' + URL_SERVICE_USER
+                        })
+                    }
+            
+                    if (error.response.status) {
+                        const {
+                            status,
+                            data
+                        } = error.response;
+                        return res.status(status).json(data);
+                    }   
+            
+                    return res.status(400).json({
+                            status: 'error',
+                            message: 'Something went wrong'
+                        });
+                } 
             } else {
+                console.log('register')
                 // register user if new
                 var dataRegister = {
-                    username: req.body.username,
+                    username: data.data.messages.username,
                     password: 'l0g1n550',
-                    fullname: data.data.messages.mk_nopeg,
+                    fullname: data.data.messages.username,
+                    nopeg: data.data.messages.mk_nopeg,
                     email: data.data.messages.email,
                     is_sso: 1,
                 };
 
-                const register = await apiUser.post('/api/users/register', dataRegister);
+                try {
+                    const register = await apiUser.post('/api/users/register', dataRegister);
+                } catch (error) {
+                    return res.status(400).json({
+                        status: 'error',
+                        message: 'Pendaftaran user error, silahkan di ulang kembali'
+                    });
+                }
 
+                try {
+                    // const loginData = {
+                    //     username: data.data.messages.username,
+                    //     password: 'l0g1n550',
+                    // };
+                    // login pms
+                    const user = await apiUser.post('/api/users/login', { username: dataRegister.username, password: 'l0g1n550' });
+                    const data = user.data.data;
+
+                    const token = jwt.sign({
+                        data
+                    }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
+
+                    const refreshtoken =  jwt.sign({
+                        data
+                    }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
+                    await apiUser.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
+                    return res.json({
+                        status: 'success',
+                        data: {
+                            token,
+                            refresh_token: refreshtoken,
+                            data: data
+                        }
+                    });
+                } catch (error) {
+                    if(error.code === "ECONNREFUSED") {
+                        return res.status(500).json({
+                            status: 'error',
+                            message: 'Service Unavailable on HOST ' + URL_SERVICE_USER
+                        })
+                    }
+            
+                    if (error.response.status) {
+                        const {
+                            status,
+                            data
+                        } = error.response;
+                        return res.status(status).json(data);
+                    }   
+            
+                    return res.status(400).json({
+                            status: 'error',
+                            message: 'Something went wrong'
+                        });
+                } 
+            }
+        } else {
+            const dataLoginSSo = {
+                username: req.body.username,
+                password: 'l0g1n550',
+            }
+            try {
                 // login pms
-                const user = await api.post('/api/users/login', req.body);
+                const user = await apiUser.post('/api/users/login', dataLoginSSo);
                 const data = user.data.data;
 
                 const token = jwt.sign({
@@ -53,7 +159,7 @@ module.exports = async (req, res) => {
                 const refreshtoken =  jwt.sign({
                     data
                 }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
-                await api.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
+                await apiUser.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
                 return res.json({
                     status: 'success',
                     data: {
@@ -62,50 +168,28 @@ module.exports = async (req, res) => {
                         data: data
                     }
                 });
-            }
-        } else {
-            const dataLoginSSo = {
-                username: req.body.username,
-                password: 'l0g1n550',
-            }
-            const user = await apiUser.post('/api/users/login', req.body);
-            const data = user.data.data;
-
-            const token = jwt.sign({
-                data
-            }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
-
-            const refreshtoken =  jwt.sign({
-                data
-            }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
-            await api.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
-            return res.json({
-                status: 'success',
-                data: {
-                    token,
-                    refresh_token: refreshtoken,
-                    data: data
+            } catch (error) {
+                if(error.code === "ECONNREFUSED") {
+                    return res.status(500).json({
+                        status: 'error',
+                        message: 'Service Unavailable on HOST ' + URL_SERVICE_USER
+                    })
                 }
-            });
+        
+                if (error.response.status) {
+                    const {
+                        status,
+                        data
+                    } = error.response;
+                    return res.status(status).json(data);
+                }   
+        
+                return res.status(400).json({
+                        status: 'error',
+                        message: 'Something went wrong'
+                    });
+            } 
         }
-
-        // const data = await apiTest.post(`/users/login`, req.body ,req.headers);
-        // if(data.data.message == 'succeed') {
-        //     // register user if new
-        //     var dataRegister = {
-        //         username: req.body.username,
-        //         password: req.body.password,
-        //         fullname: data.data.objResponse.username,
-        //         email: data.data.objResponse.email,
-        //         is_sso: 1,
-        //     };
-        //     //(data.data);
-        //     const register = await apiUser.post('/api/users/register', dataRegister);
-        // } else {
-        //     //('errpr  ');
-        // }
-        
-        
     } catch (error) {
         if (error.code === "ECONNREFUSED") {
             return res.status(500).json({

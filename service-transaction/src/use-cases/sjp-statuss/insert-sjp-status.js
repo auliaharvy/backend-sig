@@ -300,8 +300,8 @@ const addSjpStatus = ({ makeSjpStatuss, sjpStatusDb, allTransactionDb,sjpDb,trxN
         dataAllTransaction.created_by = data.created_by;
       }
       
-      await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
-
+      var allTransaction = await allTransactionDb.recordAllTransaction({ data: dataAllTransaction });
+      console.log(allTransaction);
         // SEND MAIL
         // get data SJP
         const idSjp = data.id_sjp;

@@ -14,11 +14,8 @@ module.exports = async (req, res) => {
         bodyFormData.append('token', req.body.token);
         bodyFormData.append('X_TGL1', req.body.X_TGL1);
         bodyFormData.append('X_TGL2', req.body.X_TGL2);
-        bodyFormData.append('X_WERKS', req.body.X_WERKS);
         bodyFormData.append('X_VKORG', req.body.X_VKORG);
         bodyFormData.append('X_NOPOLISI', req.body.X_NOPOLISI);
-        bodyFormData.append('X_LINE_SO', req.body.X_LINE_SO);
-        bodyFormData.append('X_SO', req.body.X_SO);
         const data = await api.post(`/dev/sd/sdonline/service/get_realisasi.php`, bodyFormData ,req.headers);
         return res.json(data.data);
     } catch (error) {
@@ -29,13 +26,13 @@ module.exports = async (req, res) => {
                 message: 'Service Unavailable'
             })
         }
-
+        console.log(error)
         // const {
         //     data
         // } = error.response;
         const response = {
-            message: 'no connection to API'
+            message: 'Terjadi kesalahan, silakan coba lagi'
         } 
-        return res.status(500).json(response);
+        return res.status(400).json(response);
     }
 }

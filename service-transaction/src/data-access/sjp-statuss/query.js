@@ -426,10 +426,10 @@ const query = ({ connects, models }) => {
                   dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - (missingBerPallet + parseInt(data.good_pallet))
                 }
                 if (mstPallet.name == 'BER Pallet') {
-                  dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.ber_pallet)
+                  dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) + parseInt(data.ber_pallet)
                 }
                 if (mstPallet.name == 'Missing Pallet') {
-                  dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) - parseInt(data.missing_pallet)
+                  dataPalletCompanyTransporter.quantityNew = parseInt(dataPalletCompanyTransporter.quantity) + parseInt(data.missing_pallet)
                 }
               } else {
                 if (mstPallet.name == 'Good Pallet') {

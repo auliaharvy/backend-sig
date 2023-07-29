@@ -150,17 +150,21 @@ const updateSjpStatus = ({ sjpStatusDb, patchSjpStatuss, allTransactionDb, trxNu
           throw new Error(`Pallet yang di terima tidak boleh melebihi pallet yang dikirim atau ` + totalSendPallet);
         } 
 
+        var jumlahPalletTransporter = 0;
         // check pallet di transporter agar tidak mines
         const check = await sjpStatusDb.checkTransporterQty({ data });
         if (check.rowCount > 0) {
           //(check)
           for (const mstPallet of check.rows) {
-            if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < data) {
-              throw new Error(`Jumlah Good Pallet tidak mencukupi.`);
+            if (mstPallet.kondisi_pallet == 'Good Pallet') {
+              // throw new Error(`Jumlah pallet di transporter tidak mencukupi.`);
+              jumlahPalletTransporter = jumlahPalletTransporter + mstPallet.quantity
+            } if (mstPallet.kondisi_pallet == 'TBR Pallet') {
+              // throw new Error(`Jumlah pallet di transporter tidak mencukupi.`);
+              jumlahPalletTransporter = jumlahPalletTransporter + mstPallet.quantity
             }
-            if (mstPallet.kondisi_pallet == 'Good Pallet' && mstPallet.quantity < totalReceivedPallet) {
-              throw new Error(`The Quantity of Good Pallet exceeds.`);
-            }
+          } if (jumlahPalletTransporter < totalReceivedPallet) {
+            throw new Error(`Jumlah pallet di transporter tidak mencukupi.`);
           }
           
         }

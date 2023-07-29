@@ -6,21 +6,6 @@
     "auditLog": "logs/.d6e831466df2e515b9a50312063b2d7f8c34c7da-audit.json",
     "files": [
         {
-            "date": 1688944892299,
-            "name": "logs/pms-service-transaction-2023-07-10-06.log",
-            "hash": "d3bc51f43b6a6aeea17752dab8ce0d6aeeea50ddd656726afa7f778fedc57e68"
-        },
-        {
-            "date": 1688955832147,
-            "name": "logs/pms-service-transaction-2023-07-10-09.log",
-            "hash": "6042e37d5415d620689583e1cc39dfddff40d5dde02330885343f94b568deed4"
-        },
-        {
-            "date": 1688968917605,
-            "name": "logs/pms-service-transaction-2023-07-10-13.log",
-            "hash": "7c798a9e2ce8e071773b2af2557e51c4ddcc962fef643f43d63a12e6899b6ef6"
-        },
-        {
             "date": 1690122999801,
             "name": "logs/pms-service-transaction-2023-07-23-21.log",
             "hash": "d20564e213ad3c5d9f4aba07215be92bdd2184c1ff5c83788d9f26a7cac13f8f"
@@ -39,6 +24,26 @@
             "date": 1690133047391,
             "name": "logs/pms-service-transaction-2023-07-24-00.log",
             "hash": "9f0b06840b05e84e61780b08a1b9ec7be0d69ea45a5202348d04ccc17a6744a1"
+        },
+        {
+            "date": 1690295893312,
+            "name": "logs\\pms-service-transaction-2023-07-25-21.log",
+            "hash": "76107fa0e928f76d89bfbf5e8b4fd3af4151cfb9159a0684549402429c94d1ce"
+        },
+        {
+            "date": 1690297228999,
+            "name": "logs\\pms-service-transaction-2023-07-25-22.log",
+            "hash": "3b8e5144c7fec9fcab9e6bf229c33f01d83c489efe8953c7c1857b5f51d45ab9"
+        },
+        {
+            "date": 1690341965463,
+            "name": "logs\\pms-service-transaction-2023-07-26-10.log",
+            "hash": "5ddaa7c578256fb38666a9a98bf53d73441837e59a5bac185f76407519d67494"
+        },
+        {
+            "date": 1690348683678,
+            "name": "logs\\pms-service-transaction-2023-07-26-12.log",
+            "hash": "305584ed4f4b09d76875d817fedf227249bef04dd5448936094531b8026d9c1a"
         }
     ],
     "hashType": "sha256"
