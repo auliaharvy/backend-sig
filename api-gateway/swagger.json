@@ -5,20 +5,28 @@
         "title": "PMS-SIG",
         "description": "Pallet Management System - SIG",
         "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "name": "Semen Indonesia Group",
+            "url": "https://sig.id"
         }
     },
     "host": "localhost:3000",
     "basePath": "/",
     "tags": [
         {
-            "name": "Users",
-            "description": "API for users in the system"
+            "name": "API External",
+            "description": "API integration to SIG"
         },
         {
-            "name": "Users 1",
-            "description": "API for users in the system"
+            "name": "Report",
+            "description": "API for reporting query"
+        },
+        {
+            "name": "Auth",
+            "description": "API for Authentication"
+        },
+        {
+            "name": "Organization",
+            "description": "Organisasi"
         }
     ],
     "schemes": [
@@ -31,17 +39,59 @@
         "application/json"
     ],
     "paths": {
-        "/users": {
-            "get": {
+        "/api-external/truck": {
+            "post": {
                 "tags": [
-                    "Users 1"
+                    "API External"
                 ],
-                "summary": "Get all users in system",
+                "summary": "Sinkronisasi master data truck dengan SIG",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/Users"
+                        }
+                    }
+                }
+            }
+        },
+        "/organizations": {
+            "post": {
+                "tags": [
+                    "Organization"
+                ],
+                "comsumes": [
+                    "application/json"
+                ],
+                "prduces": [
+                    "application/json"
+                ],
+                "summary": "API Organization",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formdata",
+                        "description": "Nama Organisasi",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "posted": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 }
@@ -91,6 +141,68 @@
         "Users": {
             "type": "array",
             "$ref": "#/definitions/User"
+        },
+        "SigResponseTruck" :{
+            "ResponseCode":{
+                "type": "string"
+            },
+            "ResponseMessage":{
+                "type": "string"
+            },
+            "detailData":{
+                "type": "array",
+                "$ref": "#/definitions/SigResponseTruckDetail"
+            }
+        },
+        "SigResponseTruckDetail" :{
+            "NO_POL": {
+                "type": "string"
+            },
+			"NO_STNK": {
+                "type": "string"
+            },
+			"VEHICLE_TYPE": {
+                "type": "string"
+            },
+			"NO_RFID": {
+                "type": "string"
+            },
+			"NOMOR_MESIN": {
+                "type": "string"
+            },
+			"TAHUNPEMBUATAN": {
+                "type": "string"
+            },
+			"WARNA_PLAT": {
+                "type": "string"
+            },
+			"KAPASITAS": {
+                "type": "string"
+            },
+			"BERAT_TRUK": {
+                "type": "string"
+            },
+			"PALLET": {
+                "type": "string"
+            },
+			"DEL": {
+                "type": "string"
+            },
+			"EXPEDITUR_CODE": {
+                "type": "string"
+            },
+			"NMPLAN": {
+                "type": "string"
+            },
+			"NMORG": {
+                "type": "string"
+            },
+			"ID": {
+                "type": "string"
+            },
+			"LAST_UPDATE_DATE":{
+                "type": "string"
+            }
         }
     }
 }

@@ -44,6 +44,16 @@
             "date": 1690348584414,
             "name": "logs\\pms-service-reporting-2023-07-26-12.log",
             "hash": "fd812eef98c1d334e4e72d9dc1e4b78c069d68597ddff2078ed5e37f1a5053ca"
+        },
+        {
+            "date": 1690728540640,
+            "name": "logs\\pms-service-reporting-2023-07-30-21.log",
+            "hash": "6565ff872b33b34eb51bfc954e45364b87d077ce9a1fe601838937a68647d7e6"
+        },
+        {
+            "date": 1690729845928,
+            "name": "logs\\pms-service-reporting-2023-07-30-22.log",
+            "hash": "9adec43694763d8f2f673b96972064597a53486304f793c48a2f633e3614510f"
         }
     ],
     "hashType": "sha256"

@@ -191,14 +191,47 @@ module.exports = async (req, res) => {
             } 
         }
     } catch (error) {
-        if (error.code === "ECONNREFUSED") {
-            return res.status(500).json({
-                status: 'error',
-                message: 'Service Unavailable'
-            })
-        }
-        
+        try {
+            // login pms
+            const user = await apiUser.post('/api/users/login', req.body);
+            const data = user.data.data;
 
-        return res.status(500).json(error.response);
+            const token = jwt.sign({
+                data
+            }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
+
+            const refreshtoken =  jwt.sign({
+                data
+            }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
+            await apiUser.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
+            return res.json({
+                status: 'success',
+                data: {
+                    token,
+                    refresh_token: refreshtoken,
+                    data: data
+                }
+            });
+        } catch (error) {
+            if(error.code === "ECONNREFUSED") {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Service Unavailable on HOST ' + URL_SERVICE_USER
+                })
+            }
+    
+            if (error.response.status) {
+                const {
+                    status,
+                    data
+                } = error.response;
+                return res.status(status).json(data);
+            }   
+    
+            return res.status(400).json({
+                    status: 'error',
+                    message: 'Something went wrong'
+                });
+        } 
     }
 }

@@ -349,17 +349,32 @@ const query = ({ connects, models }) => {
       try {
         // use sequelize on update
         const Sjp = models.Sjps;
-        const res = await Sjp.update(
-          {
-            id_destination_company: data.id_new_destination_company,
-          },
-          {
-            where: {
-              id: data.id,
+        if(data.trx_status == 0 || data.trx_status == 1 ) {
+          const res = await Sjp.update(
+            {
+              id_destination_company: data.id_new_destination_company,
             },
-          }
-        );
-        return res;
+            {
+              where: {
+                id: data.id,
+              },
+            }
+          );
+          return res;
+        } else {
+          const res = await Sjp.update(
+            {
+              id_departure_company: data.id_new_destination_company,
+            },
+            {
+              where: {
+                id: data.id,
+              },
+            }
+          );
+          return res;
+        }
+        
       } catch (e) {
         //("Error: ", e);
       }

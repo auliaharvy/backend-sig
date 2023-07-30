@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
                 return res.status(403).json({ 
                     code: 403,
                     status: 'Unauthenticated',
-                    message: 'Token expired, silakan login kembali' 
+                    message: 'Token salah / expired, silakan login kembali' 
                 });
             }
             req.user = decoded;
