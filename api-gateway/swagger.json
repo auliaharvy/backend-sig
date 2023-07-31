@@ -25,8 +25,72 @@
             "description": "API for Authentication"
         },
         {
+            "name": "Truck",
+            "description": "API for Truck"
+        },
+        {
             "name": "Organization",
             "description": "Organisasi"
+        },
+        {
+            "name": "Driver",
+            "description": "API for Driver"
+        },
+        {
+            "name": "Company",
+            "description": "API for Company"
+        },
+        {
+            "name": "Permission",
+            "description": "API for Permission"
+        },
+        {
+            "name": "Role",
+            "description": "API for Role"
+        },
+        {
+            "name": "Transporter Adjusments",
+            "description": "API for Transporter Adjusments"
+        },
+        {
+            "name": "Repaired Pallet",
+            "description": "API for Repaired Pallet"
+        },
+        {
+            "name": "Damaged Pallet",
+            "description": "API for Damaged Pallet"
+        },
+        {
+            "name": "Sewa Pallet",
+            "description": "API for Sewa Pallet"
+        },
+        {
+            "name": "Claim Pallet",
+            "description": "API for Claim Pallet"
+        },
+        {
+            "name": "Pallet Realization",
+            "description": "API for Pallet Realization"
+        },
+        {
+            "name": "New Pallet",
+            "description": "API for New Pallet"
+        },
+        {
+            "name": "Change Quota",
+            "description": "API for Change Quota"
+        },
+        {
+            "name": "Pallet Transfer",
+            "description": "API for Pallet Transfer"
+        },
+        {
+            "name": "SJP Status",
+            "description": "API for Pallet Transfer"
+        },
+        {
+            "name": "SJP",
+            "description": "API for SJP"
         }
     ],
     "schemes": [
@@ -55,25 +119,325 @@
                 }
             }
         },
-        "/organizations": {
+        "/users": { 
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Auth",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                    "type": "string"
+                                                    },
+                                                    "fullname": {
+                                                    "type": "string"
+                                                    },
+                                                    "username": {
+                                                    "type": "string"
+                                                    },
+                                                    "email": {
+                                                    "type": "string"
+                                                    },
+                                                    "is_deleted": {
+                                                    "type": "integer"
+                                                    },
+                                                    "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                    },
+                                                    "roles": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "role": {
+                                                                    "type": "string"
+                                                                },
+                                                                "company": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }                
+                    }   
+                }
+            }
+        },
+        "/trucks": { 
+            "get": {
+                "tags": [
+                    "Truck"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Truck",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseTruckGet"
+                                    }
+                                }
+                            }
+                        }
+                    }   
+                }
+            },
+            "post": {
+                "tags": [
+                    "Truck"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Truck",
+                "parameters": [
+                    {
+                        "name": "id_company",
+                        "in": "body",
+                        "description": "Company Id",
+                        "type": "integer",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"id_company": 51}
+                        }                    
+                    },
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "Nama Driver",
+                        "type": "string",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"name": "Limi"}
+                        }                    
+                    },
+                    {
+                        "name": "createdBy",
+                        "in": "body",
+                        "description": "Dibuat oleh",
+                        "type": "integer",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"createdBy": 1}
+                        }                    
+                    },
+                    {
+                        "name": "updatedBy",
+                        "in": "body",
+                        "description": "Diupdate oleh",
+                        "type": "integer",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"updatedBy": 1}
+                        }                    
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseTruckGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/trucks/{truckId}": { 
+            "get": {
+                "tags": [
+                    "Truck"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Truck",
+                "parameters": [
+                    {
+                        "name": "truckId",
+                        "in": "path",
+                        "description": "id untuk mengambil data Truck",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseTruckGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/organizations": { 
+            "get": {
+                "tags": [
+                    "Organization"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Organization",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }                        
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "Organization"
                 ],
-                "comsumes": [
+                "consumes": [
                     "application/json"
                 ],
-                "prduces": [
+                "produces": [
                     "application/json"
                 ],
                 "summary": "API Organization",
                 "parameters": [
                     {
                         "name": "name",
-                        "in": "formdata",
+                        "in": "body",
                         "description": "Nama Organisasi",
                         "type": "string",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"name": "SIG Group"}
+                          }                    
                     },
                     {
                         "name": "authorization",
@@ -96,9 +460,2396 @@
                     }
                 }
             }
+        },
+        "/drivers": { 
+            "get": {
+                "tags": [
+                    "Driver"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Driver",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "type": "integer"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "message": {
+                                "type": "string"
+                              },
+                              "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseDriverGet"
+                                    }
+                                }
+                            }   
+                        }
+                    }   
+                }
+            },
+            "post": {
+                "tags": [
+                    "Driver"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Driver",
+                "parameters": [
+                    {
+                        "name": "id_company",
+                        "in": "body",
+                        "description": "Company Id",
+                        "type": "integer",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"id_company": 51}
+                        }                    
+                    },
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "Nama Driver",
+                        "type": "string",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"name": "Limi"}
+                        }                    
+                    },
+                    {
+                        "name": "createdBy",
+                        "in": "body",
+                        "description": "Dibuat oleh",
+                        "type": "integer",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"createdBy": 1}
+                        }                    
+                    },
+                    {
+                        "name": "updatedBy",
+                        "in": "body",
+                        "description": "Diupdate oleh",
+                        "type": "integer",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"updatedBy": 1}
+                        }                    
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "posted": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/drivers/{driverId}": { 
+            "get": {
+                "tags": [
+                    "Driver"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Drive",
+                "parameters": [
+                    {
+                        "name": "driverId",
+                        "in": "path",
+                        "description": "id untuk mengambil data Driver",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                              "code": {
+                                "type": "integer"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "message": {
+                                "type": "string"
+                              },
+                              "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseDriverGet"
+                                    }
+                                }
+                            }   
+                        }
+                    }
+                }
+            }
+        },
+        "/companies": { 
+            "get": {
+                "tags": [
+                    "Company"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Company",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseCompanyGet"
+                                    }
+                                }
+                            }   
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Company"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Drivers",
+                "parameters": [
+                    {
+                        "name": "id_organization",
+                        "in": "body",
+                        "description": "Organization Id",
+                        "type": "integer",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"id_organization": 1}
+                        }                    
+                    },
+                    {
+                        "name": "id_company_type",
+                        "in": "body",
+                        "description": "Company Type Id",
+                        "type": "integer",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"id_company_type": 2}
+                        }                    
+                    },
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "Nama Company",
+                        "type": "string",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"name": "PT GHIF"}
+                        }                    
+                    },
+                    {
+                        "name": "code",
+                        "in": "body",
+                        "description": "Code",
+                        "type": "integer",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"code": 122212322}
+                        }                    
+                    },
+                    {
+                        "name": "address",
+                        "in": "body",
+                        "description": "Address",
+                        "type": "string",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"addres": "warbong"}
+                        }                    
+                    },
+                    {
+                        "name": "city",
+                        "in": "body",
+                        "description": "City",
+                        "type": "string",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"city": "Cikarang"}
+                        }                    
+                    },
+                    {
+                        "name": "phone",
+                        "in": "body",
+                        "description": "Nomor Telephone",
+                        "type": "string",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"phone": "08211234567"}
+                        }                    
+                    },
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "description": "Alamat Email",
+                        "type": "string",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"email": "def@mail.com"}
+                        }                    
+                    },
+                    {
+                        "name": "tag",
+                        "in": "body",
+                        "description": "Tag",
+                        "type": "string",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"tag": "Tag"}
+                        }                    
+                    },
+                    {
+                        "name": "createdBy",
+                        "in": "body",
+                        "description": "Dibuat oleh",
+                        "type": "integer",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"createdBy": 1}
+                        }                    
+                    },
+                    {
+                        "name": "updatedBy",
+                        "in": "body",
+                        "description": "Diupdate oleh",
+                        "type": "string",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "default": {"updatedBy": 1}
+                        }                    
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "object",
+                                    "properties": {
+                                        "is_deleted": {
+                                            "type": "integer"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "id_organization": {
+                                            "type": "string"
+                                        },
+                                        "id_company_type": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "string"
+                                        },
+                                        "address": {
+                                            "type": "string"
+                                        },
+                                        "city": {
+                                            "type": "string"
+                                        },
+                                        "phone": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "tag": {
+                                            "type": "string"
+                                        },
+                                        "createdBy": {
+                                            "type": "string"
+                                        },
+                                        "updatedBy": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/companies/{companyId}": { 
+            "get": {
+                "tags": [
+                    "Company"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Company",
+                "parameters": [
+                    {
+                        "name": "companyId",
+                        "in": "path",
+                        "description": "id untuk mengambil data Company",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseCompanyGet"
+                                    }
+                                }
+                            }   
+                        }
+                    }
+                }
+            }
+        },
+        "/permissions": { 
+            "get": {
+                "tags": [
+                    "Permission"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Permission",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/SigResponsePermissionGet"
+                        }                    
+                    }
+                }
+            }
+        },
+        "/permissions/{permissionId}": { 
+            "get": {
+                "tags": [
+                    "Permission"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Permission",
+                "parameters": [
+                    {
+                        "name": "permissionId",
+                        "in": "path",
+                        "description": "id untuk mengambil data Permission",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/SigResponsePermissionGet"
+                        }
+                    }
+                }
+            }
+        },
+        "/roles": { 
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Role",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/SigResponseRoleGet"
+                        }                    
+                    }
+                }
+            }
+        },
+        "/roles/{roleId}": { 
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Role",
+                "parameters": [
+                    {
+                        "name": "roleId",
+                        "in": "path",
+                        "description": "id untuk mengambil data Role",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/SigResponseRoleGet"
+                        }
+                    }
+                }
+            }
+        },
+        "/transporter-adjusments": { 
+            "get": {
+                "tags": [
+                    "Transporter Adjusments"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Transporter Adjusments",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseTransporterAdjusmentsGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transporter-adjusments/{transporterAdjusmentsId}": { 
+            "get": {
+                "tags": [
+                    "Transporter Adjusments"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Transporter Adjusments",
+                "parameters": [
+                    {
+                        "name": "transporterAdjusmentsId",
+                        "in": "path",
+                        "description": "id untuk mengambil data Transporter Adjusments",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseTransporterAdjusmentsGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/repaired-pallets": { 
+            "get": {
+                "tags": [
+                    "Repaired Pallet"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Repaired Pallet",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseRepairedPalletGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/repaired-pallets/{repairedPalletId}": { 
+            "get": {
+                "tags": [
+                    "Repaired Pallet"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Repaired Pallet",
+                "parameters": [
+                    {
+                        "name": "repairedPalletId",
+                        "in": "path",
+                        "description": "id untuk mengambil data Repaired Pallet",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseRepairedPalletGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/damaged-pallets": { 
+            "get": {
+                "tags": [
+                    "Damaged Pallet"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Damaged Pallet",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseDamagedPalletGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/damaged-pallets/{damagedPalletId}": { 
+            "get": {
+                "tags": [
+                    "Damaged Pallet"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Damaged Pallet",
+                "parameters": [
+                    {
+                        "name": "damagedPalletId",
+                        "in": "path",
+                        "description": "id untuk mengambil data Damaged Pallet",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseDamagedPalletGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sewa-pallets": { 
+            "get": {
+                "tags": [
+                    "Sewa Pallet"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Sewa Pallet",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseSewaPalletGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sewa-pallets/{sewaPalletId}": { 
+            "get": {
+                "tags": [
+                    "Sewa Pallet"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Sewa Pallet",
+                "parameters": [
+                    {
+                        "name": "sewaPalletId",
+                        "in": "path",
+                        "description": "id untuk mengambil data Sewa Pallet",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseSewaPalletGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/claim-pallets": { 
+            "get": {
+                "tags": [
+                    "Claim Pallet"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Claim Pallet",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseClaimPalletGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/claim-pallets/{claimPalletId}": { 
+            "get": {
+                "tags": [
+                    "Claim Pallet"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Claim Pallet",
+                "parameters": [
+                    {
+                        "name": "claimPalletId",
+                        "in": "path",
+                        "description": "id untuk mengambil data Claim Pallet",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseClaimPalletGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pallet-realizations": { 
+            "get": {
+                "tags": [
+                    "Pallet Realization"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Pallet Realization",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponsePalletRealizationGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pallet-realizations/{palletRealizationId}": { 
+            "get": {
+                "tags": [
+                    "Pallet Realization"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Pallet Realization",
+                "parameters": [
+                    {
+                        "name": "palletRealizationId",
+                        "in": "path",
+                        "description": "id untuk mengambil data pallet realization",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponsePalletRealizationGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/new-pallets": { 
+            "get": {
+                "tags": [
+                    "New Pallet"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API New Pallet",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseNewPalletGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/new-pallets/{newPalletId}": { 
+            "get": {
+                "tags": [
+                    "New Pallet"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API New Pallet",
+                "parameters": [
+                    {
+                        "name": "newPalletId",
+                        "in": "path",
+                        "description": "id untuk mengambil data pallet transfer",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseNewPalletGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/change-quotas": { 
+            "get": {
+                "tags": [
+                    "Change Quota"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Change Quota",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseChangeQuotaGet"
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        },
+        "/change-quotas/{changeQuotaId}": { 
+            "get": {
+                "tags": [
+                    "Change Quota"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Change Quota",
+                "parameters": [
+                    {
+                        "name": "changeQuotaId",
+                        "in": "path",
+                        "description": "id untuk mengambil data pallet transfer",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseChangeQuotaGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pallet-transfers": { 
+            "get": {
+                "tags": [
+                    "Pallet Transfer"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Pallet Transfer",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponsePalletTransferGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pallet-transfers/{palletTransferId}": { 
+            "get": {
+                "tags": [
+                    "Pallet Transfer"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API Pallet Transfer",
+                "parameters": [
+                    {
+                        "name": "palletTransferId",
+                        "in": "path",
+                        "description": "id untuk mengambil data pallet transfer",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponsePalletTransferGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sjp-statuss": { 
+            "get": {
+                "tags": [
+                    "SJP Status"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API SJP Status",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseSjpStatusGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sjp-statuss/{sjpStatusId}": { 
+            "get": {
+                "tags": [
+                    "SJP Status"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API SJP Status",
+                "parameters": [
+                    {
+                        "name": "sjpStatusId",
+                        "in": "path",
+                        "description": "id untuk mengambil sjp status",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseSjpStatusGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sjps": { 
+            "get": {
+                "tags": [
+                    "SJP"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API SJP",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseSjpGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sjps/{sjpId}": { 
+            "get": {
+                "tags": [
+                    "SJP"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "API SJP",
+                "parameters": [
+                    {
+                        "name": "sjpId",
+                        "in": "path",
+                        "description": "id untuk mengambil sjp",
+                        "type": "integer",
+                        "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "token untuk login",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SigResponseSjpGet"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "schema": {
+                          "$ref": "#/definitions/ErrorResponseGetById"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "SigResponseTruckGet":{
+            "type": "object",
+            "properties": {
+            "id": {
+                "type": "string"
+            },
+            "id_company": {
+                "type": "string"
+            },
+            "transporter_code": {
+                "type": "string"
+            },
+            "license_plate": {
+                "type": "string"
+            },
+            "company_name": {
+                "type": ["string", "null"]
+            },
+            "is_deleted": {
+                "type": "integer"
+            }
+            }
+        },
+        "SigResponseDriverGet": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "id_company": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "company_name": {
+                "type": "string"
+              },
+              "is_deleted": {
+                "type": "integer"
+              }
+            }
+        },
+        "SigResponseCompanyGet": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "id_organization": {
+                    "type": "string"
+                },
+                "name_organization": {
+                    "type": "string"
+                },
+                "id_company_type": {
+                    "type": "string"
+                },
+                "name_company_type": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                },
+                "quota": {
+                    "type": "number"
+                },
+                "good_pallet": {
+                    "type": "integer"
+                },
+                "tbr_pallet": {
+                    "type": "integer"
+                },
+                "ber_pallet": {
+                    "type": "integer"
+                },
+                "missing_pallet": {
+                    "type": "integer"
+                },
+                "total_pallet": {
+                    "type": "integer"
+                }
+            }
+        },
+        "SigResponsePermissionGet": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "status": {
+                            "type": "integer"
+                        },
+                        "message": {
+                            "type": "string"
+                        },
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "SigResponseRoleGet": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "status": {
+                            "type": "integer"
+                        },
+                        "message": {
+                            "type": "string"
+                        },
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "SigResponseTransporterAdjusmentsGet": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "trx_number": {
+                    "type": "string"
+                },
+                "id_company_transporter": {
+                    "type": "string"
+                },
+                "id_company": {
+                    "type": "string"
+                },
+                "id_user_reporter": {
+                    "type": "string"
+                },
+                "is_from_pool": {
+                    "type": "integer"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "good_pallet": {
+                    "type": "integer"
+                },
+                "tbr_pallet": {
+                    "type": "integer"
+                },
+                "transporter_name": {
+                    "type": "string"
+                },
+                "company_name": {
+                    "type": "string"
+                },
+                "reporter_name": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "SigResponseRepairedPalletGet": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "trx_number": {
+                    "type": "string"
+                },
+                "id_company": {
+                    "type": "string"
+                },
+                "id_user_reporter": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "qty_good_pallet": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "company_name": {
+                    "type": "string"
+                },
+                "reporter_name": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "SigResponseDamagedPalletGet": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "trx_number": {
+                    "type": "string"
+                },
+                "id_company": {
+                    "type": "string"
+                },
+                "id_user_manager": {
+                    "type": "string"
+                },
+                "id_user_reporter": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "qty_tbr_pallet": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "company_name": {
+                    "type": "string"
+                },
+                "reporter_name": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "SigResponseSewaPalletGet": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "trx_number": {
+                    "type": "string"
+                },
+                "id_company_distributor": {
+                    "type": "string"
+                },
+                "id_user_manager": {
+                    "type": "string"
+                },
+                "id_user_distributor": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "reason_manager": {
+                    "type": "string"
+                },
+                "reason_distributor": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "good_pallet": {
+                    "type": "integer"
+                },
+                "tbr_pallet": {
+                    "type": "integer"
+                },
+                "ber_pallet": {
+                    "type": "integer"
+                },
+                "missing_pallet": {
+                    "type": "integer"
+                },
+                "total_price": {
+                    "type": "number"
+                },
+                "company_name": {
+                    "type": "string"
+                },
+                "manager_name": {
+                    "type": "string"
+                },
+                "photo": {
+                    "type": "string"
+                },
+                "pic_distributor": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "SigResponseClaimPalletGet": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "id_company_distributor": {
+                    "type": "string"
+                },
+                "trx_number": {
+                    "type": "string"
+                },
+                "id_user_manager": {
+                    "type": "string"
+                },
+                "id_user_distributor": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "reason_manager": {
+                    "type": "string"
+                },
+                "reason_distributor": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "ber_pallet": {
+                    "type": "integer"
+                },
+                "missing_pallet": {
+                    "type": "integer"
+                },
+                "total_price": {
+                    "type": "number"
+                },
+                "photo": {
+                    "type": "string"
+                },
+                "company_name": {
+                    "type": "string"
+                },
+                "manager_name": {
+                    "type": "string"
+                },
+                "pic_distributor": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "SigResponsePalletRealizationGet": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "id_trx_new_pallet": {
+                    "type": "string"
+                },
+                "no_new_pallet": {
+                    "type": "string"
+                },
+                "qty_pallet": {
+                    "type": "integer"
+                },
+                "trx_number": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "SigResponseNewPalletGet": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "id_trx_change_quota": {
+                    "type": "string"
+                },
+                "id_company_workshop": {
+                    "type": "string"
+                },
+                "trx_number": {
+                    "type": "string"
+                },
+                "qty_request_pallet": {
+                    "type": "integer"
+                },
+                "qty_ready_pallet": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "no_change_quota": {
+                    "type": "string"
+                },
+                "company_workshop": {
+                    "type": "string"
+                },
+                "company_requester": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "SigResponseChangeQuotaGet": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "id_company_requester": {
+                    "type": "string"
+                },
+                "id_new_pallet": {
+                    "type": "string"
+                },
+                "id_requester": {
+                    "type": "string"
+                },
+                "id_approver": {
+                    "type": "string"
+                },
+                "trx_number": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "approved_quantity": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "company_name": {
+                    "type": "string"
+                },
+                "requester_name": {
+                    "type": "string"
+                },
+                "approver_name": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "SigResponsePalletTransferGet": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "id_company_departure": {
+                    "type": "string"
+                },
+                "id_company_destination": {
+                    "type": "string"
+                },
+                "id_company_transporter": {
+                    "type": "string"
+                },
+                "id_truck": {
+                    "type": "string"
+                },
+                "id_driver": {
+                    "type": "string"
+                },
+                "id_user_checker_sender": {
+                    "type": "string"
+                },
+                "second_driver": {
+                    "type": "string"
+                },
+                "trx_code": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "departure_company": {
+                    "type": "string"
+                },
+                "destination_company": {
+                    "type": "string"
+                },
+                "transporter_company": {
+                    "type": "string"
+                },
+                "license_plate": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "good_pallet": {
+                    "type": "integer"
+                },
+                "tbr_pallet": {
+                    "type": "integer"
+                },
+                "ber_pallet": {
+                    "type": "integer"
+                },
+                "missing_pallet": {
+                    "type": "integer"
+                },
+                "palletQuantity": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "kondisi_pallet": {
+                                "type": "string"
+                            },
+                            "quantity": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "driver_name": {
+                    "type": "string"
+                },
+                "sender_name": {
+                    "type": "string"
+                },
+                "receiver_name": {
+                    "type": "string"
+                },
+                "approver_name": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "SigResponseSjpStatusGet": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "id_company_departure": {
+                    "type": "string"
+                },
+                "id_company_destination": {
+                    "type": "string"
+                },
+                "id_company_transporter": {
+                    "type": "string"
+                },
+                "id_truck": {
+                    "type": "string"
+                },
+                "id_driver": {
+                    "type": "string"
+                },
+                "id_user_checker_sender": {
+                    "type": "string"
+                },
+                "second_driver": {
+                    "type": "string"
+                },
+                "trx_code": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "departure_company": {
+                    "type": "string"
+                },
+                "destination_company": {
+                    "type": "string"
+                },
+                "transporter_company": {
+                    "type": "string"
+                },
+                "license_plate": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "good_pallet": {
+                    "type": "integer"
+                },
+                "tbr_pallet": {
+                    "type": "integer"
+                },
+                "ber_pallet": {
+                    "type": "integer"
+                },
+                "missing_pallet": {
+                    "type": "integer"
+                },
+                "palletQuantity": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "kondisi_pallet": {
+                                "type": "string"
+                            },
+                            "quantity": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "driver_name": {
+                    "type": "string"
+                },
+                "sender_name": {
+                    "type": "string"
+                },
+                "receiver_name": {
+                    "type": "string"
+                },
+                "approver_name": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "SigResponseSjpGet": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "idDeparture": {
+                "type": "string"
+              },
+              "idDestination": {
+                "type": "string"
+              },
+              "idTransporter": {
+                "type": "string"
+              },
+              "idTruck": {
+                "type": "string"
+              },
+              "idDriver": {
+                "type": "string"
+              },
+              "secondDriver": {
+                "type": ["string", "null"]
+              },
+              "trxNumber": {
+                "type": "string"
+              },
+              "noDo": {
+                "type": "string"
+              },
+              "tonnage": {
+                "type": "integer"
+              },
+              "packaging": {
+                "type": "integer"
+              },
+              "productQuantity": {
+                "type": "integer"
+              },
+              "palletQuantity": {
+                "type": "integer"
+              },
+              "trxStatus": {
+                "type": "integer"
+              },
+              "distribution": {
+                "type": "integer"
+              },
+              "departure": {
+                "type": "string"
+              },
+              "destination": {
+                "type": "string"
+              },
+              "transporter": {
+                "type": "string"
+              },
+              "licensePlate": {
+                "type": "string"
+              },
+              "driverName": {
+                "type": "string"
+              },
+              "eta": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "departureTime": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+        },
+        "ErrorResponseGetById": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+
+                    }
+                }
+            }
+        },
         "User": {
             "required": [
                 "name",
