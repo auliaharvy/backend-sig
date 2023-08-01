@@ -14,6 +14,7 @@ module.exports = (baseUrl) => {
         timeout : parseInt(TIMEOUT),
         headers: {
             'Retry-After': 50000,
+            'token': '$2y$10$3DDqyL./M7Qn4h426rnOAux3H20.VWXE2sq0B3tk6n24QDtswGwF.',
             'Content-Type': 'application/json',
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",

@@ -124,6 +124,21 @@
             "date": 1690767919052,
             "name": "logs\\pms-api-gateway-2023-07-31-08.log",
             "hash": "aea960801e60e8256a0428c8dc2bcca43baf71d0296ea3aac728baa97171f387"
+        },
+        {
+            "date": 1690780405437,
+            "name": "logs\\pms-api-gateway-2023-07-31-12.log",
+            "hash": "766cbd4e2247d48979df0f0f60556ab7a0bb5ee19d2174ed84fe29a3aee326a2"
+        },
+        {
+            "date": 1690871956519,
+            "name": "logs\\pms-api-gateway-2023-08-01-13.log",
+            "hash": "0b5a5edab6ed939add841028a5c03e42b891f5572697a43adf5b22c956bb5dc1"
+        },
+        {
+            "date": 1690873225791,
+            "name": "logs\\pms-api-gateway-2023-08-01-14.log",
+            "hash": "e6234d2ffdb4dd449784981d2aa6481351c9ba01930d5b87c021f0d3868ab5dc"
         }
     ],
     "hashType": "sha256"
