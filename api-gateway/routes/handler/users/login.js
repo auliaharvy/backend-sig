@@ -107,6 +107,15 @@ module.exports = async (req, res) => {
                     const user = await apiUser.post('/api/users/login', { username: dataRegister.username, password: 'l0g1n550' });
                     const data = user.data.data;
 
+                    const tokenData = {
+                        id: data.id,
+                        username: data.username,
+                        fullname: data.fullname,
+                        email: data.email,
+                        ip: data.ip,
+                        device: data.device,
+                        time_access: data.time_access
+                    }
                     const token = jwt.sign({
                         data
                     }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
@@ -154,13 +163,21 @@ module.exports = async (req, res) => {
                 // login pms
                 const user = await apiUser.post('/api/users/login', dataLoginSSo);
                 const dataLogin = user.data.data;
-
+                const tokenData = {
+                    id: dataLogin.id,
+                    username: dataLogin.username,
+                    fullname: dataLogin.fullname,
+                    email: dataLogin.email,
+                    ip: dataLogin.ip,
+                    device: dataLogin.device,
+                    time_access: dataLogin.time_access
+                }
                 const token = jwt.sign({
-                    dataLogin
+                    tokenData
                 }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
 
                 const refreshtoken =  jwt.sign({
-                    dataLogin
+                    tokenData
                 }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
                 await apiUser.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
                 return res.json({
@@ -200,13 +217,23 @@ module.exports = async (req, res) => {
                         // login pms
                         const user = await apiUser.post('/api/users/login', { username: dataRegister.username, password: 'l0g1n550' });
                         const data = user.data.data;
+
+                        const tokenData = {
+                            id: data.id,
+                            username: data.username,
+                            fullname: data.fullname,
+                            email: data.email,
+                            ip: data.ip,
+                            device: data.device,
+                            time_access: data.time_access
+                        }
     
                         const token = jwt.sign({
-                            data
+                            tokenData
                         }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
     
                         const refreshtoken =  jwt.sign({
-                            data
+                            tokenData
                         }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
                         await apiUser.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
                         return res.json({
@@ -265,13 +292,22 @@ module.exports = async (req, res) => {
             // login pms
             const user = await apiUser.post('/api/users/login', req.body);
             const data = user.data.data;
-
+            
+            const tokenData = {
+                id: data.id,
+                username: data.username,
+                fullname: data.fullname,
+                email: data.email,
+                ip: data.ip,
+                device: data.device,
+                time_access: data.time_access
+            }
             const token = jwt.sign({
-                data
+                tokenData
             }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
 
             const refreshtoken =  jwt.sign({
-                data
+                tokenData
             }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
             await apiUser.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
             return res.json({
