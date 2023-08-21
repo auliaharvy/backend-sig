@@ -1,15 +1,67 @@
-FROM node:14-alpine
 
-RUN apk add g++ make py3-pip
+ARG PORT=3000
 
-WORKDIR /app
+FROM node:14-alpine AS node
 
-COPY package.json .
 
-RUN npm install
+# Builder stage
 
-COPY . .
+FROM node AS builder
 
-EXPOSE 3000
+# Use /app as the CWD
+WORKDIR /app            
 
-CMD ["npm", "start"]
+# Copy package.json and package-lock.json to /app
+COPY package*.json ./   
+
+# Install all dependencies
+RUN npm i               
+
+# Copy the rest of the code
+COPY . .                
+
+# Invoke the build script to transpile ts code to js
+RUN npm run build    
+
+# Open desired port
+EXPOSE ${PORT}
+
+# Run development server
+ENTRYPOINT [ "npm", "run", "dev" ]
+
+# Final stage
+
+FROM node AS final
+
+# Set node environment to production
+ENV NODE_ENV production
+
+# Update the system
+RUN apk --no-cache -U upgrade
+
+# Prepare destination directory and ensure user node owns it
+RUN mkdir -p /home/node/app/dist && chown -R node:node /home/node/app
+
+# Set CWD
+WORKDIR /home/node/app
+
+# Install PM2
+RUN npm i -g pm2
+
+# Copy package.json, package-lock.json and process.yml
+COPY package*.json process.yml ./
+
+# Switch to user node
+USER node
+
+# Install libraries as user node
+RUN npm i --only=production
+
+# Copy js files and change ownership to user node
+COPY --chown=node:node --from=builder /app/dist ./dist
+
+# Open desired port
+EXPOSE ${PORT}
+
+# Use PM2 to run the application as stated in config file
+ENTRYPOINT ["pm2-runtime", "./process.yml"] 

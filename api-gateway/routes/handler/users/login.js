@@ -78,7 +78,7 @@ module.exports = async (req, res) => {
                         });
                 } 
             } else {
-                console.log('register')
+                //console.log('register')
                 // register user if new
                 var dataRegister = {
                     username: data.data.messages.username,

@@ -9,11 +9,7 @@
             "url": "https://sig.id"
         }
     },
-    "host": "pallet-backend.sig.id",
-    "schemes": [
-        "http",
-        "https"
-    ],
+    "host": "localhost:3000",
     "basePath": "/",
     "tags": [
         {
@@ -112,192 +108,12 @@
                 "tags": [
                     "API External"
                 ],
-                "summary": "Sinkronisasi master data truck dengan SIG ( Data Truck PMS and Data Truck )",
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Data untuk Truck SIG",
-                        "required": true,
-                        "schema": {
-                          "$ref": "#/definitions/postDataTruckPMS"
-                        }
-                    },
-                    {
-                        "in": "header",
-                        "name": "token",
-                        "type": "string",
-                        "description": "token untuk Data Truck PMS dan Data Truck",
-                        "required": true
-                    },
-                    {
-                        "in": "header",
-                        "name": "username",
-                        "type": "string",
-                        "description": "username untuk Data Truck PMS dan Data Truck",
-                        "required": true
-
-                    },
-                    {
-                        "in": "header",
-                        "name": "authorization",
-                        "description": "token untuk DO PMS",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
+                "summary": "Sinkronisasi master data truck dengan SIG",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/Users"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message":{
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api-external/login-sso": {
-            "post": {
-                "tags": [
-                    "API External"
-                ],
-                "summary": "Login SSO and Login SSO PMS",
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Data untuk Login SSO",
-                        "required": true,
-                        "schema": {
-                          "$ref": "#/definitions/postLoginSSO"
-                        }
-                    },
-                    {
-                        "in": "header",
-                        "name": "username",
-                        "type": "string",
-                        "description": "username untuk Data Login SSO",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/Users"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message":{
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api-external/do": {
-            "post": {
-                "tags": [
-                    "API External"
-                ],
-                "summary": "Sinkronisasi master data do dengan SIG ( Data DO PMS )",
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Data untuk Data DO PMS",
-                        "required": true,
-                        "schema": {
-                          "$ref": "#/definitions/postDataDOPMS"
-                        }
-                    },
-                    {
-                        "in": "header",
-                        "name": "username",
-                        "type": "string",
-                        "description": "username untuk DO PMS",
-                        "required": true
-
-                    },
-                    {
-                        "in": "header",
-                        "name": "authorization",
-                        "description": "token untuk DO PMS",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/Users"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message":{
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "http://10.15.5.150/dev/sd/sdonline/service/get_realisasi.php": {
-            "post": {
-                "tags": [
-                    "API External"
-                ],
-                "summary": "Sinkronisasi master data do dengan SIG ( Data DO )",
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Data untuk Data DO PMS",
-                        "required": true,
-                        "schema": {
-                          "$ref": "#/definitions/postDataDO"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/Users"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message":{
-                                    "type": "string"
-                                }
-                            }
                         }
                     }
                 }
@@ -5283,89 +5099,6 @@
         }
     },
     "definitions": {
-        "postDataTruckPMS": {
-            "type": "object",
-            "properties": {
-              "token": {
-                "type": "string",
-                "example": "4565b5695f91cf522515f9a6b1ddd631"
-              },
-              "org": {
-                "type": "integer",
-                "format": "int32",
-                "example": 7900
-              },
-              "plant": {
-                "type": "string",
-                "example": "79B1"
-              }
-            },
-            "required": ["token", "org", "plant"]
-        },
-        "postDataDOPMS": {
-            "type": "object",
-            "properties": {
-              "token": {
-                "type": "string",
-                "example": "7OJ4T9GOWQ"
-              },
-              "X_TGL_1": {
-                "type": "string",
-                "format": "date-time",
-                "example": "2022-12-08" 
-              },
-              "X_TGL_2": {
-                "type": "string",
-                "format": "date-time",
-                "example": "2022-12-20"
-              },
-              "X_NOPOLISI": {
-                "type": "string",
-                "example": "A9003X"
-              },
-              "X_LINE_SO": {
-                "type": "string",
-                "example": "000000"
-              },
-              "X_SO": {
-                "type": "string",
-                "example": "X"
-              },
-              "X_WERKS": {
-                "type": "string",
-                "example": "79B1"
-              }
-            },
-            "required": ["token", "X_TGL_1", "X_TGL_2", "X_NOPOLISI", "X_LINE_SO", "X_SO", "X_WERKS"]
-        },
-        "postDataDO": {
-            "type": "object",
-            "properties": {
-              "token": {
-                "type": "string",
-                "example": "7OJ4T9GOWQ"
-              },
-              "X_TGL_1": {
-                "type": "string",
-                "format": "date-time",
-                "example": "2022-12-08" 
-              },
-              "X_TGL_2": {
-                "type": "string",
-                "format": "date-time",
-                "example": "2022-12-20"
-              },
-              "X_VKORG": {
-                "type": "string",
-                "example": "7900"
-              },
-              "X_NOPOLISI": {
-                "type": "string",
-                "example": "A9003X"
-              }
-            },
-            "required": ["token", "X_TGL_1", "X_TGL_2","X_VKORG", "X_NOPOLISI"]
-        },
         "postRegister": {
             "type": "object",
             "properties": {
@@ -5416,20 +5149,6 @@
                 "password": {
                     "type": "string",
                     "default": "password"
-                }
-            },
-            "required": ["username", "password"]
-        },
-        "postLoginSSO": {
-            "type": "object",
-            "properties": {
-                "username": {
-                    "type": "string",
-                    "default": "coba"
-                },
-                "password": {
-                    "type": "string",
-                    "default": "login"
                 }
             },
             "required": ["username", "password"]
@@ -8344,4 +8063,3 @@
         }
     }
 }
-
