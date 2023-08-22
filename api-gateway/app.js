@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const logger = require('morgan');
 const cors = require('cors');
+const helmet = require("helmet");
 
 const indexRouter = require('./routes/index');
 //Service-user
@@ -55,6 +56,7 @@ const swaggerUi = require("swagger-ui-express"),
 swaggerDocument = require("./swagger.json");
 
 const app = express();
+app.use(helmet());
 app.use(requestRateLimiter);
 app.use(
     '/api-docs',
