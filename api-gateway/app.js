@@ -56,36 +56,22 @@ const swaggerUi = require("swagger-ui-express"),
 swaggerDocument = require("./swagger.json");
 
 const app = express();
-app.use(helmet());
-app.use(helmet.contentSecurityPolicy({
-
-  directives: {
-
-    defaultSrc: [“‘self'”],
-
-    scriptSrc: [“‘self'”],
-
-    styleSrc: [“‘self'”],
-
-    imgSrc: [“‘self'”],
-
-    connectSrc: [“‘self'”],
-
-    fontSrc: [“‘self'”],
-
-    objectSrc: [“‘none'”],
-
-    mediaSrc: [“‘self'”]
-
-  }
-
+app.use(helmet({
+  frameguard: false,
+  noSniff: false,
 }));
-app.use(
-  // not including the frameguard() middleware
-  helmet({
-    frameguard: false,
-  })
-);
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ['self'],
+    scriptSrc: ['self'],
+    styleSrc: ['self'],
+    imgSrc: ['self'],
+    connectSrc: ['self'],
+    fontSrc: ['self'],
+    objectSrc: ['none'],
+    mediaSrc: ['self']
+  }
+}));
 app.use(
   helmet.referrerPolicy({
     policy: "no-referrer",
@@ -95,12 +81,6 @@ app.use(helmet.hsts({
   maxAge: 300,
   includeSubDomains: false,
 }));
-app.use(
-  // not loading the noSniff() middleware
-  helmet({
-    noSniff: false,
-  })
-);
 app.use(
   helmet.frameguard({
     action: "deny",
