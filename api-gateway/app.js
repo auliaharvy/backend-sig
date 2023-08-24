@@ -62,14 +62,14 @@ app.use(helmet({
 }));
 app.use(helmet.contentSecurityPolicy({
   directives: {
-    defaultSrc: ['self'],
-    scriptSrc: ['self'],
-    styleSrc: ['self'],
-    imgSrc: ['self'],
-    connectSrc: ['self'],
-    fontSrc: ['self'],
-    objectSrc: ['none'],
-    mediaSrc: ['self']
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'"],
+    styleSrc: ["'self'"],
+    imgSrc: ["'self'"],
+    connectSrc: ["'self'"],
+    fontSrc: ["'self'"],
+    objectSrc: ["'none'"],
+    mediaSrc: ["'self'"]
   }
 }));
 app.use(
@@ -111,7 +111,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
 
 //Service-user routes
 app.use('/users', usersRouter);
