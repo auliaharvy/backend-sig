@@ -1,0 +1,15 @@
+version: "3"
+services:
+  nginx:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: nginx
+    ports:
+      - "3000:80"
+    networks:
+      - api-gateway_some-net
+
+networks:
+  api-gateway_some-net:
+    external: true
