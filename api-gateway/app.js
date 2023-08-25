@@ -77,10 +77,6 @@ app.use(
     policy: "no-referrer",
   })
 );
-app.use(helmet.hsts({
-  maxAge: 300,
-  includeSubDomains: false,
-}));
 app.use(
   helmet.frameguard({
     action: "deny",
@@ -92,7 +88,7 @@ app.use(
     swaggerUi.serve, 
     swaggerUi.setup(swaggerDocument)
   );
-
+app.use( helmet.hsts( { maxAge: 300, includeSubDomains: true, preload: true } ) );
 app.use('/public', express.static('public'))
 app.use(cors({
    origin: 'https://pallet.sig.id'
@@ -109,9 +105,17 @@ app.use(fileUpload());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/robots.txt', function (req, res, next) {
+    res.type('text/plain')
+    res.send("User-agent: *\nDisallow: /");
+});
 
+app.use('/sitemap.xml', function (req, res, next) {
+    res.type('text/plain')
+    res.send("User-agent: *\nDisallow: /");
+});
 
-// app.use('/', indexRouter);
+app.use('/', indexRouter);
 
 //Service-user routes
 app.use('/users', usersRouter);
