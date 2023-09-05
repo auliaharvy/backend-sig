@@ -81,17 +81,134 @@ module.exports = async (req, res) => {
                 //console.log('register')
                 // register user if new
                 var dataRegister = {
-                    username: data.data.user.username,
+                    username: data.data.messages.username,
                     password: 'l0g1n550',
-                    fullname: data.data.user.username,
-                    nopeg: data.data.user.mk_nopeg,
-                    email: data.data.user.email,
+                    fullname: data.data.messages.username,
+                    nopeg: data.data.messages.mk_nopeg,
+                    email: data.data.messages.email,
                     is_sso: 1,
                 };
 
                 try {
                     const register = await apiUser.post('/api/users/register', dataRegister);
+                } catch (error) {
+                    return res.status(400).json({
+                        status: 'error',
+                        message: 'Pendaftaran user error, silahkan di ulang kembali'
+                    });
+                }
 
+                try {
+                    // const loginData = {
+                    //     username: data.data.messages.username,
+                    //     password: 'l0g1n550',
+                    // };
+                    // login pms
+                    const user = await apiUser.post('/api/users/login', { username: dataRegister.username, password: 'l0g1n550' });
+                    const data = user.data.data;
+
+                    const tokenData = {
+                        id: data.id,
+                        username: data.username,
+                        fullname: data.fullname,
+                        email: data.email,
+                        ip: data.ip,
+                        device: data.device,
+                        time_access: data.time_access
+                    }
+                    const token = jwt.sign({
+                        data
+                    }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
+
+                    const refreshtoken =  jwt.sign({
+                        data
+                    }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
+                    await apiUser.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
+                    return res.json({
+                        status: 'success',
+                        data: {
+                            token,
+                            refresh_token: refreshtoken,
+                            data: data
+                        }
+                    });
+                } catch (error) {
+                    if(error.code === "ECONNREFUSED") {
+                        return res.status(500).json({
+                            status: 'error',
+                            message: 'Service Unavailable on HOST ' + URL_SERVICE_USER
+                        })
+                    }
+            
+                    if (error.response.status) {
+                        const {
+                            status,
+                            data
+                        } = error.response;
+                        return res.status(status).json(data);
+                    }   
+            
+                    return res.status(400).json({
+                            status: 'error',
+                            message: 'Something went wrong'
+                        });
+                } 
+            }
+        } else {
+            const dataLoginSSo = {
+                username: req.body.username,
+                password: 'l0g1n550',
+            }
+            try {
+                // login pms
+                const user = await apiUser.post('/api/users/login', dataLoginSSo);
+                const dataLogin = user.data.data;
+                const tokenData = {
+                    id: dataLogin.id,
+                    username: dataLogin.username,
+                    fullname: dataLogin.fullname,
+                    email: dataLogin.email,
+                    ip: dataLogin.ip,
+                    device: dataLogin.device,
+                    time_access: dataLogin.time_access
+                }
+                const token = jwt.sign({
+                    tokenData
+                }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
+
+                const refreshtoken =  jwt.sign({
+                    tokenData
+                }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
+                await apiUser.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
+                return res.json({
+                    status: 'success',
+                    data: {
+                        token,
+                        refresh_token: refreshtoken,
+                        data: data
+                    }
+                });
+            } catch (error) {
+
+                if(error.data.message == 'Account not found') {
+                    var dataRegister = {
+                        username: data.data.messages.username,
+                        password: 'l0g1n550',
+                        fullname: data.data.messages.username,
+                        nopeg: data.data.messages.mk_nopeg,
+                        email: data.data.messages.email,
+                        is_sso: 1,
+                    };
+    
+                    try {
+                        const register = await apiUser.post('/api/users/register', dataRegister);
+                    } catch (error) {
+                        return res.status(400).json({
+                            status: 'error',
+                            message: 'Pendaftaran user error, silahkan di ulang kembali'
+                        });
+                    }
+    
                     try {
                         // const loginData = {
                         //     username: data.data.messages.username,
@@ -100,7 +217,7 @@ module.exports = async (req, res) => {
                         // login pms
                         const user = await apiUser.post('/api/users/login', { username: dataRegister.username, password: 'l0g1n550' });
                         const data = user.data.data;
-    
+
                         const tokenData = {
                             id: data.id,
                             username: data.username,
@@ -110,12 +227,13 @@ module.exports = async (req, res) => {
                             device: data.device,
                             time_access: data.time_access
                         }
+    
                         const token = jwt.sign({
-                            data
+                            tokenData
                         }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
     
                         const refreshtoken =  jwt.sign({
-                            data
+                            tokenData
                         }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
                         await apiUser.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
                         return res.json({
@@ -147,127 +265,6 @@ module.exports = async (req, res) => {
                                 message: 'Something went wrong'
                             });
                     } 
-                } catch (error) {
-                    return res.status(400).json({
-                        status: 'error',
-                        message: 'Pendaftaran user error, silahkan di ulang kembali'
-                    });
-                }
-
-                
-            }
-        } else {
-            const dataLoginSSo = {
-                username: req.body.username,
-                password: 'l0g1n550',
-            }
-            try {
-                // login pms
-                console.log('berhasil coba login pms');
-                const user = await apiUser.post('/api/users/login', dataLoginSSo);
-                const dataLogin = user.data.data;
-                const tokenData = {
-                    id: dataLogin.id,
-                    username: dataLogin.username,
-                    fullname: dataLogin.fullname,
-                    email: dataLogin.email,
-                    ip: dataLogin.ip,
-                    device: dataLogin.device,
-                    time_access: dataLogin.time_access
-                }
-                const token = jwt.sign({
-                    tokenData
-                }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
-
-                const refreshtoken =  jwt.sign({
-                    tokenData
-                }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
-                await apiUser.post('/api/users/token', { refresh_token : refreshtoken, user_id: dataLogin.id });
-                return res.json({
-                    status: 'success',
-                    data: {
-                        token,
-                        refresh_token: refreshtoken,
-                        data: dataLogin
-                    }
-                });
-            } catch (error) {
-                console.log(error.response.data.message)
-                if(error.response.data.message == 'Account not found') {
-                    var dataRegister = {
-                        username: data.data.user.username,
-                        password: 'l0g1n550',
-                        fullname: data.data.user.username,
-                        nopeg: data.data.user.mk_nopeg,
-                        email: data.data.user.email,
-                        is_sso: 1,
-                    };
-                    try {
-                        const register = await apiUser.post('/api/users/register', dataRegister);
-                        try {
-                            // const loginData = {
-                            //     username: data.data.messages.username,
-                            //     password: 'l0g1n550',
-                            // };
-                            // login pms
-                            const user = await apiUser.post('/api/users/login', { username: dataRegister.username, password: 'l0g1n550' });
-                            const data = user.data.data;
-    
-                            const tokenData = {
-                                id: data.id,
-                                username: data.username,
-                                fullname: data.fullname,
-                                email: data.email,
-                                ip: data.ip,
-                                device: data.device,
-                                time_access: data.time_access
-                            }
-        
-                            const token = jwt.sign({
-                                tokenData
-                            }, JWT_SECRET, {expiresIn: JWT_ACCESS_TOKEN_EXPIRED});
-        
-                            const refreshtoken =  jwt.sign({
-                                tokenData
-                            }, JWT_SECRET_REFRESH_TOKEN, {expiresIn: JWT_REFRESH_TOKEN_EXPIRED});
-                            await apiUser.post('/api/users/token', { refresh_token : refreshtoken, user_id: data.id });
-                            return res.json({
-                                status: 'success',
-                                data: {
-                                    token,
-                                    refresh_token: refreshtoken,
-                                    data: data
-                                }
-                            });
-                        } catch (error) {
-                            if(error.code === "ECONNREFUSED") {
-                                return res.status(500).json({
-                                    status: 'error',
-                                    message: 'Service Unavailable on HOST ' + URL_SERVICE_USER
-                                })
-                            }
-                    
-                            if (error.response.status) {
-                                const {
-                                    status,
-                                    data
-                                } = error.response;
-                                return res.status(status).json(data);
-                            }   
-                    
-                            return res.status(400).json({
-                                    status: 'error',
-                                    message: 'Something went wrong'
-                                });
-                        } 
-                    } catch (error) {
-                        return res.status(400).json({
-                            status: 'error',
-                            message: 'Pendaftaran user error, silahkan di ulang kembali'
-                        });
-                    }
-    
-                    
                 }
                 if(error.code === "ECONNREFUSED") {
                     return res.status(500).json({
@@ -344,4 +341,3 @@ module.exports = async (req, res) => {
         } 
     }
 }
-

@@ -6,16 +6,6 @@
     "auditLog": "logs/.e397017dc047cfb4d5bc373d737b227da636cae3-audit.json",
     "files": [
         {
-            "date": 1692597625400,
-            "name": "logs/pms-service-master-2023-08-21-06.log",
-            "hash": "e94c17e21c34782c8466d939aa253a0f0dc3eeeadd851f753b736805f3761ac5"
-        },
-        {
-            "date": 1692621582664,
-            "name": "logs/pms-service-master-2023-08-21-12.log",
-            "hash": "c51095caddedd610d006ef499e201f9c803977321fc264d02101de25d198db49"
-        },
-        {
             "date": 1692699133091,
             "name": "logs/pms-service-master-2023-08-22-10.log",
             "hash": "381f03b811475fab744ac02e473c6144b4e570bb12aa5d3034232fff53217b39"
@@ -69,6 +59,41 @@
             "date": 1692949397333,
             "name": "logs/pms-service-master-2023-08-25-07.log",
             "hash": "cd71c63d6269e0179b91c132fa9a74740d1ead25b5d2f573187b8c3b3b2f95e6"
+        },
+        {
+            "date": 1693461277828,
+            "name": "logs/pms-service-master-2023-08-31-05.log",
+            "hash": "89e1e21cabb4483d4e2519d46b9a952f9b828836c1c858251254cacf317ed8c8"
+        },
+        {
+            "date": 1693462377536,
+            "name": "logs/pms-service-master-2023-08-31-06.log",
+            "hash": "ba01fccd876c79fdc56cfe143dcda226bd33366f4f08b78f839d59c3c64684aa"
+        },
+        {
+            "date": 1693466325484,
+            "name": "logs/pms-service-master-2023-08-31-07.log",
+            "hash": "b477a1e4b357054e2839d9b46df3fadb25f85af9aaebe0b090b111e7bad53a24"
+        },
+        {
+            "date": 1693492855575,
+            "name": "logs/pms-service-master-2023-08-31-14.log",
+            "hash": "422d80f811a9f8760b6822bf3e0c1dcdc7226a7c58922e1c3a5412cabb70d67c"
+        },
+        {
+            "date": 1693871397382,
+            "name": "logs/pms-service-master-2023-09-04-23.log",
+            "hash": "84a820885728131e5a564e3af10e75f95ffd2746a1bdaf9db6c343bc9730b064"
+        },
+        {
+            "date": 1693880800774,
+            "name": "logs/pms-service-master-2023-09-05-02.log",
+            "hash": "739c0e93de2b77995a2c6423fca24f02801f70bc5f65f81aa4aa9bb29a152b43"
+        },
+        {
+            "date": 1693885470620,
+            "name": "logs/pms-service-master-2023-09-05-03.log",
+            "hash": "7236c2d9f5fb8c3d89768c37706a7746c58f121af34cd16ed6e3b3bacc1ff41e"
         }
     ],
     "hashType": "sha256"
