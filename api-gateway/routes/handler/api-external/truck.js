@@ -7,7 +7,8 @@ const api = apiAdapter(URL_API_SIG);
 
 module.exports = async (req, res) => {
     try {
-        const data = await api.post(`/dev/sd/sdonline/service/sinkronTruck.php`, req.body, req.headers);
+        //const data = await api.post(`/sdonline/service/sinkronTruck.php`, req.body, req.headers);
+	const data = await api.post(`/csms/sdonline/service/sinkrontruck`, req.body, req.headers);
         return res.json(data.data);
     } catch (error) {
         if (error.code === "ECONNREFUSED") {

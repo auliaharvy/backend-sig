@@ -16,7 +16,8 @@ module.exports = async (req, res) => {
         bodyFormData.append('X_TGL2', req.body.X_TGL2);
         bodyFormData.append('X_VKORG', req.body.X_VKORG);
         bodyFormData.append('X_NOPOLISI', req.body.X_NOPOLISI);
-        const data = await api.post(`/dev/sd/sdonline/service/get_realisasi.php`, bodyFormData ,req.headers);
+        //const data = await api.post(`/sdonline/service/get_realisasi.php`, bodyFormData ,req.headers);
+	const data = await api.post(`/csms/sdonline/service/get_realisasi`, bodyFormData ,req.headers);
         return res.json(data.data);
     } catch (error) {
         //(error);
