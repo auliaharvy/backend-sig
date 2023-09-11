@@ -7,9 +7,9 @@ const patchTruck = ({
     transporter_code,
     updatedBy
   } = {}) {
-    if (!id_company) {
-      throw new Error("Please enter Company.");
-    }
+    // if (!id_company) {
+    //   throw new Error("Please enter Company.");
+    // }
     if (!license_plate) {
       throw new Error("Please enter License Plate.");
     }

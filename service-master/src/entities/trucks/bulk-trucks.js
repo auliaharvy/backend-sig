@@ -5,9 +5,9 @@ const bulkTruck = ({}) => {
     createdBy,
     updatedBy
   } = {}) {
-    if (!id_company) {
-      throw new Error("Please enter Company.");
-    }
+    // if (!id_company) {
+    //   throw new Error("Please enter Company.");
+    // }
     if (!data) {
       throw new Error("Please enter data.");
     }

@@ -69,14 +69,22 @@ const selectSjpStatus = ({ sjpStatusDb }) => {
             receiving_driver_approval: e.receiving_driver_approval
               ? e.receiving_driver_approval
               : 0,
-            departure_company: e.departure_company ? e.departure_company : null,
-            destination_company: e.destination_company
-              ? e.destination_company
-              : null,
-            transporter_company: e.transporter_company
-              ? e.transporter_company
-              : null,
+              departure_company: e.departure_company ? e.departure_company : null,
+              departure_code: e.departure_code ? e.departure_code : null,
+              destination_company: e.destination_company
+                ? e.destination_company
+                : null,
+              destination_code: e.destination_code
+                ? e.destination_code
+                : null,
+              transporter_company: e.transporter_company
+                ? e.transporter_company
+                : null,
+              transporter_code: e.transporter_code
+                ? e.transporter_code
+                : null,
             sender_name: e.sender_name ? e.sender_name : null,
+            nopol: e.nopol ? e.nopol : null,
             receiver_name: e.receiver_name ? e.receiver_name : null,
             note: e.note ? e.note : null,
             created_at: e.created_at,
@@ -153,13 +161,21 @@ const selectSjpStatus = ({ sjpStatusDb }) => {
               ? e.receiving_driver_approval
               : 0,
             departure_company: e.departure_company ? e.departure_company : null,
+            departure_code: e.departure_code ? e.departure_code : null,
             destination_company: e.destination_company
               ? e.destination_company
+              : null,
+            destination_code: e.destination_code
+              ? e.destination_code
               : null,
             transporter_company: e.transporter_company
               ? e.transporter_company
               : null,
+            transporter_code: e.transporter_code
+              ? e.transporter_code
+              : null,
             sender_name: e.sender_name ? e.sender_name : null,
+            nopol: e.nopol ? e.nopol : null,
             receiver_name: e.receiver_name ? e.receiver_name : null,
             note: e.note ? e.note : null,
             created_at: e.created_at,
@@ -211,16 +227,22 @@ const selectSjpStatus = ({ sjpStatusDb }) => {
             id_sjp: e.id_sjp ? e.id_sjp : null,
             id_user_sender: e.id_user_sender ? e.id_user_sender : null,
             id_user_receiver: e.id_user_receiver ? e.id_user_receiver : null,
-            id_departure_company: e.id_departure_company
-              ? e.id_departure_company
+            departure_company: e.departure_company ? e.departure_company : null,
+            departure_code: e.departure_code ? e.departure_code : null,
+            destination_company: e.destination_company
+              ? e.destination_company
               : null,
-            id_destination_company: e.id_destination_company
-              ? e.id_destination_company
+            destination_code: e.destination_code
+              ? e.destination_code
               : null,
-            id_transporter_company: e.id_transporter_company
-              ? e.id_transporter_company
+            transporter_company: e.transporter_company
+              ? e.transporter_company
+              : null,
+            transporter_code: e.transporter_code
+              ? e.transporter_code
               : null,
             trx_number: e.trx_number ? e.trx_number : null,
+            nopol: e.nopol ? e.nopol : null,
             sjp_number: e.sjp_number ? e.sjp_number : null,
             status_sjp: e.status_sjp ? e.status_sjp : null,
             good_pallet: qtyGoodPallet ? qtyGoodPallet : 0,

@@ -3,7 +3,7 @@ const addDriver = ({ makeDrivers, driversDb }) => {
     let data = await makeDrivers(info); // entity
 
     data = {
-      id_company: data.getCompany(),
+      id_company: 91,
       name: data.getName(),
       createdBy: data.getCreatedBy(),
       updatedBy: data.getUpdatedBy(),

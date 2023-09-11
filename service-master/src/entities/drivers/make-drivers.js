@@ -5,9 +5,9 @@ const makeDriver = ({}) => {
     createdBy,
     updatedBy
   } = {}) {
-    if (!id_company) {
-      throw new Error("Please enter Company.");
-    }
+    // if (!id_company) {
+    //   throw new Error("Please enter Company.");
+    // }
     if (!name) {
       throw new Error("Please enter Name.");
     }

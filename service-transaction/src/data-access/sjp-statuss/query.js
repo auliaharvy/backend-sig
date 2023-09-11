@@ -677,9 +677,9 @@ const query = ({ connects, models }) => {
   
         const res = await new Promise((resolve) => {
           const sql = `SELECT a.*,b.trx_number as sjp_number, b.id_departure_company, b.id_destination_company, b.id_transporter_company, b.pallet_quantity, b.trx_status as status_sjp,
-          c.name as departure_company,
+          c.name as departure_company, c.code as departure_code, d.code as destination_code, e.code as transporter_code,
           d.name as destination_company, e.name as transporter_company, f.username as sender_name,
-          g.username as receiver_name
+          g.username as receiver_name, h.license_plate as nopol
           FROM "trx_sjp_status" as a
           JOIN "trx_sjp" as b ON a."id_sjp" = b.id
           JOIN "mst_companies" as c ON b."id_departure_company" = c.id
@@ -687,6 +687,7 @@ const query = ({ connects, models }) => {
           JOIN "mst_companies" as e ON b."id_transporter_company" = e.id
           LEFT JOIN "users" as f ON a."id_user_sender" = f.id
           LEFT JOIN "users" as g ON a."id_user_receiver" = g.id
+          LEFT JOIN "mst_truck" as h ON b."id_truck" = h.id
           WHERE a.is_deleted = 0
           ORDER BY a.created_at DESC`;
           pool.query(sql, (err, res) => {
@@ -710,9 +711,9 @@ const query = ({ connects, models }) => {
         
         const res = await new Promise((resolve) => {
           const sql = `SELECT a.*,b.trx_number as sjp_number, b.id_departure_company, b.id_destination_company, b.id_transporter_company, b.pallet_quantity, b.trx_status as status_sjp,
-          c.name as departure_company,
+          c.name as departure_company, c.code as departure_code, d.code as destination_code, e.code as transporter_code,
           d.name as destination_company, e.name as transporter_company, f.username as sender_name,
-          g.username as receiver_name
+          g.username as receiver_name, h.license_plate as nopol
           FROM "trx_sjp_status" as a
           JOIN "trx_sjp" as b ON a."id_sjp" = b.id
           JOIN "mst_companies" as c ON b."id_departure_company" = c.id
@@ -720,6 +721,7 @@ const query = ({ connects, models }) => {
           JOIN "mst_companies" as e ON b."id_transporter_company" = e.id
           LEFT JOIN "users" as f ON a."id_user_sender" = f.id
           LEFT JOIN "users" as g ON a."id_user_receiver" = g.id
+          LEFT JOIN "mst_truck" as h ON b."id_truck" = h.id
           WHERE a.is_deleted = 0 AND a.created_at >= $1 AND a.created_at < $2
           ORDER BY a.created_at DESC`;
           const params = [from, to];
@@ -743,9 +745,9 @@ const query = ({ connects, models }) => {
         const res = await new Promise((resolve) => {
           const sql = `SELECT a.*,b.trx_number as sjp_number, b.id_departure_company, b.id_destination_company, b.id_transporter_company, b.pallet_quantity,
           b.id_truck, b.id_driver,
-          c.name as departure_company,
+          c.name as departure_company, c.code as departure_code, d.code as destination_code, e.code as transporter_code,
           d.name as destination_company, e.name as transporter_company, f.username as sender_name,
-          g.username as receiver_name
+          g.username as receiver_name, h.license_plate as nopol
           FROM "trx_sjp_status" as a
           JOIN "trx_sjp" as b ON a."id_sjp" = b.id
           JOIN "mst_companies" as c ON b."id_departure_company" = c.id
@@ -753,6 +755,7 @@ const query = ({ connects, models }) => {
           JOIN "mst_companies" as e ON b."id_transporter_company" = e.id
           LEFT JOIN "users" as f ON a."id_user_sender" = f.id
           LEFT JOIN "users" as g ON a."id_user_receiver" = g.id
+          LEFT JOIN "mst_truck" as h ON b."id_truck" = h.id
           WHERE a.is_deleted = 0 AND a.id = $1
           ORDER BY a.created_at DESC`;
           const params = [id];
