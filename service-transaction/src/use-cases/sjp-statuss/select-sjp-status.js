@@ -134,6 +134,8 @@ const selectSjpStatus = ({ sjpStatusDb }) => {
           data.push({
             id: e.id,
             id_sjp: e.id_sjp ? e.id_sjp : null,
+            id_truck: e.id_truck ? e.id_truck : null,
+            id_driver: e.id_driver ? e.id_driver : null,
             id_user_sender: e.id_user_sender ? e.id_user_sender : null,
             id_user_receiver: e.id_user_receiver ? e.id_user_receiver : null,
             id_departure_company: e.id_departure_company
@@ -225,8 +227,19 @@ const selectSjpStatus = ({ sjpStatusDb }) => {
           data.push({
             id: e.id,
             id_sjp: e.id_sjp ? e.id_sjp : null,
+            id_truck: e.id_truck ? e.id_truck : null,
+            id_driver: e.id_driver ? e.id_driver : null,
             id_user_sender: e.id_user_sender ? e.id_user_sender : null,
             id_user_receiver: e.id_user_receiver ? e.id_user_receiver : null,
+            id_departure_company: e.id_departure_company
+              ? e.id_departure_company
+              : null,
+            id_destination_company: e.id_destination_company
+              ? e.id_destination_company
+              : null,
+            id_transporter_company: e.id_transporter_company
+              ? e.id_transporter_company
+              : null,
             departure_company: e.departure_company ? e.departure_company : null,
             departure_code: e.departure_code ? e.departure_code : null,
             destination_company: e.destination_company
