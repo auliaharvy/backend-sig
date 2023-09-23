@@ -1,6 +1,7 @@
 node_modules/
 db-data/
 logs/
+public/uploads/sjp-statuss/*
 public/uploads/claim-pallets/*
 public/uploads/*
 .env.example
