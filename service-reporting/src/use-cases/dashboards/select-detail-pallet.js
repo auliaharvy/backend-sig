@@ -30,6 +30,11 @@ const selectDetailPallet = ({ dashboardDb }) => {
           stock: parseInt(e.stock) ? parseInt(e.stock): 0,
           pallet_out: parseInt(pallet_out) ? parseInt(pallet_out): 0,
           pallet_in: parseInt(pallet_in) ? parseInt(pallet_in): 0,
+          good_pallet: e.good_pallet ? e.good_pallet : 0,
+          tbr_pallet: e.tbr_pallet ? e.tbr_pallet : 0,
+          ber_pallet: e.ber_pallet ? e.ber_pallet : 0,
+          missing_pallet: e.missing_pallet ? e.missing_pallet : 0,
+          pallet_quota: e.pallet_quota ? e.pallet_quota : 0,
           jumlah: e.jumlah,
           kondisi: e.kondisi,
         });
