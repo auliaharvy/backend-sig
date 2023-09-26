@@ -20,7 +20,27 @@ const query = ({ connects, models }) => {
             [
               models.Sequelize.literal(`sum("Companies->CompaniesPallets"."quantity")`),
               'jumlah_pallet'
-            ]
+            ],
+            [
+              models.Sequelize.literal(`sum("Companies"."pallet_quota")`),
+              'pallet_quota'
+            ],
+            [
+              models.Sequelize.literal(`sum(CASE WHEN "Companies->CompaniesPallets"."mst_pallet_id" = '1' THEN "Companies->CompaniesPallets"."quantity" ELSE 0 END)`),
+              'good_pallet'
+            ],
+            [
+              models.Sequelize.literal(`sum(CASE WHEN "Companies->CompaniesPallets"."mst_pallet_id" = '2' THEN "Companies->CompaniesPallets"."quantity" ELSE 0 END)`),
+              'tbr_pallet'
+            ],
+            [
+              models.Sequelize.literal(`sum(CASE WHEN "Companies->CompaniesPallets"."mst_pallet_id" = '3' THEN "Companies->CompaniesPallets"."quantity" ELSE 0 END)`),
+              'ber_pallet'
+            ],
+            [
+              models.Sequelize.literal(`sum(CASE WHEN "Companies->CompaniesPallets"."mst_pallet_id" = '4' THEN "Companies->CompaniesPallets"."quantity" ELSE 0 END)`),
+              'missing_pallet'
+            ],
           ],
           include: [
             {
@@ -32,7 +52,20 @@ const query = ({ connects, models }) => {
               include: [
                 {
                   model: models.CompaniesPallet,
-                  attributes: []
+                  attributes: [],
+                  include: [
+                    {
+                      model: models.Companies,
+                      attributes: [],
+                      where: {
+                        is_deleted: 0
+                      },
+                    },
+                    {
+                      model: models.Pallets,
+                      attributes: [],
+                    }
+                  ],
                 }
               ],
             },
@@ -150,6 +183,7 @@ const query = ({ connects, models }) => {
           attributes: [
             'id',
             'name',
+            'pallet_quota',
             [
               models.Sequelize.literal(
                 'array_agg("' + "CompaniesPallets" + '".quantity ORDER BY "' + "CompaniesPallets->Pallet" + '".name)'
@@ -159,6 +193,22 @@ const query = ({ connects, models }) => {
             [
               models.Sequelize.literal(`sum("CompaniesPallets"."quantity")`),
               'stock'
+            ],
+            [
+              models.Sequelize.literal(`sum(CASE WHEN "CompaniesPallets"."mst_pallet_id" = '1' THEN "CompaniesPallets"."quantity" ELSE 0 END)`),
+              'good_pallet'
+            ],
+            [
+              models.Sequelize.literal(`sum(CASE WHEN "CompaniesPallets"."mst_pallet_id" = '2' THEN "CompaniesPallets"."quantity" ELSE 0 END)`),
+              'tbr_pallet'
+            ],
+            [
+              models.Sequelize.literal(`sum(CASE WHEN "CompaniesPallets"."mst_pallet_id" = '3' THEN "CompaniesPallets"."quantity" ELSE 0 END)`),
+              'ber_pallet'
+            ],
+            [
+              models.Sequelize.literal(`sum(CASE WHEN "CompaniesPallets"."mst_pallet_id" = '4' THEN "CompaniesPallets"."quantity" ELSE 0 END)`),
+              'missing_pallet'
             ],
             [
               models.Sequelize.literal(

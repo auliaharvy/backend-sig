@@ -15,6 +15,11 @@ const selectTotalPallet = ({ dashboardDb }) => {
           id: e.id,
           name: e.name ? e.name : null,
           jumlah_pallet: e.jumlah_pallet ? e.jumlah_pallet : 0,
+          good_pallet: e.good_pallet ? e.good_pallet : 0,
+          tbr_pallet: e.tbr_pallet ? e.tbr_pallet : 0,
+          ber_pallet: e.ber_pallet ? e.ber_pallet : 0,
+          missing_pallet: e.missing_pallet ? e.missing_pallet : 0,
+          pallet_quota: e.pallet_quota ? e.pallet_quota : 0,
         });
       }
     }
