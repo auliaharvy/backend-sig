@@ -9,7 +9,7 @@ const api = apiAdapter(URL_SERVICE_TRANSACTION);
 module.exports = async (req, res) => {
     try {
         //(req.files.sending_driver_approval);
-        if(req.files.sending_driver_approval) {
+        if(req.files) {
             req.body.sending_driver_approval = '/public/uploads/sjp-statuss/' + req.files.sending_driver_approval.name;
             const sending_driver_approval = req.files.sending_driver_approval;
             sending_driver_approval.mv(`${root}/public/uploads/sjp-statuss/${sending_driver_approval.name}`, function (err) {
@@ -36,10 +36,18 @@ module.exports = async (req, res) => {
             })
         }
 
-        const {
-            status,
-            data
-        } = error.response;
-        return res.status(status).json(data);
+        if (error.response) {
+            const {
+                status,
+                data
+            } = error.response;
+            return res.status(status).json(data);
+        }
+        
+
+        return res.status(400).json({
+                status: 'error',
+                message: 'Something went wrong'
+        });
     }
 }
