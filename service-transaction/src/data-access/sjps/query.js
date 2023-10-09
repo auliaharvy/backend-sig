@@ -244,7 +244,7 @@ const query = ({ connects, models }) => {
           JOIN "mst_companies" as d ON a."id_transporter_company" = d.id
           JOIN "mst_truck" as e ON a."id_truck" = e.id
           JOIN "mst_driver" as f ON a."id_driver" = f.id
-          WHERE a.is_deleted = 0
+          WHERE a.is_deleted = 0 AND a.trx_status != 4
           ORDER BY a.created_at DESC`;
           pool.query(sql, (err, res) => {
             pool.end(); // end connection

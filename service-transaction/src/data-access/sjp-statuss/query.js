@@ -688,7 +688,7 @@ const query = ({ connects, models }) => {
           LEFT JOIN "users" as f ON a."id_user_sender" = f.id
           LEFT JOIN "users" as g ON a."id_user_receiver" = g.id
           LEFT JOIN "mst_truck" as h ON b."id_truck" = h.id
-          WHERE a.is_deleted = 0
+          WHERE a.is_deleted = 0 AND b.trx_status != 4
           ORDER BY a.created_at DESC`;
           pool.query(sql, (err, res) => {
             pool.end(); // end connection

@@ -7,13 +7,18 @@ const query = ({ connects, models }) => {
       try {
         // Tambahkan kode di bawah ini untuk menjalankan permintaan Sequelize
         const res = await models.SjpStatuss.findAll({
-          where: { is_deleted: 0 },
+          where: { 
+            is_deleted: 0,
+          },
           include: [
             { model: models.Users, as: 'user_sender' },
             { model: models.Users, as: 'user_receiver' },
             { model: models.Pallets, as: 'pallets' },
             {
               model: models.Sjps, as: 'sjp',
+              where: {
+                trx_status: { [models.Sequelize.Op.ne]: 4 }
+              },
               include: [
                 { model: models.Companies, as: 'departure_company' },
                 { model: models.Companies, as: 'destination_company' },
