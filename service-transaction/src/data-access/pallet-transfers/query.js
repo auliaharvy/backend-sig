@@ -703,7 +703,7 @@ const query = ({ connects, models }) => {
   
         const res = await new Promise((resolve) => {
           const sql = `SELECT a.*, b.name as departure_company, b.code as departure_code ,b.email as email_departure,
-          c.name as destination_company,  c.code as destination_code,c.email as email_destination,  d.name as transporter_company, d.code as transporter_code
+          c.name as destination_company,  c.code as destination_code,c.email as email_destination,  d.name as transporter_company, d.code as transporter_code,
           e.license_plate, f.name as driver_name, g.username as sender_name, h.username as receiver_name, i.username as approver_name
           FROM "trx_pallet_transfer" as a
           JOIN "mst_companies" as b ON a."id_company_departure" = b.id
