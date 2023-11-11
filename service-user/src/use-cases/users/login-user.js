@@ -11,7 +11,6 @@ const loginUser = ({ dataloginUsers, usersDB, bcrypt }) => {
      
       //   insert
       const res = await usersDB.loginUsers({ data });
-      console.log(res);
       // ##
       let msg = `Error on login User, please try again!`;
   
