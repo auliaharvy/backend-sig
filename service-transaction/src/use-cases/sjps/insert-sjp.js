@@ -78,7 +78,7 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
       const checkTruck = await trucksDb.checkTruckExist({ data: {license_plate: data.truck_number} });
       if (checkTruck.rowCount == 0) {
         dataCreateTruck = {
-          id_company: 70,
+          id_company: 91,
           transporter_code: data.transporter_code,
           transporter_name: data.transporter,
           license_plate: data.truck_number,
@@ -95,7 +95,7 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
       const checkDriver = await driversDb.checkDriverExist({ data: {name: data.driver_name} });
       if (checkDriver.rowCount == 0) {
         dataCreateDriver = {
-          id_company: 70,
+          id_company: 91,
           name: data.driver_name,
           createdBy: data.createdBy,
           updatedBy: data.updatedBy
