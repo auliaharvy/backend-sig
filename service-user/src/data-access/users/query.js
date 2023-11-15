@@ -47,13 +47,11 @@ const query = ({ connects, models, bcrypt }) => {
       const User = models.Users;
       //const res = await User.create(data);
 
-	console.log('sue');
       const user = await User.findOne({
         where: {
           username: data.username,
         },
       });
-	console.log(user);
       if (!user) {
         res = {
           httpCode: 400,
@@ -79,7 +77,7 @@ const query = ({ connects, models, bcrypt }) => {
 
       const pool = await connects();
       const resRole = await new Promise((resolve) => {
-        const sql = `SELECT a.*, b.name AS role_name, c.name AS company_name, ARRAY_AGG(e.name) AS permissions,
+        const sql = `SELECT a.*, b.name AS role_name, c.name AS company_name, c.code AS company_code,ARRAY_AGG(e.name) AS permissions,
         f.name as organization_name, f.id as organization_id, g.name as company_type, g.id as company_type_id
         FROM "user_has_role" AS a
         JOIN "roles" AS b ON a."role_id" = b.id
