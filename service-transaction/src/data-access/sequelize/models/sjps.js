@@ -103,7 +103,102 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
-    }
+    },
+    do_no_sjp: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_no_booking: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_no_do: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_tgl_spj: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_tgl_do: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_tgl_minta: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_kwantum: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_kwantumx: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_no_spps: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_nama_sopir: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_kode_da: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_propinsi: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_nama_prop: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_area: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_nama_area: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_sold_to: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_nama_sold_to: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_plant: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
+    do_nama_plant: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "",
+    },
   }, {
     sequelize,
     modelName: 'Sjps',

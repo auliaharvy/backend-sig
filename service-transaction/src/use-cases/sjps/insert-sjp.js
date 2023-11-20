@@ -27,8 +27,31 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
         departure_code: data.getDepartureCode(),
         transporter_code: data.getTransporterCode(),
         transporter: data.getTransporterName(),
+        dataDo: data.getDataDo(),
       };
-  
+      data.do_no_sjp = data.dataDo.NO_SPJ;
+      data.do_no_booking = data.dataDo.NO_BOOKING;
+      data.do_no_do = data.dataDo.NO_DO;
+      data.do_tgl_spj = data.dataDo.TGL_SPJ;
+      data.do_tgl_do = data.dataDo.TGL_DO;
+      data.do_tgl_minta = data.dataDo.TGL_MINTA;
+      data.do_kwantum = data.dataDo.KWANTUM;
+      data.do_kwantumx = data.dataDo.KWANTUMX;
+      data.do_no_spps = data.dataDo.NO_SPPS;
+      data.do_nama_sopir = data.dataDo.NAMA_SOPIR;
+      data.do_kode_da = data.dataDo.KODE_DA;
+      data.do_nama_toko = data.dataDo.NAMA_TOKO;
+      data.do_alamat_da = data.dataDo.ALAMAT_DA;
+      data.do_propinsi = data.dataDo.PROPINSI;
+      data.do_nama_prop = data.dataDo.NAMA_PROP;
+      data.do_area = data.dataDo.AREA;
+      data.do_nama_area = data.dataDo.NAMA_AREA;
+      data.do_sold_to = data.dataDo.SOLD_TO;
+      data.do_nama_sold_to = data.dataDo.NAMA_SOLD_TO;
+      data.do_plant = data.dataDo.PLANT;
+      data.do_nama_plant = data.dataDo.NAMA_PLANT;
+      data.do_no_expeditur = data.dataDo.NO_EXPEDITUR;
+      data.do_nama_expeditur = data.dataDo.NAMA_EXPEDITUR;
       // check company destination
       const checkCompanyDestination = await companiesDB.checkCompanyExist({ data: {code: data.destination_code} });
       if (checkCompanyDestination.rowCount == 0) {
@@ -47,6 +70,7 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
         };
         const newDestination = await companiesDB.insertCompany({ data: dataCreateCompany });
         data.id_destination_company = newDestination.dataValues.id
+        console.log('data destination oke');
       } if (checkCompanyDestination.rowCount > 0) { 
         data.id_destination_company = checkCompanyDestination.rows[0].id
       }
@@ -87,6 +111,7 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
         };
         const newTruck = await trucksDb.insertTruck({ data: dataCreateTruck });
         data.id_truck = newTruck.dataValues.id
+        console.log('data truck oke');
       } if (checkTruck.rowCount > 0) { 
         data.id_truck = checkTruck.rows[0].id
       }
@@ -101,7 +126,8 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
           updatedBy: data.updatedBy
         };
         const newDriver = await driversDb.insertDriver({ data: dataCreateDriver });
-        data.id_driver = newDriver.dataValues.id
+        data.id_driver = newDriver.dataValues.id;
+        console.log('data driver oke');
       } if (checkDriver.rowCount > 0) { 
         data.id_driver = checkDriver.rows[0].id
       }
@@ -132,7 +158,7 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
       //(data)
       //   insert SJP
       const res = await sjpDb.insertNewSjp({ data });
-      
+      console.log(res);
       // update trxNumber
       const dataUpdateTrxNumber = {
         id: dataTrxNumber.id,
@@ -166,6 +192,7 @@ const addSjp = ({ makeSjps, sjpDb, allTransactionDb, companiesDB, trxNumbersDb, 
       await trxNumbersDb.patchTrxNumber({ dataUpdateTrxNumber:  dataUpdateLogNumber });
 
       const idTrans = res.dataValues.id;
+      console.log('data transaction oke');
       const trans = await sjpDb.selectOne({ id: idTrans });
       const dataAllTransaction = {}
       if (trans.rowCount > 0) {

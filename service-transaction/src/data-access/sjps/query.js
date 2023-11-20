@@ -53,9 +53,10 @@ const query = ({ connects, models }) => {
         // use sequelize on inserting
         const Sjp = models.Sjps;
         const res = await Sjp.create(data);
+        console.log(res);
         return res;
       } catch (e) {
-        //("Error: ", e);
+        ("Error: ", e);
       }
     }
 

@@ -16,6 +16,7 @@ const makeSjp = ({}) => {
     transporter_code,
     transporter,
     no_do,
+    dataDo,
     tonnage,
     packaging,
     product_quantity,
@@ -78,6 +79,7 @@ const makeSjp = ({}) => {
       getDepartureCode: () => departure_code,
       getTransporterCode: () => transporter_code,
       getTransporterName: () => transporter,
+      getDataDo: () => dataDo,
     });
   };
 };
