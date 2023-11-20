@@ -169,7 +169,7 @@ const query = ({ connects, models, bcrypt }) => {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT a.*, jsonb_agg    ( json_build_object('role', c."name", 'company', d."name" )) as roles
+        const sql = `SELECT a.*, jsonb_agg    ( json_build_object('user_id', a."id",'role_id', c."id",'role', c."name", 'company_id', d."id",'company', d."name" )) as roles
         FROM "users" AS a
         LEFT JOIN "user_has_role" AS b ON b."user_id" = a.id
         LEFT JOIN "roles" AS c ON c."id" = b.role_id

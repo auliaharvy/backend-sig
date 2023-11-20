@@ -1,13 +1,18 @@
 const deleteRoleByUserId = ({
+  makeRoleByUserIds,
   userHasRoleDB
 }) => {
   return async function select(info) {
-    const {
-      id
-    } = info;
+    let data = await makeRoleByUserIds(info); // entity
+
+    data = {
+      user_id: data.getIdUser(),
+      role_id: data.getIdRole(),
+      company_id: data.getIdCompany()
+    };
     // delete query
     const res = await userHasRoleDB.deleteRoleByUserId({
-      id
+      data
     });
     let msg = `Role By User was not deleted, please try again.`;
     if (res == 1) {

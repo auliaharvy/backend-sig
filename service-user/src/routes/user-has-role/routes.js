@@ -20,7 +20,7 @@ const route = ({
 
   // #####
   // DELETE
-  router.delete("/:id", makeExpressCallback(roleByUserIdDeletes));
+  router.post("/delete", makeExpressCallback(roleByUserIdDeletes));
 
   return router;
 };

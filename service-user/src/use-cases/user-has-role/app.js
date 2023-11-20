@@ -27,6 +27,7 @@ const selectsRoleByUserId = selectRoleByUserId({
 //   patchRoles
 // });
 const deletesRoleByUserId = deleteRoleByUserId({
+  makeRoleByUserIds,
   userHasRoleDB
 });
 // #########

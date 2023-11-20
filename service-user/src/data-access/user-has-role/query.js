@@ -46,18 +46,22 @@ const query = ({
 
 
   async function deleteRoleByUserId({
-    id
+    data
   }) {
     try {
       // use sequelize on inserting
       const UserHasRole = models.UserHasRole;
       const res = await UserHasRole.destroy({
         where: {
-          user_id: id,
+          user_id: data.user_id,
+          role_id: data.role_id,
+          company_id: data.company_id,
         },
       });
+      console.log(res);
       return res;
     } catch (e) {
+      console.log(e);
       //("Error: ", e);
     }
   }
