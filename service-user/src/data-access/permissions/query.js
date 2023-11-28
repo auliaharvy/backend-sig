@@ -79,7 +79,7 @@ const query = ({
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "permissions" WHERE id = $1 AND is_deleted = 0;`;
+        const sql = `SELECT * FROM "permissions" WHERE id = $1;`;
         const params = [id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
@@ -148,9 +148,7 @@ const query = ({
     try {
       // use sequelize on inserting
       const Permission = models.Permissions;
-      const res = await Permission.update({
-        is_deleted: 1
-      }, {
+      const res = await Permission.destroy({
         where: {
           id,
         },
