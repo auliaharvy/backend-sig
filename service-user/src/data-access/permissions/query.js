@@ -57,7 +57,7 @@ const query = ({
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT * FROM "permissions" WHERE is_deleted = 0;`;
+        const sql = `SELECT * FROM "permissions";`;
         pool.query(sql, (err, res) => {
           pool.end(); // end connection
 
