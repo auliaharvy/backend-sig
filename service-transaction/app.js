@@ -19,6 +19,7 @@ var palletRealizationsRouter = require('./src/routes/pallet-realizations/app');
 var claimPalletsRouter = require('./src/routes/claim-pallets/app');
 var sewaPalletsRouter = require('./src/routes/sewa-pallets/app');
 var damagedPalletRouter = require('./src/routes/damaged-pallets/app');
+var berMissingPalletRouter = require('./src/routes/ber-missing-pallets/app');
 var repairedPalletRouter = require('./src/routes/repaired-pallets/app');
 var transporterAdjusmentRouter = require('./src/routes/transporter-adjusments/app');
 
@@ -60,6 +61,8 @@ app.use("/api/claim-pallets", claimPalletsRouter);
 app.use("/api/sewa-pallets", sewaPalletsRouter);
 //Damaged Pallet
 app.use("/api/damaged-pallets", damagedPalletRouter);
+//Damaged Pallet
+app.use("/api/ber-missing-pallets", berMissingPalletRouter);
 //Repaired Pallet
 app.use("/api/repaired-pallets", repairedPalletRouter);
 //Repaired Pallet

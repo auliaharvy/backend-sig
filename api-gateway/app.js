@@ -37,6 +37,7 @@ const palletRealizationsRouter = require('./routes/pallet-realizations');
 const claimPalletsRouter = require('./routes/claim-pallets');
 const sewaPalletsRouter = require('./routes/sewa-pallets');
 const damagedPalletsRouter = require('./routes/damaged-pallets');
+const berMissingPalletsRouter = require('./routes/ber-missing-pallets');
 const repairedPalletsRouter = require('./routes/repaired-pallets');
 const transporterAdjusmentRouter = require('./routes/transporter-adjusments');
 
@@ -92,6 +93,7 @@ app.use( helmet.hsts( { maxAge: 300, includeSubDomains: true, preload: true } ) 
 app.use('/public', express.static('public'))
 app.use(cors({
    origin: 'https://pallet.sig.id'
+  // origin: 'http://localhost:5000'
 }));
 app.use(logger('dev'));
 app.use(express.json({
@@ -146,6 +148,7 @@ app.use('/pallet-realizations', verifyToken, palletRealizationsRouter);
 app.use('/claim-pallets', verifyToken, claimPalletsRouter);
 app.use('/sewa-pallets', verifyToken, sewaPalletsRouter);
 app.use('/damaged-pallets', verifyToken, damagedPalletsRouter);
+app.use('/ber-missing-pallets', verifyToken, berMissingPalletsRouter);
 app.use('/repaired-pallets', verifyToken, repairedPalletsRouter);
 app.use('/transporter-adjusments', verifyToken, transporterAdjusmentRouter);
 
