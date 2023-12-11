@@ -77,7 +77,7 @@ const query = ({ connects, models, bcrypt }) => {
 
       const pool = await connects();
       const resRole = await new Promise((resolve) => {
-        const sql = `SELECT a.*, b.name AS role_name, c.name AS company_name, c.code AS company_code,ARRAY_AGG(e.name) AS permissions,
+        const sql = `SELECT a.*, b.name AS role_name, c.name AS company_name, c.code AS company_code,ARRAY_AGG(e.name) AS permissions, c.dist_code AS dist_code,
         f.name as organization_name, f.id as organization_id, g.name as company_type, g.id as company_type_id
         FROM "user_has_role" AS a
         JOIN "roles" AS b ON a."role_id" = b.id
