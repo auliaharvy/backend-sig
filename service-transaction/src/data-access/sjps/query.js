@@ -13,6 +13,7 @@ const query = ({ connects, models }) => {
       changeTruck,
       recordAllTransaction,
       exportAll,
+      searchTruck,
       getCompanyDetail,
       getTruckDetail
     });
@@ -279,6 +280,37 @@ const query = ({ connects, models }) => {
           WHERE a.is_deleted = 0 AND a.created_at >= $1 AND a.created_at < $2
           ORDER BY a.created_at DESC`;
           const params = [from, to];
+          pool.query(sql, params, (err, res) => {
+            pool.end(); // end connection
+  
+            if (err) resolve(err);
+            resolve(res);
+          });
+        });
+        return res;
+      } catch (e) {
+        //("Error: ", e);
+      }
+    }
+
+    async function searchTruck({from, to, truck}) {
+      try {
+        const pool = await connects();
+  
+        
+        const res = await new Promise((resolve) => {
+          const sql = `SELECT a.*, b.name as departure_company, b.code as depart_code, 
+          c.name as destination_company, c.code as destination_code, d.name as transporter_company, d.code as transporter_code,
+          e.license_plate, f.name as driver_name
+          FROM "trx_sjp" as a
+          JOIN "mst_companies" as b ON a."id_departure_company" = b.id
+          JOIN "mst_companies" as c ON a."id_destination_company" = c.id
+          JOIN "mst_companies" as d ON a."id_transporter_company" = d.id
+          JOIN "mst_truck" as e ON a."id_truck" = e.id
+          JOIN "mst_driver" as f ON a."id_driver" = f.id
+          WHERE a.is_deleted = 0 AND a.created_at >= $1 AND a.created_at < $2 AND e.license_plate = $3
+          ORDER BY a.created_at DESC`;
+          const params = [from, to, truck];
           pool.query(sql, params, (err, res) => {
             pool.end(); // end connection
   

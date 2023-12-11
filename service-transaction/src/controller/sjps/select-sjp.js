@@ -17,6 +17,7 @@ const sjpsSelect = ({ selectSjps }) => {
           id: httpRequest.params.id, // when id is passed
           from: httpRequest.query.from,
           to: httpRequest.query.to,
+          truck: httpRequest.query.truck,
         };
         const data = await selectSjps(toView);
         return {
