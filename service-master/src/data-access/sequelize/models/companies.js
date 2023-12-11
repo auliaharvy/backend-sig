@@ -33,6 +33,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     code: DataTypes.STRING,
+    dist_code: DataTypes.STRING,
+    dist_name: DataTypes.STRING,
     address: DataTypes.STRING,
     city: DataTypes.STRING,
     phone: DataTypes.STRING,

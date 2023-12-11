@@ -10,6 +10,7 @@ dotenv.config();
 var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users');
 var organizationsRouter = require('./src/routes/organizations/app');
+var distributorsRouter = require('./src/routes/distributors/app');
 var companyTypesRouter = require('./src/routes/company-types/app');
 var companiesRouter = require('./src/routes/companies/app');
 var driversRouter = require('./src/routes/drivers/app');
@@ -40,6 +41,8 @@ app.use("/api/employees", require("./src/routes/employees/app"))
 
 //organizations routes
 app.use("/api/organizations", organizationsRouter);
+//organizations routes
+app.use("/api/distributors", distributorsRouter);
 //company types routes
 app.use("/api/company-types", companyTypesRouter);
 //companies routes

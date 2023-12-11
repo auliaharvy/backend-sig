@@ -4,6 +4,8 @@ const makeCompany = ({}) => {
     id_company_type,
     name,
     code,
+    dist_code,
+    dist_name,
     address,
     city,
     phone,
@@ -39,17 +41,19 @@ const makeCompany = ({}) => {
     if (!tag) {
       throw new Error("Please enter Tag.");
     }
-    if (!createdBy) {
-      throw new Error("Please enter Created By.");
-    }
-    if (!updatedBy) {
-      updatedBy = null;
-    }
+    // if (!createdBy) {
+    //   throw new Error("Please enter Created By.");
+    // }
+    // if (!updatedBy) {
+    //   updatedBy = null;
+    // }
     return Object.freeze({
       getOrganization: () => id_organization,
       getCompanyType: () => id_company_type,
       getName: () => name,
       getCode: () => code,
+      getDistCode: () => dist_code,
+      getDistName: () => dist_name,
       getAddress: () => address,
       getCity: () => city,
       getPhone: () => phone,

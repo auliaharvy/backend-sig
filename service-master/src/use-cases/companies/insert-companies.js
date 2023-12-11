@@ -7,6 +7,8 @@ const addCompany = ({ makeCompanies, companiesDB }) => {
       id_company_type: data.getCompanyType(),
       name: data.getName(),
       code: data.getCode(),
+      dist_code: data.getDistCode(),
+      dist_name: data.getDistName(),
       address: data.getAddress(),
       city: data.getCity(),
       phone: data.getPhone(),

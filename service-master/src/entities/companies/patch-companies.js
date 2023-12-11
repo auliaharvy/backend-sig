@@ -6,6 +6,8 @@ const patchCompany = ({
     id_company_type,
     name,
     code,
+    dist_code,
+    dist_name,
     address,
     city,
     phone,
@@ -46,21 +48,23 @@ const patchCompany = ({
     // if (!createdBy) {
     //   throw new Error("Please enter Created By.");
     // }
-    if (!updatedBy) {
-      throw new Error("Please enter Updated By.");
-    }
+    // if (!updatedBy) {
+    //   throw new Error("Please enter Updated By.");
+    // }
     return Object.freeze({
       getId: () => id,
       getOrganization: () => id_organization,
       getCompanyType: () => id_company_type,
       getName: () => name,
       getCode: () => code,
+      getDistCode: () => dist_code,
+      getDistName: () => dist_name,
       getAddress: () => address,
       getCity: () => city,
       getPhone: () => phone,
       getEmail: () => email,
       getTag: () => tag,
-      // getCreatedBy: () => createdBy,
+      getCreatedBy: () => createdBy,
       getUpdatedBy: () => updatedBy,
 
     });

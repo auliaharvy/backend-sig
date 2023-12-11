@@ -18,6 +18,7 @@ const roleHasPermissionRouter = require('./routes/role-has-permission');
 const permissionsRouter = require('./routes/permissions');
 const employeeRouter = require('./routes/employee');
 const organizationsRouter = require('./routes/organizations');
+const distributorsRouter = require('./routes/distributors');
 const companyTypesRouter = require('./routes/company-types');
 const companiesRouter = require('./routes/companies');
 const driversRouter = require('./routes/drivers');
@@ -130,6 +131,7 @@ app.use('/rolehaspermission', roleHasPermissionRouter);
 //Service-master routes
 app.use('/employee', employeeRouter);
 app.use('/organizations', verifyToken, organizationsRouter);
+app.use('/distributors', verifyToken, distributorsRouter);
 app.use('/company-types', verifyToken, companyTypesRouter);
 app.use('/companies', verifyToken, companiesRouter);
 app.use('/drivers', verifyToken, driversRouter);

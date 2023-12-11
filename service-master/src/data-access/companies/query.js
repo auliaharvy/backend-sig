@@ -75,9 +75,10 @@ const query = ({ connects, models }) => {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT c.*, o.name as name_organization , ct.name as name_company_type FROM "mst_companies" as c
+        const sql = `SELECT c.*, o.name as name_organization, d.name as name_distributor,ct.name as name_company_type FROM "mst_companies" as c
         JOIN "mst_organization" as o ON c."id_organization" = o.id
         JOIN "mst_company_type" as ct ON c."id_company_type" = ct.id
+        LEFT JOIN "mst_distributors" as d ON c."dist_code" = d.code
         WHERE c.is_deleted = 0;`;
         pool.query(sql, (err, res) => {
           pool.end(); // end connection
@@ -96,10 +97,11 @@ const query = ({ connects, models }) => {
       const pool = await connects();
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT a.*, b.name as name_organization , c.name as name_company_type 
+        const sql = `SELECT a.*, b.name as name_organization, d.name as name_distributor, c.name as name_company_type 
         FROM "mst_companies" as a
         JOIN "mst_organization" as b ON a."id_organization" = b.id
         JOIN "mst_company_type" as c ON a."id_company_type" = c.id
+        LEFT JOIN "mst_distributors" as d ON a."dist_code" = d.code
         WHERE a.is_deleted = 0 AND a.id = $1;`;
         const params = [id];
         pool.query(sql, params, (err, res) => {
@@ -143,11 +145,11 @@ const query = ({ connects, models }) => {
     try {
       const pool = await connects();
 
-      const { name, id } = data; // deconstruct
+      const { code, id } = data; // deconstruct
 
       const res = await new Promise((resolve) => {
-        const sql = `SELECT id FROM "mst_companies" WHERE "name" = $1 AND id <> $2 ;`;
-        const params = [name, id];
+        const sql = `SELECT id FROM "mst_companies" WHERE "code" = $1 AND id <> $2 ;`;
+        const params = [code, id];
         pool.query(sql, params, (err, res) => {
           pool.end(); // end connection
 
@@ -171,6 +173,7 @@ const query = ({ connects, models }) => {
           name: data.name,
           id_organization: data.id_organization,
           id_company_type: data.id_company_type,
+          dist_code: data.dist_code,
           code: data.code,
           address: data.address,
           phone: data.phone,
@@ -188,6 +191,7 @@ const query = ({ connects, models }) => {
       );
       return res;
     } catch (e) {
+      console.log(e)
       //("Error: ", e);
     }
   }

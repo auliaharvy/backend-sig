@@ -14,6 +14,8 @@ const updateCompany = ({
       id_company_type: data.getCompanyType(),
       name: data.getName(),
       code: data.getCode(),
+      dist_code: data.getDistCode(),
+      dist_name: data.getDistName(),
       address: data.getAddress(),
       city: data.getCity(),
       phone: data.getPhone(),
@@ -35,6 +37,7 @@ const updateCompany = ({
     const check = await companiesDB.checkCompanyExistUpdate({
       data
     });
+    console.log(check.rows)
     if (check.rowCount > 0)
       throw new Error(`Company already exist, please check.`);
 
