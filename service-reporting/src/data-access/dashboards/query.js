@@ -7,7 +7,9 @@ const query = ({ connects, models }) => {
       getPalletOut,
       getPalletIn,
       palletConditionCompany,
-      getPalletSendReceive
+      getPalletSendReceive,
+      totalPalletPlant,
+      totalPalletCompany,
     });
   
     async function totalPallet({}) {
@@ -77,6 +79,104 @@ const query = ({ connects, models }) => {
 
         return res;
       } catch (e) {
+        //("Error: ", e);
+      }
+    }
+
+    async function totalPalletCompany({}) {
+      try {
+        // Tambahkan kode di bawah ini untuk menjalankan permintaan Sequelize
+        const res = await models.Companies.findAll({
+          attributes: [
+            'id',
+            'id_organization',
+            'id_company_type',
+            'name',
+            [
+              models.Sequelize.literal(`sum("CompaniesPallets"."quantity")`),
+              'jumlah_pallet'
+            ],
+          ],
+          include: [
+            {
+              model: models.CompaniesPallet,
+              attributes: [],
+              include: [
+                {
+                  model: models.Companies,
+                  attributes: [],
+                  where: {
+                    is_deleted: 0
+                  },
+                },
+                {
+                  model: models.Pallets,
+                  attributes: [],
+                }
+              ],
+            }
+          ],
+          where: { is_deleted: 0 },
+          group: ['Companies.id'],
+          order: [['created_at', 'DESC']]
+        });
+
+        return res;
+      } catch (e) {
+        console.log(e)
+        //("Error: ", e);
+      }
+    }
+
+    async function totalPalletPlant({}) {
+      try {
+        // Tambahkan kode di bawah ini untuk menjalankan permintaan Sequelize
+        const res = await models.Organizations.findAll({
+          attributes: [
+            'id',
+            'name',
+            [
+              models.Sequelize.literal(`sum("Companies->CompaniesPallets"."quantity")`),
+              'jumlah_pallet'
+            ],
+          ],
+          nested: true,
+          include: [
+            {
+              model: models.Companies,
+              attributes: [],
+              where: {
+                is_deleted: 0,
+              },
+              include: [
+                // {
+                //   model: models.CompanyTypes,
+                //   attributes: [
+                //     'name'
+                //   ],
+                // },
+                {
+                  model: models.CompaniesPallet,
+                  attributes: [],
+                  aggregate: [
+                    {
+                      sql: models.Sequelize.fn('SUM', models.Sequelize.col('quantity')),
+                      alias: 'jumlah_pallet',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          where: {
+            is_deleted: 0,
+          },
+          group: ['Organizations.id'],
+          order: [['created_at', 'DESC']],
+        });
+        return res;
+      } catch (e) {
+        console.log(e)
         //("Error: ", e);
       }
     }

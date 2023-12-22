@@ -1,5 +1,6 @@
 const {
   totalPalletsSelects,
+  totalPalletPlantsSelects,
   palletConditionsSelects,
   detailPalletsSelects,
   palletSendReceivesSelects,
@@ -9,6 +10,7 @@ const {
     // #####
     // GET
     router.get("/total-pallet", makeExpressCallback(totalPalletsSelects));
+    router.get("/total-pallet-plant", makeExpressCallback(totalPalletPlantsSelects));
     router.get("/pallet-condition", makeExpressCallback(palletConditionsSelects));
     router.get("/pallet-condition-company", makeExpressCallback(palletConditionsSelects));
     router.get("/detail-pallet", makeExpressCallback(detailPalletsSelects));
