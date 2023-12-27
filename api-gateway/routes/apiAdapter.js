@@ -19,7 +19,10 @@ module.exports = (baseUrl) => {
             "Access-Control-Allow-Origin": "https://pallet.sig.id",
             "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
             "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-            'Authorization': 'Basic login_sso:-!u+x@[47&_uib2bx'
+            auth: {
+                username: 'login_sso',
+                password: '-!u+x@[47&_uib2bx'
+            }          
         }
     })
 
