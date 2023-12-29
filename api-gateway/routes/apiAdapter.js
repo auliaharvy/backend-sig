@@ -8,7 +8,9 @@ module.exports = (baseUrl) => {
     const config = {
         BASE_URL: baseUrl
     }
-    
+    var username = 'login_sso'; var password = '-!u+x@[47&_uib2bx';
+    var credentials = btoa(username + ':' + password);
+    var basicAuth = 'Basic ' + credentials;
     const axiosInstance =  axios.create({
         baseURL : config.BASE_URL,
         timeout : parseInt(TIMEOUT),
@@ -19,10 +21,7 @@ module.exports = (baseUrl) => {
             "Access-Control-Allow-Origin": "https://pallet.sig.id",
             "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
             "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-            // auth: {
-            //     username: 'login_sso',
-            //     password: '-!u+x@[47&_uib2bx'
-            // }          
+            'Authorization': basicAuth,       
         }
     })
 
