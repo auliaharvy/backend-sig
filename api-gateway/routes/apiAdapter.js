@@ -9,7 +9,8 @@ module.exports = (baseUrl) => {
         BASE_URL: baseUrl
     }
     var username = 'login_sso'; var password = '-!u+x@[47&_uib2bx';
-    var credentials = btoa(username + ':' + password);
+    // var credentials = btoa(username + ':' + password);
+    var credentials = Buffer.from(username + ':' + password).toString('base64');
     var basicAuth = 'Basic ' + credentials;
     const axiosInstance =  axios.create({
         baseURL : config.BASE_URL,
